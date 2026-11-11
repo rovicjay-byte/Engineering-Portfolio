@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import { getProfile } from '../lib/publish';
+const me = await getProfile();
+---
+<Base title="About" description={me.intro} crumbs={[{ label: 'About' }]}>
+  <header class="page-head">
+    <h1>About</h1>
+    <p>{me.headline}</p>
+  </header>
+
+  <div class="about">
+    <div class="prose">
+      <p>{me.intro}</p>
+
+      <h2>How I work</h2>
+      <ul class="plain">{me.philosophy.map((x) => <li>{x}</li>)}</ul>
+
+      <h2>Career objective</h2>
+      <p>{me.objectives}</p>
+    </div>
+
+    <div class="cv">
+      <section>
+        <h2>Work experience</h2>
+        <ol class="reg">
+          {me.employment.map((e) => (
+            <li>
+              <p class="role">{e.role}</p>
+              <p class="org">{e.org}</p>
+              <p class="period">{e.period}</p>
+              {e.notes.length > 0 && <ul>{e.notes.map((n) => <li>{n}</li>)}</ul>}
+            </li>
+          ))}
+        </ol>
+      </section>
+      <section class="section">
+        <h2>Education</h2>
+        <ol class="reg">
+          {me.education.map((e) => (
+            <li>
+              <p class="role">{e.degree}</p>
+              <p class="org">{e.school}</p>
+              <p class="period">{e.period}</p>
+              {e.notes.length > 0 && <ul>{e.notes.map((n) => <li>{n}</li>)}</ul>}
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .about h2 { font-size: var(--t-md); margin-top: 1.6em; }
+  .cv h2 { margin-top: 0; }
+  .plain { padding-left: 1.1em; }
+  .plain li { margin-bottom: 8px; }
+  .role { font-weight: 700; color: var(--navy); margin: 0; }
+  .org { margin: 0; }
+  .period { color: var(--steel); font-size: var(--t-sm); margin: 2px 0 8px; }
+  .reg ul { margin: 0; padding-left: 1.1em; font-size: 0.9375rem; }
+  @media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 24px; } }
+</style>

@@ -1,0 +1,66 @@
+---
+// Illustrative road profile: existing ground and a proposed grade line over
+// station ticks. Decorative only (no real project data), so it is hidden
+// from screen readers.
+const W = 1200, H = 230, base = 190;
+const ground = [
+  [0, 120], [60, 104], [130, 118], [190, 92], [250, 70], [320, 84], [380, 58], [450, 66],
+  [520, 40], [590, 62], [650, 54], [720, 86], [790, 78], [860, 104], [930, 96], [1000, 122],
+  [1070, 112], [1140, 134], [1200, 128],
+];
+const groundPath = 'M' + ground.map(([x, y]) => `${x} ${y}`).join(' L');
+// Proposed grade: tangents joined by gentle vertical curves (quadratic Béziers).
+const grade = 'M0 126 L240 94 Q330 82 420 78 L560 72 Q650 70 740 88 L960 116 Q1060 128 1200 130';
+const stations = Array.from({ length: 13 }, (_, i) => i * 100);
+const sta = (m: number) => `${Math.floor(m / 1000)}+${String(m % 1000).padStart(3, '0')}`;
+---
+<figure class="profile" aria-hidden="true">
+  <svg viewBox={`0 0 ${W} ${H}`} focusable="false">
+    <defs>
+      <clipPath id="below-ground"><path d={`${groundPath} L${W} ${base} L0 ${base} Z`} /></clipPath>
+    </defs>
+    {[40, 80, 120, 160].map((y) => <line class="grid" x1="0" x2={W} y1={y} y2={y} />)}
+    {stations.map((x) => <line class="grid" x1={x} x2={x} y1="20" y2={base} />)}
+    <path class="soil" d={`${groundPath} L${W} ${base} L0 ${base} Z`} />
+    <path class="cut" d={`${grade} L${W} 0 L0 0 Z`} clip-path="url(#below-ground)" />
+    <path class="ground" d={groundPath} />
+    <path class="grade" d={grade} pathLength="1" />
+    <line class="base" x1="0" x2={W} y1={base} y2={base} />
+    {stations.map((x) => (
+      <g>
+        <line class="tick" x1={x} x2={x} y1={base} y2={base + 7} />
+        <text x={x === 0 ? 2 : x === W ? W - 2 : x} y={base + 24} text-anchor={x === 0 ? 'start' : x === W ? 'end' : 'middle'}>{sta(x)}</text>
+      </g>
+    ))}
+  </svg>
+  <figcaption class="legend">
+    <span class="lg lg-ground">Existing ground</span>
+    <span class="lg lg-grade">Proposed grade</span>
+    <span class="lg lg-cut">Cut</span>
+  </figcaption>
+</figure>
+
+<style>
+  .profile { margin: 0; }
+  svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .grid { stroke: var(--rule-soft); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .soil { fill: #eef2f6; }
+  .cut { fill: rgba(19, 41, 75, 0.12); }
+  .ground { fill: none; stroke: var(--steel); stroke-width: 1.5; stroke-dasharray: 6 4; vector-effect: non-scaling-stroke; }
+  .grade {
+    fill: none; stroke: var(--navy); stroke-width: 3; vector-effect: non-scaling-stroke;
+    stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.8s cubic-bezier(.45,.05,.25,1) 0.2s forwards;
+  }
+  .base { stroke: var(--navy); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .tick { stroke: var(--navy); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  text { font-size: 13px; fill: var(--steel); font-family: var(--font); font-variant-numeric: tabular-nums; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .grade { stroke-dashoffset: 0; animation: none; } }
+
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.8125rem; color: var(--steel); margin-top: 6px; }
+  .lg::before { content: ''; display: inline-block; width: 22px; height: 0; vertical-align: middle; margin-right: 6px; }
+  .lg-ground::before { border-top: 1.5px dashed var(--steel); }
+  .lg-grade::before { border-top: 3px solid var(--navy); }
+  .lg-cut::before { height: 10px; width: 14px; background: rgba(19, 41, 75, 0.12); }
+  @media (max-width: 600px) { text { display: none; } }
+</style>

@@ -1,0 +1,146 @@
+---
+import type { Project } from '../lib/publish';
+import { DISCIPLINE_SHORT, WORK_TYPE_LABELS, isPublic } from '../lib/publish';
+
+interface Props { projects: Project[]; filters?: boolean; empty?: string }
+const { projects, filters = false, empty = 'No projects to show yet.' } = Astro.props;
+
+const uniq = (xs: (string | number)[]) => [...new Set(xs)].sort();
+const disciplines = uniq(projects.flatMap((p) => p.data.disciplines)) as string[];
+const types = uniq(projects.map((p) => p.data.work_type)) as string[];
+const software = uniq(projects.flatMap((p) => p.data.software)) as string[];
+const competencies = uniq(projects.flatMap((p) => p.data.competencies)) as string[];
+const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
+---
+<div class="register" data-register>
+  {filters && projects.length > 0 && (
+    <form class="filters" role="search" aria-label="Filter projects" onsubmit="return false">
+      <label class="f-search">
+        <span>Search</span>
+        <input type="search" name="q" placeholder="Title, method, software" autocomplete="off" />
+      </label>
+      <label><span>Discipline</span>
+        <select name="discipline"><option value="">All</option>{disciplines.map((d) => <option value={d}>{DISCIPLINE_SHORT[d]}</option>)}</select>
+      </label>
+      <label><span>Work type</span>
+        <select name="type"><option value="">All</option>{types.map((t) => <option value={t}>{WORK_TYPE_LABELS[t]}</option>)}</select>
+      </label>
+      <label><span>Software</span>
+        <select name="software"><option value="">All</option>{software.map((s) => <option value={s}>{s}</option>)}</select>
+      </label>
+      <label><span>Competency</span>
+        <select name="competency"><option value="">All</option>{competencies.map((c) => <option value={c}>{c}</option>)}</select>
+      </label>
+      <label><span>Year</span>
+        <select name="year"><option value="">All</option>{years.map((y) => <option value={y}>{y}</option>)}</select>
+      </label>
+      <p class="count" aria-live="polite" data-count></p>
+    </form>
+  )}
+
+  {projects.length === 0 ? (
+    <p class="empty">{empty}</p>
+  ) : (
+    <ol class="rows">
+      {projects.map((p) => (
+        <li
+          class="row"
+          data-discipline={p.data.disciplines.join('|')}
+          data-type={p.data.work_type}
+          data-software={p.data.software.join('|')}
+          data-competency={p.data.competencies.join('|')}
+          data-year={p.data.year}
+          data-text={[p.data.title, p.data.summary, p.data.project_type, ...p.data.software, ...p.data.competencies].join(' ').toLowerCase()}
+        >
+          <span class="code">{p.data.code}</span>
+          <div class="body">
+            <a class="title" href={`/projects/${p.id}`}>{p.data.title}</a>
+            <p class="summary">{p.data.summary}</p>
+            <ul class="tags">
+              {p.data.disciplines.map((d) => <li>{DISCIPLINE_SHORT[d]}</li>)}
+            </ul>
+          </div>
+          <div class="meta">
+            <span class={`wt wt-${p.data.work_type}`}>{WORK_TYPE_LABELS[p.data.work_type]}</span>
+            <span class="year">{p.data.year}{p.data.status === 'ongoing' ? ', ongoing' : ''}</span>
+            {!isPublic(p) && <span class="draft-flag">{p.data.publication_status === 'draft' ? 'Draft' : 'In review'}</span>}
+          </div>
+        </li>
+      ))}
+    </ol>
+  )}
+  {filters && <p class="empty" data-none hidden>No projects match these filters. Clear a filter to see more.</p>}
+</div>
+
+<style>
+  .filters {
+    display: grid; grid-template-columns: 2fr repeat(5, 1fr); gap: 12px; align-items: end;
+    padding: 16px; background: var(--white); border: 1px solid var(--rule); border-radius: 6px; margin-bottom: 8px;
+  }
+  .filters label { display: flex; flex-direction: column; gap: 4px; font-size: 0.8125rem; color: var(--steel); min-width: 0; }
+  .filters input, .filters select {
+    font: inherit; font-size: 0.9375rem; color: var(--ink); padding: 8px 10px; border: 1px solid var(--rule);
+    border-radius: 4px; background: var(--paper); width: 100%; min-width: 0; height: 40px;
+  }
+  .count { grid-column: 1 / -1; margin: 0; font-size: 0.8125rem; color: var(--steel); }
+  @media (max-width: 900px) { .filters { grid-template-columns: 1fr 1fr; } .f-search { grid-column: 1 / -1; } }
+
+  .rows { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--navy); }
+  .row {
+    display: grid; grid-template-columns: 128px 1fr 200px; gap: 8px 24px; align-items: start;
+    padding: 22px 0; border-bottom: 1px solid var(--rule);
+  }
+  .code { font-size: var(--t-sm); font-weight: 650; color: var(--steel); padding-top: 3px; letter-spacing: 0.01em; }
+  .title { font-size: 1.15rem; font-weight: 700; color: var(--navy); text-decoration: none; line-height: 1.3; display: inline-block; }
+  .title:hover { color: var(--accent); text-decoration: underline; }
+  .summary { margin: 6px 0 10px; color: var(--ink); max-width: 70ch; }
+  .meta { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .year { font-size: var(--t-sm); color: var(--steel); }
+  .empty { padding: 28px 0; color: var(--steel); border-top: 2px solid var(--navy); margin: 0; }
+  @media (max-width: 760px) {
+    .row { grid-template-columns: 1fr; }
+    .meta { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  }
+</style>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-register]')) {
+    const form = root.querySelector('form');
+    if (!form) continue;
+    const rows = [...root.querySelectorAll<HTMLElement>('.row')];
+    const none = root.querySelector<HTMLElement>('[data-none]');
+    const count = root.querySelector<HTMLElement>('[data-count]');
+    const fields = ['discipline', 'type', 'software', 'competency', 'year'] as const;
+
+    // Pre-fill from the URL, e.g. /projects?discipline=highway
+    const params = new URLSearchParams(location.search);
+    for (const f of [...fields, 'q']) {
+      const el = form.elements.namedItem(f) as HTMLInputElement | HTMLSelectElement | null;
+      if (el && params.get(f)) el.value = params.get(f)!;
+    }
+
+    const apply = () => {
+      const q = ((form.elements.namedItem('q') as HTMLInputElement).value || '').trim().toLowerCase();
+      let shown = 0;
+      for (const r of rows) {
+        let ok = !q || (r.dataset.text || '').includes(q);
+        for (const f of fields) {
+          const v = (form.elements.namedItem(f) as HTMLSelectElement).value;
+          if (v && !(r.dataset[f] || '').split('|').includes(v)) ok = false;
+        }
+        r.hidden = !ok;
+        if (ok) shown++;
+      }
+      if (none) none.hidden = shown !== 0;
+      if (count) count.textContent = `Showing ${shown} of ${rows.length} projects`;
+      const next = new URLSearchParams();
+      for (const f of [...fields, 'q']) {
+        const v = (form.elements.namedItem(f) as HTMLInputElement).value;
+        if (v) next.set(f, v);
+      }
+      history.replaceState(null, '', next.toString() ? `?${next}` : location.pathname);
+    };
+    form.addEventListener('input', apply);
+    apply();
+  }
+</script>

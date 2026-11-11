@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { DISCIPLINE_SHORT } from '../lib/publish';
+const items = await getCollection('deliverables');
+---
+<Base title="What I deliver" description="The engineering outputs a team can expect from me, with the inputs each needs and its limits." crumbs={[{ label: 'What I deliver' }]}>
+  <header class="page-head">
+    <h1>What I deliver</h1>
+    <p>The outputs a project team can expect from me: what each covers, what I need to start, and where its limits are.</p>
+  </header>
+
+  <ol class="dl-list">
+    {items.map((d) => (
+      <li id={d.id}>
+        <div class="dl-head">
+          <h2>{d.data.title}</h2>
+          <ul class="tags">{d.data.disciplines.map((x) => <li><a href={`/capabilities/${x}`}>{DISCIPLINE_SHORT[x]}</a></li>)}</ul>
+        </div>
+        <p class="scope prose">{d.data.scope}</p>
+        <div class="cols">
+          <div><h3>Outputs</h3><ul>{d.data.outputs.map((o) => <li>{o}</li>)}</ul></div>
+          <div><h3>What I need from the team</h3><ul>{d.data.inputs.map((o) => <li>{o}</li>)}</ul></div>
+          <div>
+            <h3>Limits and review</h3>
+            <p>{d.data.limits}</p>
+            <p>{d.data.review}</p>
+          </div>
+        </div>
+        <p class="basis small">Based on: {d.data.basis}</p>
+      </li>
+    ))}
+  </ol>
+
+  <p class="foot small muted prose">
+    These describe the work I do within an employing organization's design and approval process. Signing or sealing of
+    plans follows that organization's procedures and my authorization as a Registered Civil Engineer.
+  </p>
+</Base>
+
+<style>
+  .dl-list { list-style: none; padding: 0; margin: 0; border-top: 2px solid var(--navy); }
+  .dl-list > li { padding: 32px 0; border-bottom: 1px solid var(--rule); scroll-margin-top: 24px; }
+  .dl-list > li:target { background: linear-gradient(90deg, var(--accent-soft), transparent 60%); }
+  .dl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px 24px; flex-wrap: wrap; }
+  .dl-head h2 { font-size: var(--t-md); margin: 0 0 8px; }
+  .tags a { color: inherit; text-decoration: none; }
+  .scope { margin: 4px 0 20px; }
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .cols h3 { font-size: 0.875rem; color: var(--steel); font-weight: 650; margin-bottom: 8px; letter-spacing: 0; }
+  .cols ul { margin: 0; padding-left: 1.1em; }
+  .cols li { margin-bottom: 4px; }
+  .cols p { margin: 0 0 8px; }
+  .basis { color: var(--steel); margin: 18px 0 0; }
+  .foot { margin-top: 32px; }
+  @media (max-width: 820px) { .cols { grid-template-columns: 1fr; gap: 16px; } }
+</style>

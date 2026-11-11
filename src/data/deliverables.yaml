@@ -1,0 +1,91 @@
+# "What I deliver": the outputs an employer or project team can expect from you.
+# Each entry states its basis (where you have done it) and its limits.
+# Commented entries need your confirmation before they go public.
+
+- id: slope-protection-documentation
+  title: "Slope protection and geohazard documentation"
+  disciplines: [geotechnical, highway]
+  basis: "Current DPWH work in Ifugao"
+  scope: "Assessment write-ups and design documentation for road slips and slope protection along mountain roads."
+  outputs:
+    - "Geohazard assessment notes with maps and site photos"
+    - "Slope protection design documentation"
+    - "Supporting calculations in GEO5"
+  inputs:
+    - "Site inspection findings and photos"
+    - "Survey or terrain data"
+    - "Available soil and groundwater information"
+  limits: "Recommendations depend on the quality of the site investigation data provided."
+  review: "Prepared for review and approval within the employing office's design process."
+- id: civil3d-drawings
+  title: "Civil 3D drawing preparation"
+  disciplines: [civil-design-cad, highway]
+  basis: "Current DPWH work using Civil 3D templates"
+  scope: "Design drawings and plan sets built from survey data and office templates."
+  outputs:
+    - "Plan sets that follow the office's drawing template"
+    - "Revisions tracked by sheet"
+  inputs:
+    - "Survey data"
+    - "Design criteria and the drawing template to follow"
+  limits: "Follows the standards and template the project specifies."
+  review: "Drawings are checked and approved by the responsible engineer before issue."
+- id: gis-mapping
+  title: "GIS hazard and site mapping"
+  disciplines: [gis-spatial, geotechnical]
+  basis: "QGIS mapping in current DPWH work"
+  scope: "Maps that locate hazards, project sites and supporting spatial data."
+  outputs:
+    - "Location and hazard maps as PDF or image"
+    - "Organized QGIS project and layers"
+  inputs:
+    - "Spatial data or coordinates"
+    - "Base maps or imagery the project is allowed to use"
+  limits: "Map accuracy is limited by the source data."
+  review: "Maps are issued with their data sources stated."
+- id: slope-stability-analysis
+  title: "Slope stability analysis"
+  disciplines: [geotechnical, research]
+  basis: "GEO5 in DPWH work; Slide2, SLOPE/W and Monte Carlo methods in MSCE research"
+  scope: "Deterministic factor-of-safety checks and, where data allows, reliability-based analysis that reports probability of failure."
+  outputs:
+    - "Model setup with stated parameters and assumptions"
+    - "Results summary: factor of safety, and probability of failure where applicable"
+    - "Short technical note explaining limitations"
+  inputs:
+    - "Slope geometry"
+    - "Soil parameters, or test data to derive them"
+    - "Groundwater conditions"
+  limits: "Preliminary analysis; the results depend on the soil data provided."
+  review: "Final design decisions rest with the project's responsible engineer."
+- id: research-reports
+  title: "Engineering research and technical reports"
+  disciplines: [research]
+  basis: "Two theses and graduate review papers"
+  scope: "Literature reviews, method write-ups and technical reports with traceable references."
+  outputs:
+    - "Structured report (IMRaD or the format required)"
+    - "Figures produced from source data"
+    - "Checked reference list"
+  inputs:
+    - "Topic, scope and required format"
+    - "Data or sources to be used"
+  limits: "Covers the scope agreed at the start."
+  review: "Reviewed by the requesting supervisor or adviser."
+
+# --- To confirm before enabling ---------------------------------------------
+# - id: qto-estimates
+#   title: "Quantity takeoff and estimate support"
+#   disciplines: [qto-estimation]
+#   basis: "???"
+#   scope: "???"
+#   outputs: ["Quantity takeoff", "Program of Work, DUPA and BOQ support"]
+#   inputs: ["Approved drawings", "Unit cost references the project uses"]
+#   limits: "No confidential cost data is shown publicly."
+#   review: "Checked by the estimating engineer."
+# - id: road-alignment
+#   title: "Road alignment, profile and cross-sections in Civil 3D"
+#   ...
+# - id: excel-tools
+#   title: "Excel-based engineering tools"
+#   ...

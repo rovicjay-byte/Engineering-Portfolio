@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { getProfile } from '../lib/publish';
+const me = await getProfile();
+---
+<Base title="Contact" crumbs={[{ label: 'Contact' }]}>
+  <header class="page-head">
+    <h1>Contact</h1>
+    <p>For roles in highway, civil design or geotechnical engineering, in the Philippines or abroad.</p>
+  </header>
+  {me.email || me.linkedin ? (
+    <dl class="facts big">
+      {me.email && <><dt>Email</dt><dd><a href={`mailto:${me.email}`}>{me.email}</a></dd></>}
+      {me.linkedin && <><dt>LinkedIn</dt><dd><a href={me.linkedin} rel="me">{me.linkedin.replace(/^https?:\/\/(www\.)?/, '')}</a></dd></>}
+      <dt>Based in</dt><dd>{me.location}</dd>
+    </dl>
+  ) : (
+    <p class="muted">Contact details will be added shortly.</p>
+  )}
+</Base>
+<style>.big { font-size: var(--t-md); gap: 12px 28px; } .big dt { font-size: var(--t-base); }</style>

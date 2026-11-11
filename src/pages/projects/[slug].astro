@@ -1,0 +1,126 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProjectRegister from '../../components/ProjectRegister.astro';
+import {
+  getProjects, isPublic, DISCIPLINE_SHORT, WORK_TYPE_LABELS, STATUS_LABELS, type Project,
+} from '../../lib/publish';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((p) => ({ params: { slug: p.id }, props: { project: p, all: projects } }));
+}
+
+const { project, all } = Astro.props as { project: Project; all: Project[] };
+const d = project.data;
+const { Content } = await render(project);
+
+const score = (o: Project) =>
+  o.data.disciplines.filter((x) => d.disciplines.includes(x)).length * 2 +
+  o.data.competencies.filter((x) => d.competencies.includes(x)).length;
+const related = all
+  .filter((o) => o.id !== project.id)
+  .map((o) => ({ o, s: score(o) }))
+  .filter(({ s }) => s > 0)
+  .sort((a, b) => b.s - a.s)
+  .slice(0, 3)
+  .map(({ o }) => o);
+---
+<Base
+  title={d.title}
+  description={d.summary}
+  noindex={!isPublic(project)}
+  crumbs={[{ label: 'Projects', href: '/projects' }, { label: d.code }]}
+>
+  <article>
+    <header class="cs-head">
+      <div class="cs-labels">
+        <span class="code">{d.code}</span>
+        <span class={`wt wt-${d.work_type}`}>{WORK_TYPE_LABELS[d.work_type]}</span>
+        {!isPublic(project) && <span class="draft-flag">Not public: {d.publication_status}</span>}
+      </div>
+      <h1>{d.title}</h1>
+      <p class="summary">{d.summary}</p>
+    </header>
+
+    <div class="cs-grid">
+      <aside class="cs-facts" aria-label="Project facts">
+        <dl class="facts">
+          <dt>Year</dt><dd>{d.year} ({STATUS_LABELS[d.status].toLowerCase()})</dd>
+          <dt>My role</dt><dd>{d.role}</dd>
+          {d.location_public && <><dt>Location</dt><dd>{d.location_public}</dd></>}
+          {d.client_public && <><dt>Owner</dt><dd>{d.client_public}</dd></>}
+          <dt>Type</dt><dd>{d.project_type}</dd>
+        </dl>
+        <h2 class="side-h">Disciplines</h2>
+        <ul class="tags">{d.disciplines.map((x) => <li><a href={`/capabilities/${x}`}>{DISCIPLINE_SHORT[x]}</a></li>)}</ul>
+        {d.software.length > 0 && <>
+          <h2 class="side-h">Software</h2>
+          <ul class="tags">{d.software.map((x) => <li>{x}</li>)}</ul>
+        </>}
+        {d.competencies.length > 0 && <>
+          <h2 class="side-h">Competencies</h2>
+          <ul class="tags">{d.competencies.map((x) => <li>{x}</li>)}</ul>
+        </>}
+        {d.confidentiality === 'generalized' && (
+          <p class="note small">Generalized case study: names, locations, costs and issued drawings are withheld or recreated. <a href="/notice">Why</a></p>
+        )}
+      </aside>
+
+      <div class="cs-body prose">
+        <Content />
+
+        {d.previews.length > 0 && (
+          <section class="gallery" aria-label="Drawings and figures">
+            <h2>Drawings and figures</h2>
+            {d.previews.map((pv) => (
+              <figure>
+                {pv.file.endsWith('.pdf')
+                  ? <object data={`/previews/${d.code}/${pv.file}`} type="application/pdf" width="100%" height="560"><a href={`/previews/${d.code}/${pv.file}`}>Open PDF</a></object>
+                  : <a href={`/previews/${d.code}/${pv.file}`}><img src={`/previews/${d.code}/${pv.file}`} alt={pv.caption} loading="lazy" /></a>}
+                <figcaption>{pv.caption}</figcaption>
+              </figure>
+            ))}
+          </section>
+        )}
+
+        {d.downloads.length > 0 && (
+          <section aria-label="Downloads">
+            <h2>Downloads</h2>
+            <ul>{d.downloads.map((dl) => <li><a href={`/previews/${d.code}/${dl.file}`} download>{dl.label}</a></li>)}</ul>
+          </section>
+        )}
+      </div>
+    </div>
+
+    {related.length > 0 && (
+      <section class="section">
+        <h2>Related projects</h2>
+        <ProjectRegister projects={related} />
+      </section>
+    )}
+  </article>
+</Base>
+
+<style>
+  .cs-head { padding-bottom: 28px; border-bottom: 1px solid var(--rule); margin-bottom: 36px; }
+  .cs-labels { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .code { font-weight: 650; color: var(--steel); font-size: var(--t-sm); }
+  .cs-head h1 { max-width: 28ch; }
+  .summary { font-size: var(--t-md); color: var(--steel); max-width: 62ch; line-height: 1.45; margin: 0; }
+  .cs-grid { display: grid; grid-template-columns: 300px 1fr; gap: 48px; align-items: start; }
+  .cs-facts { position: sticky; top: 24px; background: var(--white); border: 1px solid var(--rule); border-radius: 6px; padding: 20px; }
+  .side-h { font-size: 0.8125rem; color: var(--steel); font-weight: 600; margin: 20px 0 8px; letter-spacing: 0; }
+  .tags a { text-decoration: none; color: inherit; }
+  .tags a:hover { color: var(--accent); }
+  .note { margin: 20px 0 0; color: var(--steel); }
+  .cs-body :global(h2) { font-size: var(--t-md); margin-top: 2em; padding-top: 0.8em; border-top: 1px solid var(--rule-soft); }
+  .cs-body :global(h2:first-child) { margin-top: 0; padding-top: 0; border-top: 0; }
+  .gallery figure { margin: 0 0 28px; }
+  .gallery img { border: 1px solid var(--rule); background: var(--white); }
+  .gallery figcaption { font-size: var(--t-sm); color: var(--steel); margin-top: 8px; }
+  @media (max-width: 900px) {
+    .cs-grid { grid-template-columns: 1fr; gap: 32px; }
+    .cs-facts { position: static; }
+  }
+</style>

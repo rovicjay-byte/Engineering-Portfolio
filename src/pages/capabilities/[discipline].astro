@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CapabilityTable from '../../components/CapabilityTable.astro';
+import ProjectRegister from '../../components/ProjectRegister.astro';
+import { getProjects, DISCIPLINE_LABELS } from '../../lib/publish';
+import { DISCIPLINES } from '../../content.config';
+
+export async function getStaticPaths() {
+  const caps = await getCollection('capabilities');
+  const projects = await getProjects();
+  return DISCIPLINES
+    .filter((d) => caps.some((c) => c.data.discipline === d) || projects.some((p) => p.data.disciplines.includes(d)))
+    .map((d) => ({ params: { discipline: d } }));
+}
+
+const { discipline } = Astro.params as { discipline: string };
+const label = DISCIPLINE_LABELS[discipline];
+const caps = (await getCollection('capabilities')).filter((c) => c.data.discipline === discipline);
+const projects = (await getProjects()).filter((p) => p.data.disciplines.includes(discipline as any));
+const deliverables = (await getCollection('deliverables')).filter((d) => d.data.disciplines.includes(discipline as any));
+---
+<Base title={label} description={`${label}: capabilities, projects and deliverables.`} crumbs={[{ label: 'Capabilities', href: '/capabilities' }, { label }]}>
+  <header class="page-head">
+    <h1>{label}</h1>
+    <p>Only the work relevant to this discipline: what I can do, the projects that show it, and what I can deliver.</p>
+  </header>
+
+  {caps.length > 0 && <section><h2 class="h">Capabilities</h2><CapabilityTable items={caps} /></section>}
+
+  <section class="section">
+    <h2 class="h">Projects</h2>
+    <ProjectRegister projects={projects} empty="Case studies for this discipline are being prepared for publication." />
+  </section>
+
+  {deliverables.length > 0 && (
+    <section class="section">
+      <h2 class="h">Deliverables</h2>
+      <ul class="reg">
+        {deliverables.map((d) => <li><a href={`/what-i-deliver#${d.id}`}>{d.data.title}</a> <span class="muted small">{d.data.scope}</span></li>)}
+      </ul>
+    </section>
+  )}
+</Base>
+
+<style>
+  .h { font-size: var(--t-md); }
+  .reg a { font-weight: 700; color: var(--navy); text-decoration: none; display: block; }
+  .reg a:hover { color: var(--accent); text-decoration: underline; }
+</style>

@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { LEVEL_LABELS } from '../lib/publish';
+interface Props { items: CollectionEntry<'capabilities'>[] }
+const order = { professional: 0, academic: 1, developing: 2 } as const;
+const items = [...Astro.props.items].sort((a, b) => order[a.data.level] - order[b.data.level]);
+---
+<table class="cap">
+  <thead>
+    <tr><th scope="col">Capability</th><th scope="col">Experience</th><th scope="col">Evidence</th><th scope="col">Tools</th></tr>
+  </thead>
+  <tbody>
+    {items.map((c) => (
+      <tr>
+        <th scope="row">{c.data.name}</th>
+        <td><span class={`lvl lvl-${c.data.level}`}>{LEVEL_LABELS[c.data.level]}</span></td>
+        <td>{c.data.evidence}</td>
+        <td class="tools">{c.data.tools.join(', ') || <span class="muted">—</span>}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+<style>
+  .cap { width: 100%; border-collapse: collapse; border-top: 2px solid var(--navy); font-size: 0.9375rem; }
+  .cap th, .cap td { text-align: left; vertical-align: top; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--rule); }
+  .cap thead th { font-size: 0.8125rem; color: var(--steel); font-weight: 600; padding-top: 10px; }
+  .cap tbody th { color: var(--navy); font-weight: 650; width: 30%; }
+  .cap td:nth-child(2) { width: 22%; }
+  .tools { color: var(--steel); width: 18%; }
+  @media (max-width: 760px) {
+    .cap thead { display: none; }
+    .cap tr { display: block; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+    .cap th, .cap td { display: block; width: auto !important; border: 0; padding: 2px 0; }
+  }
+</style>

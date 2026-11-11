@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProfileHero from '../components/ProfileHero.astro';
+import ProjectRegister from '../components/ProjectRegister.astro';
+import { getProfile, getProjects, DISCIPLINE_LABELS, LEVEL_LABELS } from '../lib/publish';
+import { DISCIPLINES } from '../content.config';
+
+const me = await getProfile();
+const projects = await getProjects();
+const featured = projects.filter((p) => p.data.featured).slice(0, 4);
+const caps = await getCollection('capabilities');
+const deliverables = await getCollection('deliverables');
+
+const specialties = DISCIPLINES.map((d) => {
+  const items = caps.filter((c) => c.data.discipline === d);
+  const order = { professional: 0, academic: 1, developing: 2 } as const;
+  items.sort((a, b) => order[a.data.level] - order[b.data.level]);
+  return { d, items };
+}).filter((s) => s.items.length > 0);
+---
+<Base title="Home">
+  <section class="hero">
+    <div class="intro">
+      <h1>{me.name}</h1>
+      <p class="designation">{me.designation} &nbsp;|&nbsp; {me.location}</p>
+      <p class="headline">{me.headline}</p>
+      <p class="lede prose">{me.intro}</p>
+      <div class="actions">
+        <a class="btn btn-solid" href="/projects">View projects</a>
+        {me.resume_pdf ? <a class="btn btn-line" href={me.resume_pdf} download>Download resume (PDF)</a> : <a class="btn btn-line" href="/resume">Resume and credentials</a>}
+        <a class="btn btn-line" href="/contact">Contact</a>
+      </div>
+    </div>
+    <ProfileHero />
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>Selected work</h2>
+      <a href="/projects">All projects</a>
+    </div>
+    <ProjectRegister projects={featured} empty="Case studies are being prepared for publication. Capabilities and deliverables below are current." />
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>Core specialties</h2>
+      <a href="/capabilities">Full capability matrix</a>
+    </div>
+    <ul class="spec">
+      {specialties.map((s) => (
+        <li>
+          <a href={`/capabilities/${s.d}`}>{DISCIPLINE_LABELS[s.d]}</a>
+          <ul class="items">
+            {s.items.map((i) => (
+              <li><span class="name">{i.data.name}</span><span class={`lvl lvl-${i.data.level}`}>{LEVEL_LABELS[i.data.level]}</span></li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>What a team can expect from me</h2>
+      <a href="/what-i-deliver">Scope, inputs and limits</a>
+    </div>
+    <ul class="deliv">
+      {deliverables.map((d) => (
+        <li><a href={`/what-i-deliver#${d.id}`}>{d.data.title}</a><span class="muted small">{d.data.basis}</span></li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .hero { display: grid; gap: 40px; padding-bottom: 8px; }
+  .intro h1 { font-size: var(--t-xxl); margin-bottom: 8px; }
+  .designation { color: var(--steel); font-weight: 600; margin-bottom: 20px; }
+  .headline { font-size: var(--t-lg); line-height: 1.3; color: var(--navy); font-weight: 600; max-width: 30ch; letter-spacing: -0.01em; margin-bottom: 18px; }
+  .lede { color: var(--ink); }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+  .sec-head h2 { margin: 0; }
+  .sec-head a { font-size: var(--t-sm); font-weight: 600; }
+
+  .spec, .deliv { list-style: none; padding: 0; margin: 0; border-top: 2px solid var(--navy); }
+  .spec > li { display: grid; grid-template-columns: minmax(220px, 1fr) 2fr; gap: 6px 24px; padding: 16px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+  .items { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+  .items li { display: grid; grid-template-columns: 1fr 210px; gap: 2px 16px; font-size: 0.9375rem; }
+  .spec a, .deliv a { font-weight: 700; color: var(--navy); text-decoration: none; }
+  .spec a:hover, .deliv a:hover { color: var(--accent); text-decoration: underline; }
+  .deliv li { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4px 24px; padding: 14px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+
+  @media (max-width: 760px) {
+    .spec > li, .deliv li, .items li { grid-template-columns: 1fr; }
+    .items li { margin-bottom: 6px; }
+  }
+</style>

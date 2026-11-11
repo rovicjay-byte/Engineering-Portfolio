@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import { WORK_TYPE_LABELS } from '../lib/publish';
+const desc: Record<string, string> = {
+  PRO: 'Work done as an employee on real projects. I describe my own part separately from the team’s.',
+  TRN: 'Work done as a trainee under supervision.',
+  ACA: 'Coursework for a degree program.',
+  RES: 'Thesis or research work.',
+  IND: 'Work I initiated myself to build or demonstrate a skill. It is not an approved construction project.',
+};
+---
+<Base title="Work labels and confidentiality" crumbs={[{ label: 'Work labels and confidentiality' }]}>
+  <header class="page-head">
+    <h1>Work labels and confidentiality</h1>
+    <p>How to read the labels on this site, and what is left out on purpose.</p>
+  </header>
+  <div class="prose">
+    <h2>Work-type labels</h2>
+    <dl class="facts lbl">
+      {Object.entries(WORK_TYPE_LABELS).map(([k, v]) => <><dt><span class={`wt wt-${k}`}>{v}</span></dt><dd>{desc[k]}</dd></>)}
+    </dl>
+
+    <h2>What is not published</h2>
+    <p>
+      Some of my work is on government infrastructure projects. Official drawings, internal reports, cost data,
+      personal data, signatures, seals and exact hazard locations are not published here. Where a project is
+      shown in generalized form, figures are recreated or redacted and say so in their captions.
+    </p>
+    <p>
+      Every project on this site was reviewed and approved for publication before it went live. Questions about a
+      specific item are welcome through the <a href="/contact">contact page</a>.
+    </p>
+  </div>
+</Base>
+<style>
+  h2 { font-size: var(--t-md); margin-top: 1.6em; }
+  .lbl { row-gap: 14px; align-items: baseline; }
+</style>

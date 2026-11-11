@@ -1,0 +1,110 @@
+# Capability matrix. Each item needs:
+#   level: professional (used in paid work) | academic (coursework/research) | developing
+#   evidence: one line an employer could check against your projects or resume
+# Items you have not confirmed are commented out at the bottom. Uncomment them
+# only after you have set an honest level and evidence line.
+
+- id: hwy-road-infra
+  discipline: highway
+  name: "Road infrastructure planning and documentation"
+  level: professional
+  evidence: "Project planning, development and documentation at DPWH Ifugao 2nd DEO"
+  tools: []
+- id: hwy-slope-protection-plans
+  discipline: highway
+  name: "Road slip and slope protection plan sets"
+  level: professional
+  evidence: "Plan sets produced from Civil 3D templates for DPWH road projects"
+  tools: ["Civil 3D"]
+- id: cad-civil3d
+  discipline: civil-design-cad
+  name: "Civil 3D design drawings"
+  level: professional
+  evidence: "Design drawings for DPWH slope protection work"
+  tools: ["Civil 3D"]
+- id: cad-dynamo
+  discipline: civil-design-cad
+  name: "Drawing automation with Dynamo for Civil 3D"
+  level: developing
+  evidence: "Building scripts to reduce repetitive drafting on plan sets"
+  tools: ["Dynamo", "Civil 3D"]
+- id: geo-hazard
+  discipline: geotechnical
+  name: "Geohazard assessment along road corridors"
+  level: professional
+  evidence: "Assessment work at DPWH Ifugao 2nd DEO"
+  tools: ["QGIS", "GEO5"]
+- id: geo-slope-design
+  discipline: geotechnical
+  name: "Slope protection design"
+  level: professional
+  evidence: "Design work at DPWH Ifugao 2nd DEO"
+  tools: ["GEO5", "STAAD.Pro"]
+- id: geo-reliability
+  discipline: geotechnical
+  name: "Reliability-based slope stability analysis"
+  level: academic
+  evidence: "MSCE thesis: Monte Carlo simulation with Bishop's Simplified and Spencer's methods"
+  tools: ["Slide2", "SLOPE/W", "MATLAB", "Python"]
+- id: qto-estimates
+  discipline: qto-estimation
+  name: "Engineering estimates"
+  level: professional
+  evidence: "Estimates prepared as part of DPWH project development"
+  tools: []
+- id: gis-qgis
+  discipline: gis-spatial
+  name: "Hazard and site mapping"
+  level: professional
+  evidence: "QGIS mapping for geohazard assessment"
+  tools: ["QGIS"]
+- id: str-fragility
+  discipline: structural-seismic
+  name: "Seismic fragility curve analysis"
+  level: academic
+  evidence: "BSCE thesis on Saint Mary's University buildings (Best Paper, CE Department)"
+  tools: []
+- id: str-staad
+  discipline: structural-seismic
+  name: "Structural analysis models"
+  level: professional
+  evidence: "STAAD.Pro checks within DPWH design work"
+  tools: ["STAAD.Pro"]
+- id: res-writing
+  discipline: research
+  name: "Technical research and review papers"
+  level: academic
+  evidence: "Two theses and graduate review papers on debris flow countermeasures and climate impacts on geotechnical infrastructure"
+  tools: []
+
+# --- To confirm before enabling ---------------------------------------------
+# - id: hwy-alignment
+#   discipline: highway
+#   name: "Horizontal alignment, vertical profile and cross-sections"
+#   level: ???
+#   evidence: "???"
+#   tools: ["Civil 3D"]
+# - id: qto-boq
+#   discipline: qto-estimation
+#   name: "Quantity takeoff, POW, DUPA and BOQ"
+#   level: ???
+#   evidence: "???"
+#   tools: ["Excel"]
+# - id: geo-plaxis
+#   discipline: geotechnical
+#   name: "Finite element analysis"
+#   level: academic
+#   evidence: "???"
+#   tools: ["PLAXIS"]
+# - id: str-sap
+#   discipline: structural-seismic
+#   name: "Structural modeling and design checks"
+#   level: ???
+#   evidence: "???"
+#   tools: ["SAP2000", "RCDC"]
+# - id: cad-autocad
+#   discipline: civil-design-cad
+#   name: "AutoCAD drafting and details"
+#   level: ???
+#   evidence: "???"
+#   tools: ["AutoCAD", "SketchUp"]

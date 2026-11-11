@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import { getProfile } from '../lib/publish';
+const me = await getProfile();
+const docs = [
+  { label: 'Resume (PDF)', href: me.resume_pdf },
+  { label: 'Engineering portfolio (PDF)', href: me.portfolio_pdf },
+].filter((d) => d.href);
+---
+<Base title="Resume and credentials" crumbs={[{ label: 'Resume' }]}>
+  <header class="page-head">
+    <h1>Resume and credentials</h1>
+    <p>Downloadable documents and professional registration.</p>
+  </header>
+
+  <section>
+    <h2 class="h">Documents</h2>
+    {docs.length > 0 ? (
+      <ul class="reg">{docs.map((d) => <li><a href={d.href} download>{d.label}</a></li>)}</ul>
+    ) : (
+      <p class="muted">A downloadable resume is being finalized. For a copy now, please <a href="/contact">get in touch</a>.</p>
+    )}
+  </section>
+
+  <section class="section">
+    <h2 class="h">Professional registration</h2>
+    <dl class="facts">
+      {me.credentials.map((c) => <><dt>{c.name}</dt><dd>{c.detail}</dd></>)}
+    </dl>
+    <p class="small muted note">License details can be verified on request.</p>
+  </section>
+</Base>
+<style>
+  .h { font-size: var(--t-md); }
+  .reg a { font-weight: 650; }
+  .note { margin-top: 12px; }
+</style>

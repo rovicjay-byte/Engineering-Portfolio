@@ -1,0 +1,48 @@
+---
+import { getProfile } from '../lib/publish';
+const me = await getProfile();
+const updated = new Date().toISOString().slice(0, 10);
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="titleblock" aria-label="Site information">
+      <div class="cell main">
+        <span class="k">Engineer</span>
+        <span class="v strong">{me.name}</span>
+        <span class="v">{me.designation}</span>
+      </div>
+      <div class="cell">
+        <span class="k">Based in</span>
+        <span class="v">{me.location}</span>
+      </div>
+      <div class="cell">
+        <span class="k">Last updated</span>
+        <span class="v"><time datetime={updated}>{updated}</time></span>
+      </div>
+      <div class="cell">
+        <span class="k">About this site</span>
+        <span class="v"><a href="/notice">Work labels and confidentiality</a></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { padding: 0 0 40px; }
+  .titleblock {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr;
+    border: 1.5px solid var(--navy); background: var(--white);
+  }
+  .cell { padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; border-left: 1px solid var(--rule); }
+  .cell:first-child { border-left: 0; }
+  .k { font-size: 0.75rem; color: var(--steel); }
+  .v { font-size: var(--t-sm); }
+  .strong { font-weight: 700; color: var(--navy); font-size: 1rem; }
+  @media (max-width: 760px) {
+    .titleblock { grid-template-columns: 1fr 1fr; }
+    .cell.main { grid-column: 1 / -1; }
+    .cell:nth-child(2) { border-left: 0; }
+    .cell:nth-child(n+2) { border-top: 1px solid var(--rule); }
+    .cell:nth-child(4) { grid-column: 1 / -1; border-left: 0; }
+  }
+</style>

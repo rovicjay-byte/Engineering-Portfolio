@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectRegister from '../components/ProjectRegister.astro';
+import { getProjects } from '../lib/publish';
+const all = await getProjects();
+const research = all.filter((p) => p.data.work_type === 'RES');
+const academic = all.filter((p) => p.data.work_type === 'ACA');
+---
+<Base title="Research" description="Graduate and undergraduate research in geotechnical and seismic engineering." crumbs={[{ label: 'Research' }]}>
+  <header class="page-head">
+    <h1>Research and publications</h1>
+    <p>Thesis work in slope reliability and seismic fragility. Papers and figures are posted only with the institution's and adviser's agreement.</p>
+  </header>
+  <section>
+    <h2 class="h">Theses</h2>
+    <ProjectRegister projects={research} empty="Research summaries are being prepared for publication." />
+  </section>
+  {academic.length > 0 && (
+    <section class="section">
+      <h2 class="h">Academic papers and coursework</h2>
+      <ProjectRegister projects={academic} />
+    </section>
+  )}
+</Base>
+<style>.h { font-size: var(--t-md); }</style>

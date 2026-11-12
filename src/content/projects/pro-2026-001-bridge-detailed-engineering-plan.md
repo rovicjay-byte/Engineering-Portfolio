@@ -2,21 +2,21 @@
 # Professional DPWH work. Stays in review until every line is checked and any
 # permission needed is in hand. Figures are crops of the approved plan set with
 # the title block (names, signatures, project name, stations, sheet numbers) removed.
-code: PRO-2025-002
+code: PRO-2026-001
 title: "Detailed Engineering Plan for a Two-Lane, 45 m Steel Plate Girder Bridge"
 work_type: PRO
 publication_status: review
 confidentiality: generalized
 disciplines: [civil-design-cad, qto-estimation, highway]
 project_type: "Bridge plans"
-software: []               # CONFIRM software used (AutoCAD? Civil 3D?)
-competencies: ["Bridge design and detailing", "Steel plate girder detailing", "Abutment and bearing details", "Bridge quantities", "Earthwork quantities"]
+software: ["Civil 3D"]
+competencies: ["Bridge plan drafting", "Steel plate girder detailing", "Abutment and bearing details", "Bridge quantities", "Earthwork quantities"]
 location_public: "Ifugao, Cordillera Administrative Region"
 client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"
-year: 2025                 # CONFIRM: the plan set was approved in April 2026
+year: 2026
 status: completed          # CONFIRM
-role: "Design, drafting and quantities"
-summary: "Design, drafting and quantities for the detailed engineering plan of a two-lane steel plate girder bridge on a mountain road: girders, bracing, bearings, abutments and approaches."
+role: "Drafter and quantity estimator"
+summary: "Drafted the detailed engineering plan in Civil 3D for a two-lane, 45 m steel plate girder bridge on a mountain road, and prepared its quantities: girders, bracing, bearings, abutments and approaches."
 featured: false
 cover: cover.webp
 previews:
@@ -36,14 +36,11 @@ previews:
 
 ## Project overview
 
-Detailed engineering plan for a new two-lane bridge on a mountain road in Ifugao, prepared at the DPWH district engineering office. The superstructure is four steel plate girders (two exterior, two interior) with lateral sway bracing and a concrete deck slab. The girders sit on elastomeric bearings, movable at one abutment and fixed at the other. The plan set covers the road plan and profile, cross sections, reinforced concrete abutments with wingwalls, the bridge seats and shear blocks, approach slabs and sidewalks, and reinforced concrete retaining walls on the approaches.
-
-<!-- CONFIRM: the girder marking diagram totals about 40 m. Check that "45 m" is the overall bridge length you want to show. -->
+Detailed engineering plan for a new two-lane, 45 m bridge on a mountain road in Ifugao, prepared at the DPWH district engineering office. The superstructure is four steel plate girders (two exterior, two interior) with lateral sway bracing and a concrete deck slab. The girders sit on elastomeric bearings, movable at one abutment and fixed at the other. The plan set covers the road plan and profile, cross sections, reinforced concrete abutments with wingwalls, the bridge seats and shear blocks, approach slabs and sidewalks, and reinforced concrete retaining walls on the approaches.
 
 ## My specific responsibilities
 
-- Design work on the plan set <!-- CONFIRM which elements you designed, and who did the structural design of the girders and abutments -->
-- Drafted the detailed engineering plan sheets
+- Drafted the detailed engineering plan sheets in Civil 3D
 - Prepared the quantities, including the earthworks
 
 ## Drawings and visual evidence

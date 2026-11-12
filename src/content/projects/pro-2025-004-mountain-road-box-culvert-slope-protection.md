@@ -9,7 +9,7 @@ publication_status: review
 confidentiality: generalized
 disciplines: [highway, civil-design-cad, geotechnical, qto-estimation]
 project_type: "Road construction"
-software: []               # CONFIRM software used (Civil 3D? AutoCAD?)
+software: ["Civil 3D"]
 competencies: ["Road design", "Box culvert drainage design", "Retaining wall design", "Slope protection design", "Earthwork quantities"]
 location_public: "Ifugao, Cordillera Administrative Region"
 client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"

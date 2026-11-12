@@ -84,7 +84,7 @@ const related = all
         <h2>Drawings and figures</h2>
         <div class="g-grid">
           {d.previews.map((pv) => (
-            <figure>
+            <figure class={pv.wide ? 'wide' : undefined}>
               {pv.file.endsWith('.pdf')
                 ? <object data={`/previews/${d.code}/${pv.file}`} type="application/pdf" width="100%" height="560"><a href={`/previews/${d.code}/${pv.file}`}>Open PDF</a></object>
                 : <a href={`/previews/${d.code}/${pv.file}`} title="Open full size"><img src={`/previews/${d.code}/${pv.file}`} alt={pv.caption} loading="lazy" /></a>}
@@ -122,7 +122,8 @@ const related = all
   .gallery h2 { margin-bottom: 20px; }
   .g-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 24px; }
   .g-grid figure { margin: 0; }
-  .g-grid figure:first-child { grid-column: 1 / -1; }
+  .g-grid figure.wide { grid-column: 1 / -1; }
+  .g-grid figure.wide img { width: auto; max-width: 100%; max-height: 1150px; }
   .g-grid img { width: 100%; border: 1px solid var(--rule); background: var(--white); }
   .g-grid a:hover img { border-color: var(--accent); }
   .g-grid figcaption { font-size: var(--t-sm); color: var(--steel); margin-top: 8px; }

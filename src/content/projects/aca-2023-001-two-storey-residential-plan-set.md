@@ -16,9 +16,11 @@ status: completed
 role: "Designer and drafter (individual)"
 summary: "A full plan set for a proposed two-storey house, drawn as third-year coursework: architectural, electrical, plumbing and structural sheets, from site plan and perspective to septic tank and roof slab details."
 featured: true
+cover: cover.webp
 previews:
   - file: a-1-perspective.webp
     caption: "3D perspective (sheet A-1)"
+    wide: true
   - file: a-2-floor-plans.webp
     caption: "Ground and second floor plans, 1:100 (sheet A-2)"
   - file: a-3-front-rear-elevations.webp

@@ -16,13 +16,20 @@ status: completed
 role: "Thesis team leader; modeling, analysis, testing and as-built plans"
 summary: "Group thesis that built nonlinear SAP2000 models of four pre-1997 campus buildings and developed fragility curves through incremental dynamic analysis, to estimate their probability of damage under design-level and maximum considered earthquakes. I led the team and did the modeling, analysis, testing and as-built plans. Received the LIKHA Award for the best innovative paper in the BS Civil Engineering program."
 featured: true
+cover: cover.webp
 previews:
+  - file: exhibit-poster.webp
+    caption: "Research exhibit poster, the printed display layout used at the thesis exhibit"
+    wide: true
   - file: sap2000-building-models.webp
     caption: "SAP2000 models of the four buildings assessed"
+    wide: true
   - file: fragility-curves.webp
     caption: "Fragility curves for the Immediate Occupancy and Life Safety limit states, X and Y directions, for each building"
-  - file: research-poster.webp
-    caption: "Research poster"
+    wide: true
+downloads:
+  - file: exhibit-poster-high-res.jpg
+    label: "Exhibit poster, high resolution (JPEG, 3600 px)"
 ---
 
 ## Project overview

@@ -40,7 +40,9 @@ You can make every edit below in the GitHub website: open the file, click the pe
 1. Copy an existing file in `src/content/projects/` and rename it to `<code>-<short-title>.md`, e.g. `pro-2026-002-road-widening.md`. The file name becomes the page URL.
 2. Fill in the fields between the `---` lines.
 3. Write the case study below the second `---`. Use `## ` headings for each section (overview, problem, my responsibilities, methodology, and so on).
-4. Put images or PDFs in `public/previews/<CODE>/`, e.g. `public/previews/PRO-2026-002/typical-section.webp`. List them under `previews:` with a caption.
+4. Put images or PDFs in `public/previews/<CODE>/`, e.g. `public/previews/PRO-2026-002/typical-section.webp`. List them under `previews:` with a caption. Add `wide: true` under a caption to show that image at full width (use it for renders, posters and long strips).
+   - Optional: `cover: cover.webp` sets the thumbnail shown in project lists (a square image about 480 px works best).
+   - Optional: `downloads:` lists files visitors can download, each with a `label`.
 5. Leave `publication_status: review` until you have checked every line and have any permission needed. Then set it to `approved` and add `approval_reference`.
 
 Project codes are `TYPE-YYYY-NNN`:

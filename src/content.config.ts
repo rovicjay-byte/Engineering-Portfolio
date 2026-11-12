@@ -39,7 +39,8 @@ const projects = defineCollection({
       role: z.string(),
       summary: z.string().min(20),
       featured: z.boolean().default(false),
-      previews: z.array(z.object({ file: z.string(), caption: z.string() })).default([]),
+      cover: z.string().optional(),
+      previews: z.array(z.object({ file: z.string(), caption: z.string(), wide: z.boolean().default(false) })).default([]),
       downloads: z.array(z.object({ file: z.string(), label: z.string() })).default([]),
     })
     .refine(

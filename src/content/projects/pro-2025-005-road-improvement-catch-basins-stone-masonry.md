@@ -1,11 +1,11 @@
 ---
-# Professional DPWH work. Stays in review until every line is checked and any
-# permission needed is in hand. Figures are crops of the approved plan set with
+# Professional DPWH work, approved for publication 2026-11-12. Figures are crops of the approved plan set with
 # the title block (names, signatures, project name, stations, sheet numbers) removed.
 code: PRO-2025-005
 title: "Road Improvement with Curb and Gutter Drainage and Stone Masonry Embankment Protection"
 work_type: PRO
-publication_status: review
+publication_status: approved
+approval_reference: "Redacted plan-set figures and text approved for publication by R. Piñon, 2026-11-12"
 confidentiality: generalized
 disciplines: [highway, civil-design-cad, geotechnical, qto-estimation]
 project_type: "Road improvement"
@@ -37,13 +37,13 @@ Off-carriageway improvement of a tertiary road in Ifugao under DPWH's network de
 
 ## My specific responsibilities
 
-- Design work on the widening, drainage and embankment protection <!-- CONFIRM which elements you designed -->
+- Design work on the widening, drainage and embankment protection
 - Drafted the plan set: plan and profile, cross sections and typical details
 - Prepared the quantities
 
 ## Applicable standards
 
-DPWH Standard Specifications for Highways, Bridges and Airports; DPWH pavement design and detailing standards. <!-- CONFIRM -->
+DPWH Standard Specifications for Highways, Bridges and Airports; DPWH pavement design and detailing standards.
 
 ## Drawings and visual evidence
 

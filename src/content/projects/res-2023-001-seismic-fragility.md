@@ -24,6 +24,14 @@ previews:
   - file: sap2000-building-models.webp
     caption: "SAP2000 models of the four buildings assessed"
     wide: true
+  - file: as-built-ground-floor-plan.webp
+    caption: "As-built ground floor plan of the Hantson Building, drafted in AutoCAD after tape-measure checks"
+  - file: as-built-front-elevation.webp
+    caption: "As-built front elevation, Hantson Building"
+  - file: as-built-side-elevations.webp
+    caption: "As-built side elevations, Hantson Building"
+  - file: as-built-column-schedule.webp
+    caption: "As-built schedule of columns: sizes, reinforcement and tie spacing used in the SAP2000 model"
   - file: fragility-curves.webp
     caption: "Fragility curves for the Immediate Occupancy and Life Safety limit states, X and Y directions, for each building"
     wide: true

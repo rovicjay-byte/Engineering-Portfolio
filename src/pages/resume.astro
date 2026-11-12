@@ -29,6 +29,15 @@ const docs = [
     </dl>
     <p class="small muted note">License details can be verified on request.</p>
   </section>
+
+  {me.trainings.length > 0 && (
+    <section class="section">
+      <h2 class="h">Technical trainings and seminars</h2>
+      <dl class="facts">
+        {me.trainings.map((t) => <><dt>{t.detail}</dt><dd>{t.name}</dd></>)}
+      </dl>
+    </section>
+  )}
 </Base>
 <style>
   .h { font-size: var(--t-md); }

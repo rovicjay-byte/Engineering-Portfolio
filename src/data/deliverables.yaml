@@ -3,6 +3,7 @@
 # Commented entries need your confirmation before they go public.
 
 - id: slope-protection-documentation
+  order: 4
   title: "Slope protection and geohazard documentation"
   disciplines: [geotechnical, highway]
   basis: "Current DPWH work in Ifugao"
@@ -17,20 +18,8 @@
     - "Available soil and groundwater information"
   limits: "Recommendations depend on the quality of the site investigation data provided."
   review: "Prepared for review and approval within the employing office's design process."
-- id: civil3d-drawings
-  title: "Civil 3D drawing preparation"
-  disciplines: [civil-design-cad, highway]
-  basis: "Current DPWH work using Civil 3D templates"
-  scope: "Design drawings and plan sets built from survey data and office templates."
-  outputs:
-    - "Plan sets that follow the office's drawing template"
-    - "Revisions tracked by sheet"
-  inputs:
-    - "Survey data"
-    - "Design criteria and the drawing template to follow"
-  limits: "Follows the standards and template the project specifies."
-  review: "Drawings are checked and approved by the responsible engineer before issue."
 - id: gis-mapping
+  order: 6
   title: "GIS hazard and site mapping"
   disciplines: [gis-spatial, geotechnical]
   basis: "QGIS mapping in current DPWH work"
@@ -44,6 +33,7 @@
   limits: "Map accuracy is limited by the source data."
   review: "Maps are issued with their data sources stated."
 - id: slope-stability-analysis
+  order: 5
   title: "Slope stability analysis"
   disciplines: [geotechnical, research]
   basis: "GEO5 in DPWH work; Slide2, SLOPE/W and Monte Carlo methods in MSCE research"
@@ -59,6 +49,7 @@
   limits: "Preliminary analysis; the results depend on the soil data provided."
   review: "Final design decisions rest with the project's responsible engineer."
 - id: research-reports
+  order: 8
   title: "Engineering research and technical reports"
   disciplines: [research]
   basis: "Two theses and graduate review papers"
@@ -73,19 +64,67 @@
   limits: "Covers the scope agreed at the start."
   review: "Reviewed by the requesting supervisor or adviser."
 
+- id: road-plans
+  order: 1
+  title: "Road improvement plans in Civil 3D"
+  disciplines: [highway, civil-design-cad]
+  basis: "Plans for a 3 km road improvement with drainage and slope protection, DPWH Ifugao"
+  scope: "Plan, profile and cross-section sheets for road improvements, with drainage and slope protection details."
+  outputs:
+    - "Civil 3D model and plan set following the project's drawing template"
+    - "Earthwork and pay-item quantities taken from the model"
+    - "Revisions tracked by sheet"
+  inputs:
+    - "Topographic survey data"
+    - "Design criteria and standards to follow (e.g. DPWH)"
+    - "Drawing template"
+  limits: "Geometric design follows the criteria the project sets."
+  review: "Checked and approved by the responsible engineer before issue."
+- id: quantities-estimates
+  order: 2
+  title: "Quantity takeoff, BOQ and unit price analysis"
+  disciplines: [qto-estimation]
+  basis: "Estimates, BOQs and detailed unit price analyses for DPWH road and building projects"
+  scope: "Quantities and cost build-ups for horizontal (road, drainage, slope) and vertical (building) works."
+  outputs:
+    - "Quantity takeoff in Excel, traceable to drawings"
+    - "Bill of quantities"
+    - "Detailed unit price analysis"
+  inputs:
+    - "Approved or working drawings"
+    - "Unit cost references and the format the project uses"
+  limits: "Project cost data from past employers is never shown publicly."
+  review: "Checked by the estimating or approving engineer."
+- id: topographic-survey
+  order: 3
+  title: "Topographic survey and mapping"
+  disciplines: [gis-spatial, highway]
+  basis: "RTK, total station and drone photogrammetry surveys at DPWH"
+  scope: "Field survey and processing into topographic maps and surfaces for road alignment and drainage design."
+  outputs:
+    - "Survey points and topographic surface ready for Civil 3D"
+    - "Topographic and site maps"
+  inputs:
+    - "Site access and control points"
+    - "Equipment available to the project (RTK, total station, drone)"
+  limits: "Accuracy depends on the equipment, control and site conditions."
+  review: "Survey data is issued with its method and control stated."
+- id: building-structural-analysis
+  order: 7
+  title: "Structural analysis of low-rise buildings"
+  disciplines: [structural-seismic]
+  basis: "Multipurpose public buildings for DPWH, STAAD.Pro with NSCP 2015 checks"
+  scope: "Load calculation, analysis and member design checks for low-rise reinforced concrete and steel buildings."
+  outputs:
+    - "STAAD.Pro model"
+    - "Design calculations with NSCP code checks"
+  inputs:
+    - "Architectural plans"
+    - "Design criteria, loads and site seismic parameters"
+  limits: "Low-rise to mid-rise building scale."
+  review: "Final design is reviewed and approved by the responsible structural engineer."
+
 # --- To confirm before enabling ---------------------------------------------
-# - id: qto-estimates
-#   title: "Quantity takeoff and estimate support"
-#   disciplines: [qto-estimation]
-#   basis: "???"
-#   scope: "???"
-#   outputs: ["Quantity takeoff", "Program of Work, DUPA and BOQ support"]
-#   inputs: ["Approved drawings", "Unit cost references the project uses"]
-#   limits: "No confidential cost data is shown publicly."
-#   review: "Checked by the estimating engineer."
-# - id: road-alignment
-#   title: "Road alignment, profile and cross-sections in Civil 3D"
-#   ...
 # - id: excel-tools
 #   title: "Excel-based engineering tools"
 #   ...

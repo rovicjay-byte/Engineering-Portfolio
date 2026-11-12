@@ -3,14 +3,14 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProfileHero from '../components/ProfileHero.astro';
 import ProjectRegister from '../components/ProjectRegister.astro';
-import { getProfile, getProjects, DISCIPLINE_LABELS, LEVEL_LABELS } from '../lib/publish';
+import { getProfile, getProjects, DISCIPLINE_LABELS, LEVEL_LABELS, getDeliverables, getCapabilities } from '../lib/publish';
 import { DISCIPLINES } from '../content.config';
 
 const me = await getProfile();
 const projects = await getProjects();
 const featured = projects.filter((p) => p.data.featured).slice(0, 4);
-const caps = await getCollection('capabilities');
-const deliverables = await getCollection('deliverables');
+const caps = await getCapabilities();
+const deliverables = await getDeliverables();
 
 const specialties = DISCIPLINES.map((d) => {
   const items = caps.filter((c) => c.data.discipline === d);

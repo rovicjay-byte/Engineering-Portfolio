@@ -67,3 +67,11 @@ export const STATUS_LABELS: Record<string, string> = {
   completed: 'Completed',
   suspended: 'Suspended',
 };
+
+export async function getCapabilities() {
+  return (await getCollection('capabilities')).sort((a, b) => a.data.order - b.data.order);
+}
+
+export async function getDeliverables() {
+  return (await getCollection('deliverables')).sort((a, b) => a.data.order - b.data.order);
+}

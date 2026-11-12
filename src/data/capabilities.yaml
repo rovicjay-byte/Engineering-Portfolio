@@ -1,76 +1,144 @@
 # Capability matrix. Each item needs:
 #   level: professional (used in paid work) | academic (coursework/research) | developing
 #   evidence: one line an employer could check against your projects or resume
-# Items you have not confirmed are commented out at the bottom. Uncomment them
-# only after you have set an honest level and evidence line.
+# Checked against Pinon-Resume.pdf (June 2026). Items still unconfirmed are
+# commented out at the bottom: uncomment only after setting an honest level.
 
-- id: hwy-road-infra
+# Highway and roadway
+- id: hwy-road-design
+  order: 1
   discipline: highway
-  name: "Road infrastructure planning and documentation"
+  name: "Road improvement design and plans"
   level: professional
-  evidence: "Project planning, development and documentation at DPWH Ifugao 2nd DEO"
+  evidence: "Civil 3D plans for a 3 km road improvement with drainage and slope protection, DPWH Ifugao 2nd DEO"
+  tools: ["Civil 3D"]
+- id: hwy-pavement-maintenance
+  order: 2
+  discipline: highway
+  name: "Pavement preventive maintenance planning"
+  level: professional
+  evidence: "Maintenance planning and design for deteriorating pavement sections under DPWH pavement management guidelines"
   tools: []
 - id: hwy-slope-protection-plans
+  order: 3
   discipline: highway
   name: "Road slip and slope protection plan sets"
   level: professional
   evidence: "Plan sets produced from Civil 3D templates for DPWH road projects"
   tools: ["Civil 3D"]
+
+# Civil design and CAD
 - id: cad-civil3d
+  order: 4
   discipline: civil-design-cad
-  name: "Civil 3D design drawings"
+  name: "Civil 3D design drawings for roads and drainage"
   level: professional
-  evidence: "Design drawings for DPWH slope protection work"
+  evidence: "Road, drainage and flood control design drawings at DPWH"
   tools: ["Civil 3D"]
+- id: cad-bridge-plans
+  order: 5
+  discipline: civil-design-cad
+  name: "Bridge detailed engineering plans"
+  level: professional
+  evidence: "Drafted the detailed engineering plan for a two-lane, 45 m bridge"
+  tools: []
 - id: cad-dynamo
+  order: 6
   discipline: civil-design-cad
   name: "Drawing automation with Dynamo for Civil 3D"
   level: developing
   evidence: "Building scripts to reduce repetitive drafting on plan sets"
   tools: ["Dynamo", "Civil 3D"]
+
+- id: cad-building-plan-sets
+  order: 7
+  discipline: civil-design-cad
+  name: "Complete building plan sets (architectural, structural, electrical, plumbing)"
+  level: academic
+  evidence: "Residential, apartment and as-built plan sets drawn individually in BSCE coursework"
+  tools: ["AutoCAD", "SketchUp"]
+- id: str-detailing
+  order: 15
+  discipline: structural-seismic
+  name: "Reinforced concrete and steel connection detailing"
+  level: academic
+  evidence: "Beam, column and slab details and steel connection details for a three-storey apartment (BSCE coursework)"
+  tools: ["AutoCAD"]
+
+# Geotechnical
 - id: geo-hazard
+  order: 7
   discipline: geotechnical
   name: "Geohazard assessment along road corridors"
   level: professional
   evidence: "Assessment work at DPWH Ifugao 2nd DEO"
   tools: ["QGIS", "GEO5"]
 - id: geo-slope-design
+  order: 8
   discipline: geotechnical
   name: "Slope protection design"
   level: professional
-  evidence: "Design work at DPWH Ifugao 2nd DEO"
-  tools: ["GEO5", "STAAD.Pro"]
+  evidence: "Slope protection works on DPWH road projects"
+  tools: ["GEO5", "Civil 3D"]
 - id: geo-reliability
+  order: 9
   discipline: geotechnical
   name: "Reliability-based slope stability analysis"
   level: academic
   evidence: "MSCE thesis: Monte Carlo simulation with Bishop's Simplified and Spencer's methods"
   tools: ["Slide2", "SLOPE/W", "MATLAB", "Python"]
+
+# Quantity takeoff and estimation
 - id: qto-estimates
+  order: 10
   discipline: qto-estimation
-  name: "Engineering estimates"
+  name: "Quantity takeoff, BOQ and detailed unit price analysis"
   level: professional
-  evidence: "Estimates prepared as part of DPWH project development"
-  tools: []
+  evidence: "Estimates, BOQs and unit price analyses for road and building projects at DPWH"
+  tools: ["Excel"]
+- id: qto-earthworks
+  order: 11
+  discipline: qto-estimation
+  name: "Earthwork quantities"
+  level: professional
+  evidence: "Earthwork quantities for a 45 m bridge project"
+  tools: ["Civil 3D"]
+
+# GIS, surveying and spatial analysis
+- id: gis-survey
+  order: 12
+  discipline: gis-spatial
+  name: "Topographic survey and mapping"
+  level: professional
+  evidence: "RTK, total station and drone photogrammetry surveys for road alignments and drainage layouts"
+  tools: ["RTK GNSS", "Total station", "Drone photogrammetry"]
 - id: gis-qgis
+  order: 13
   discipline: gis-spatial
   name: "Hazard and site mapping"
   level: professional
   evidence: "QGIS mapping for geohazard assessment"
   tools: ["QGIS"]
+
+# Structural and seismic
+- id: str-buildings
+  order: 14
+  discipline: structural-seismic
+  name: "Structural analysis and design of low-rise public buildings"
+  level: professional
+  evidence: "Multipurpose buildings for DPWH, analyzed in STAAD.Pro with NSCP 2015 checks"
+  tools: ["STAAD.Pro"]
 - id: str-fragility
+  order: 15
   discipline: structural-seismic
   name: "Seismic fragility curve analysis"
   level: academic
-  evidence: "BSCE thesis on Saint Mary's University buildings (Best Paper, CE Department)"
+  evidence: "BSCE thesis on Saint Mary's University buildings"
   tools: []
-- id: str-staad
-  discipline: structural-seismic
-  name: "Structural analysis models"
-  level: professional
-  evidence: "STAAD.Pro checks within DPWH design work"
-  tools: ["STAAD.Pro"]
+
+# Research
 - id: res-writing
+  order: 16
   discipline: research
   name: "Technical research and review papers"
   level: academic
@@ -78,33 +146,23 @@
   tools: []
 
 # --- To confirm before enabling ---------------------------------------------
-# - id: hwy-alignment
-#   discipline: highway
-#   name: "Horizontal alignment, vertical profile and cross-sections"
+# Was this for your thesis (academic) or for paid work (professional)?
+# - id: str-time-history
+#   discipline: structural-seismic
+#   name: "Nonlinear time history analysis of existing structures"
 #   level: ???
 #   evidence: "???"
-#   tools: ["Civil 3D"]
-# - id: qto-boq
-#   discipline: qto-estimation
-#   name: "Quantity takeoff, POW, DUPA and BOQ"
+#   tools: ["SAP2000"]
+# Where did you use RCDC: DPWH buildings or coursework?
+# - id: str-rcdc
+#   discipline: structural-seismic
+#   name: "Reinforced concrete component design (NSCP, ACI)"
 #   level: ???
 #   evidence: "???"
-#   tools: ["Excel"]
+#   tools: ["RCDC"]
 # - id: geo-plaxis
 #   discipline: geotechnical
 #   name: "Finite element analysis"
 #   level: academic
 #   evidence: "???"
 #   tools: ["PLAXIS"]
-# - id: str-sap
-#   discipline: structural-seismic
-#   name: "Structural modeling and design checks"
-#   level: ???
-#   evidence: "???"
-#   tools: ["SAP2000", "RCDC"]
-# - id: cad-autocad
-#   discipline: civil-design-cad
-#   name: "AutoCAD drafting and details"
-#   level: ???
-#   evidence: "???"
-#   tools: ["AutoCAD", "SketchUp"]

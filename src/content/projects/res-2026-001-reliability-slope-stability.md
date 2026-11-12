@@ -1,7 +1,7 @@
 ---
 # Status: in review. Not public until you set publication_status: approved
 # and fill approval_reference (e.g. "Own research; adviser OK to post, 2026-12-01").
-code: RES-2025-001          # CONFIRM start year
+code: RES-2026-001
 title: "Reliability-Based Slope Stability Assessment of Weathered Residual Soils along the Banaue–Mayoyao–Aguinaldo–Alfonso Lista Road Corridor"
 work_type: RES
 publication_status: review
@@ -12,7 +12,7 @@ software: ["Slide2", "SLOPE/W", "MATLAB", "Python"]
 competencies: ["Slope stability", "Probabilistic analysis", "Monte Carlo simulation", "Limit equilibrium methods"]
 location_public: "Ifugao, Cordillera Administrative Region"
 client_public: "Polytechnic University of the Philippines, MS Civil Engineering"
-year: 2025
+year: 2026
 status: ongoing
 role: "Researcher (MSCE thesis)"
 summary: "Graduate research applying reliability-based methods to slopes in weathered residual soils along a mountain road corridor in Ifugao, reporting probability of failure alongside the conventional factor of safety."

@@ -2,10 +2,10 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import CapabilityTable from '../../components/CapabilityTable.astro';
-import { DISCIPLINE_LABELS, LEVEL_LABELS } from '../../lib/publish';
+import { DISCIPLINE_LABELS, LEVEL_LABELS, getDeliverables, getCapabilities } from '../../lib/publish';
 import { DISCIPLINES } from '../../content.config';
 
-const caps = await getCollection('capabilities');
+const caps = await getCapabilities();
 const groups = DISCIPLINES.map((d) => ({ d, items: caps.filter((c) => c.data.discipline === d) })).filter((g) => g.items.length);
 ---
 <Base title="Capabilities" description="Engineering capabilities by discipline, each marked by where the experience comes from." crumbs={[{ label: 'Capabilities' }]}>

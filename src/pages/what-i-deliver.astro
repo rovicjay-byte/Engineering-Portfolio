@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import { DISCIPLINE_SHORT } from '../lib/publish';
-const items = await getCollection('deliverables');
+import { DISCIPLINE_SHORT, getDeliverables, getCapabilities } from '../lib/publish';
+const items = await getDeliverables();
 ---
 <Base title="What I deliver" description="The engineering outputs a team can expect from me, with the inputs each needs and its limits." crumbs={[{ label: 'What I deliver' }]}>
   <header class="page-head">

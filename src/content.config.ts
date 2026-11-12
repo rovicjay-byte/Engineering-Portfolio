@@ -62,6 +62,7 @@ const capabilities = defineCollection({
   loader: file('src/data/capabilities.yaml'),
   schema: z.object({
     discipline: z.enum(DISCIPLINES),
+    order: z.number().default(99),
     name: z.string(),
     level,
     evidence: z.string(),
@@ -73,6 +74,7 @@ const deliverables = defineCollection({
   loader: file('src/data/deliverables.yaml'),
   schema: z.object({
     title: z.string(),
+    order: z.number().default(99),
     disciplines: z.array(z.enum(DISCIPLINES)).min(1),
     basis: z.string(),
     scope: z.string(),
@@ -105,6 +107,7 @@ const profile = defineCollection({
       z.object({ degree: z.string(), school: z.string(), period: z.string(), notes: z.array(z.string()).default([]) }),
     ),
     credentials: z.array(z.object({ name: z.string(), detail: z.string() })).default([]),
+    trainings: z.array(z.object({ name: z.string(), detail: z.string() })).default([]),
   }),
 });
 

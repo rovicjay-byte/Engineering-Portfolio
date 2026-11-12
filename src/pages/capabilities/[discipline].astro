@@ -3,11 +3,11 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import CapabilityTable from '../../components/CapabilityTable.astro';
 import ProjectRegister from '../../components/ProjectRegister.astro';
-import { getProjects, DISCIPLINE_LABELS } from '../../lib/publish';
+import { getProjects, DISCIPLINE_LABELS, getDeliverables, getCapabilities } from '../../lib/publish';
 import { DISCIPLINES } from '../../content.config';
 
 export async function getStaticPaths() {
-  const caps = await getCollection('capabilities');
+  const caps = await getCapabilities();
   const projects = await getProjects();
   return DISCIPLINES
     .filter((d) => caps.some((c) => c.data.discipline === d) || projects.some((p) => p.data.disciplines.includes(d)))
@@ -16,9 +16,9 @@ export async function getStaticPaths() {
 
 const { discipline } = Astro.params as { discipline: string };
 const label = DISCIPLINE_LABELS[discipline];
-const caps = (await getCollection('capabilities')).filter((c) => c.data.discipline === discipline);
+const caps = (await getCapabilities()).filter((c) => c.data.discipline === discipline);
 const projects = (await getProjects()).filter((p) => p.data.disciplines.includes(discipline as any));
-const deliverables = (await getCollection('deliverables')).filter((d) => d.data.disciplines.includes(discipline as any));
+const deliverables = (await getDeliverables()).filter((d) => d.data.disciplines.includes(discipline as any));
 ---
 <Base title={label} description={`${label}: capabilities, projects and deliverables.`} crumbs={[{ label: 'Capabilities', href: '/capabilities' }, { label }]}>
   <header class="page-head">

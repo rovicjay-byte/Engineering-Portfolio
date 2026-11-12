@@ -2,7 +2,8 @@
 code: RES-2023-001
 title: "Seismic Risk Assessment of Saint Mary's University Buildings Using Fragility Curve Analysis"
 work_type: RES
-publication_status: review
+publication_status: approved
+approval_reference: "Own BSCE thesis; facts, role and award confirmed by R. Piñon, 2026-11-12"
 confidentiality: public
 disciplines: [structural-seismic, research, civil-design-cad]
 project_type: "Undergraduate thesis"

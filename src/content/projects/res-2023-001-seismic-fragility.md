@@ -32,8 +32,17 @@ previews:
     caption: "As-built side elevations, Hantson Building"
   - file: as-built-column-schedule.webp
     caption: "As-built schedule of columns: sizes, reinforcement and tie spacing used in the SAP2000 model"
-  - file: fragility-curves.webp
-    caption: "Fragility curves for the Immediate Occupancy and Life Safety limit states, X and Y directions, for each building"
+  - file: fragility-hantson.webp
+    caption: "Fragility curves, Hantson Building: Immediate Occupancy and Life Safety, X and Y directions, under DBE and MCE ground motions. Re-plotted from the curve data in the thesis paper."
+    wide: true
+  - file: fragility-apo-pilo.webp
+    caption: "Fragility curves, Apo Pilo Building: Immediate Occupancy and Life Safety, X and Y directions, under DBE and MCE ground motions. Re-plotted from the curve data in the thesis paper."
+    wide: true
+  - file: fragility-htm.webp
+    caption: "Fragility curves, HTM Building: Immediate Occupancy and Life Safety, X and Y directions, under DBE and MCE ground motions. Re-plotted from the curve data in the thesis paper."
+    wide: true
+  - file: fragility-jvd.webp
+    caption: "Fragility curves, JVD Building: Immediate Occupancy and Life Safety, X and Y directions, under DBE and MCE ground motions. Re-plotted from the thesis curve data; the MCE curves are from the team's JVD analysis workbook."
     wide: true
 downloads:
   - file: exhibit-poster-high-res.jpg

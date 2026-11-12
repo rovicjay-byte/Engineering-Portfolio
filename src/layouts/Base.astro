@@ -22,7 +22,7 @@ const jsonLd = {
   name: me.name,
   jobTitle: me.designation,
   address: { '@type': 'PostalAddress', addressRegion: me.location },
-  ...(me.linkedin ? { sameAs: [me.linkedin] } : {}),
+  ...(me.linkedin ? { sameAs: [encodeURI(me.linkedin)] } : {}),
 };
 ---
 <!doctype html>

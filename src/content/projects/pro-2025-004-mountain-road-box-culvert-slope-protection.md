@@ -16,10 +16,31 @@ client_public: "Department of Public Works and Highways, Ifugao 2nd District Eng
 year: 2025
 status: completed          # CONFIRM: plans approved December 2025; is construction under way?
 role: "Design, drafting and quantities"
-summary: "Design, drafting and quantities for about 1.1 km of new concrete road on steep mountain terrain, with a reinforced concrete box culvert and flume, and cribwall, retaining wall and gabion slope protection."
+summary: "Design, drafting and quantities for about 1.7 km of new concrete road on steep mountain terrain, with a reinforced concrete box culvert and flume, and cribwall, retaining wall and gabion slope protection."
 featured: false
 cover: cover.webp
 previews:
+  - file: plan-profile-1.webp
+    caption: "Plan and profile, sheet 1 of 3: alignment, curve data, profile grades and superelevation"
+    wide: true
+  - file: plan-profile-2.webp
+    caption: "Plan and profile, sheet 2 of 3: alignment, curve data, profile grades and superelevation"
+    wide: true
+  - file: plan-profile-3.webp
+    caption: "Plan and profile, sheet 3 of 3: alignment, curve data, profile grades and superelevation"
+    wide: true
+  - file: cross-sections-1.webp
+    caption: "Cross sections, sheet 1 of 4: existing and finished ground, typical section and earthwork end areas, including box culvert crossings"
+    wide: true
+  - file: cross-sections-2.webp
+    caption: "Cross sections, sheet 2 of 4: existing and finished ground, typical section and earthwork end areas, including box culvert crossings"
+    wide: true
+  - file: cross-sections-3.webp
+    caption: "Cross sections, sheet 3 of 4: existing and finished ground, typical section and earthwork end areas, including box culvert crossings"
+    wide: true
+  - file: cross-sections-4.webp
+    caption: "Cross sections, sheet 4 of 4: existing and finished ground, typical section and earthwork end areas, including box culvert crossings"
+    wide: true
   - file: box-culvert-flume.webp
     caption: "Reinforced concrete box culvert with catch basin, outlet basin and flume: isometric view, typical cross section and reinforcement"
     wide: true
@@ -36,7 +57,7 @@ previews:
 
 ## Project overview
 
-Construction of about 1.1 km of road through steep mountain terrain in Ifugao, under a DPWH program that builds access roads and bridges for communities across local government boundaries. The road is two 3.35 m Portland cement concrete lanes with concrete barriers. Cross drainage is a single-barrel 2.0 × 2.0 m reinforced concrete box culvert with a catch basin at the inlet and an outlet basin and flume carrying water down the slope. Cut and fill slopes are held by double cribwalls, reinforced concrete cantilever retaining walls and gabion walls, with weepholes and filter material behind the walls.
+Construction of about 1.7 km of road through steep mountain terrain in Ifugao, under a DPWH program that builds access roads and bridges for communities across local government boundaries. The road is two 3.35 m Portland cement concrete lanes with concrete barriers. Cross drainage is a single-barrel 2.0 × 2.0 m reinforced concrete box culvert with a catch basin at the inlet and an outlet basin and flume carrying water down the slope. Cut and fill slopes are held by double cribwalls, reinforced concrete cantilever retaining walls and gabion walls, with weepholes and filter material behind the walls.
 
 ## My specific responsibilities
 
@@ -50,4 +71,4 @@ DPWH Standard Specifications for Highways, Bridges and Airports; AASHTO M 31 rei
 
 ## Drawings and visual evidence
 
-The figures are crops of detail sheets from the approved plan set. Title blocks, names, signatures, project name and stationing are removed.
+The plan and profile and cross-section sheets are shown whole, with the signatures removed and the printed names in the title block re-lettered. The detail figures are crops of detail sheets from the approved plan set.

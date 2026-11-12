@@ -7,7 +7,7 @@ approval_reference: "Own BSCE-2 Engineering Utilities 2 plates; sent for publica
 confidentiality: public
 disciplines: [civil-design-cad]
 project_type: "Plumbing plates (coursework)"
-software: []                        # CONFIRM software
+software: ["AutoCAD"]
 competencies: ["Water distribution layout", "Sanitary drainage layout", "Isometric drawing", "Construction drawings"]
 location_public: "Saint Mary's University, Bayombong, Nueva Vizcaya"
 client_public: "Saint Mary's University, BS Civil Engineering (2nd year), Engineering Utilities 2"

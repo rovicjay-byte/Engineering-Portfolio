@@ -7,7 +7,7 @@ approval_reference: "Own BSCE coursework; publication requested by R. Piñon, 20
 confidentiality: public
 disciplines: [civil-design-cad, structural-seismic]
 project_type: "Building plan set (coursework)"
-software: []                        # CONFIRM software (AutoCAD? SketchUp + renderer for the perspective?)
+software: ["AutoCAD"]
 competencies: ["Construction drawings", "Architectural drafting", "Structural detailing", "Electrical and plumbing layouts"]
 location_public: "Saint Mary's University, Bayombong, Nueva Vizcaya"
 client_public: "Saint Mary's University, BS Civil Engineering (3rd year)"

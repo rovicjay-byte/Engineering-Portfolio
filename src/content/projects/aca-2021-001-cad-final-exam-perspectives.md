@@ -7,7 +7,7 @@ approval_reference: "Own BSCE-2 Computer-Aided Design final exam plate; sent for
 confidentiality: public
 disciplines: [civil-design-cad]
 project_type: "3D modeling (coursework)"
-software: ["AutoCAD"]               # plotted from AutoCAD 2022 (file metadata); CONFIRM the 3D modeling tool
+software: ["AutoCAD"]
 competencies: ["3D modeling", "Perspective presentation"]
 location_public: "Saint Mary's University, Bayombong, Nueva Vizcaya"
 client_public: "Saint Mary's University, BS Civil Engineering (2nd year), Computer-Aided Design"

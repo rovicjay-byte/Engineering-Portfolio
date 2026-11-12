@@ -7,7 +7,7 @@ approval_reference: "Own BSCE-4 coursework from compiled portfolio; publication 
 confidentiality: public
 disciplines: [structural-seismic, civil-design-cad]
 project_type: "Building plan set (coursework)"
-software: []                        # CONFIRM software (AutoCAD? SketchUp for the perspectives?)
+software: ["AutoCAD"]
 competencies: ["Structural detailing", "Reinforced concrete detailing", "Steel connection detailing", "Construction drawings"]
 location_public: "Saint Mary's University, Bayombong, Nueva Vizcaya"
 client_public: "Saint Mary's University, BS Civil Engineering (4th year)"

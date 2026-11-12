@@ -56,7 +56,7 @@
   name: "Complete building plan sets (architectural, structural, electrical, plumbing)"
   level: academic
   evidence: "Residential and apartment plan sets drawn individually in BSCE coursework, and as-built plans for the BSCE thesis"
-  tools: ["AutoCAD", "SketchUp"]
+  tools: ["AutoCAD"]
 - id: str-detailing
   order: 15
   discipline: structural-seismic

@@ -12,8 +12,8 @@ location_public: "Saint Mary's University, Bayombong, Nueva Vizcaya"
 client_public: "Saint Mary's University, BS Civil Engineering"
 year: 2024
 status: completed
-role: "Co-researcher (team of four, with adviser)"   # CONFIRM: add your own part below
-summary: "Group thesis that built nonlinear SAP2000 models of four pre-1997 campus buildings and developed fragility curves through incremental dynamic analysis, to estimate their probability of damage under design-level and maximum considered earthquakes. Recognized with the LIKHA Award for Best Paper in the Civil Engineering Department."
+role: "Thesis team leader; modeling, analysis, testing and as-built plans"
+summary: "Group thesis that built nonlinear SAP2000 models of four pre-1997 campus buildings and developed fragility curves through incremental dynamic analysis, to estimate their probability of damage under design-level and maximum considered earthquakes. I led the team and did the modeling, analysis, testing and as-built plans. Received the LIKHA Award for the best innovative paper in the BS Civil Engineering program."
 featured: true
 previews:
   - file: sap2000-building-models.webp
@@ -44,7 +44,7 @@ Eight of the university's 22 buildings were built before 1997, when seismic prov
 
 At Bayombong's peak ground accelerations of 0.4g (DBE) and 0.5g (MCE), the probability of damage for the assessed buildings was low. Looking building by building, the JVD Building showed negligible to minimal damage and the Hantson Building somewhat higher. The Apo Pilo and HTM buildings, whose fragility curves rise steeply, carried the highest risk of passing 50% probability of damage toward collapse. The thesis presents the curves as a basis for retrofit planning, seismic risk mitigation and emergency response planning.
 
-Recognized with the LIKHA Award, Best Paper, Civil Engineering Department. <!-- CONFIRM exact award name -->
+Received the LIKHA Award, given to the best innovative paper in each program, for BS Civil Engineering.
 
 ## Applicable standards and references
 
@@ -52,7 +52,13 @@ UBC 1997, ASCE 41-17, NSCP 2015, ASTM C805/C805M-18. Ground motion records from 
 
 ## My specific responsibilities
 
-<!-- CONFIRM / WRITE: e.g. which buildings you modeled, the as-built drafting, the rebound hammer testing, the IDA runs. -->
+I led the thesis team of four.
+
+- **Leadership:** started the study, managed the team's work, and compiled the manuscript
+- **Field testing:** carried out the rebound hammer testing of the structural members
+- **As-built plans:** drafted the as-built plans in AutoCAD, including the site measurement checks
+- **Modeling:** built the SAP2000 model of the Hantson Building
+- **Analysis:** ran the structural analysis, from linear analysis through incremental dynamic analysis to the fragility curves
 
 ## Competencies demonstrated
 

@@ -70,20 +70,6 @@ const related = all
       <div class="cs-body prose">
         <Content />
 
-        {d.previews.length > 0 && (
-          <section class="gallery" aria-label="Drawings and figures">
-            <h2>Drawings and figures</h2>
-            {d.previews.map((pv) => (
-              <figure>
-                {pv.file.endsWith('.pdf')
-                  ? <object data={`/previews/${d.code}/${pv.file}`} type="application/pdf" width="100%" height="560"><a href={`/previews/${d.code}/${pv.file}`}>Open PDF</a></object>
-                  : <a href={`/previews/${d.code}/${pv.file}`}><img src={`/previews/${d.code}/${pv.file}`} alt={pv.caption} loading="lazy" /></a>}
-                <figcaption>{pv.caption}</figcaption>
-              </figure>
-            ))}
-          </section>
-        )}
-
         {d.downloads.length > 0 && (
           <section aria-label="Downloads">
             <h2>Downloads</h2>
@@ -92,6 +78,23 @@ const related = all
         )}
       </div>
     </div>
+
+    {d.previews.length > 0 && (
+      <section class="section gallery" aria-label="Drawings and figures">
+        <h2>Drawings and figures</h2>
+        <div class="g-grid">
+          {d.previews.map((pv) => (
+            <figure>
+              {pv.file.endsWith('.pdf')
+                ? <object data={`/previews/${d.code}/${pv.file}`} type="application/pdf" width="100%" height="560"><a href={`/previews/${d.code}/${pv.file}`}>Open PDF</a></object>
+                : <a href={`/previews/${d.code}/${pv.file}`} title="Open full size"><img src={`/previews/${d.code}/${pv.file}`} alt={pv.caption} loading="lazy" /></a>}
+              <figcaption>{pv.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <p class="small muted">Select a drawing to open it at full size.</p>
+      </section>
+    )}
 
     {related.length > 0 && (
       <section class="section">
@@ -116,9 +119,14 @@ const related = all
   .note { margin: 20px 0 0; color: var(--steel); }
   .cs-body :global(h2) { font-size: var(--t-md); margin-top: 2em; padding-top: 0.8em; border-top: 1px solid var(--rule-soft); }
   .cs-body :global(h2:first-child) { margin-top: 0; padding-top: 0; border-top: 0; }
-  .gallery figure { margin: 0 0 28px; }
-  .gallery img { border: 1px solid var(--rule); background: var(--white); }
-  .gallery figcaption { font-size: var(--t-sm); color: var(--steel); margin-top: 8px; }
+  .gallery h2 { margin-bottom: 20px; }
+  .g-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 24px; }
+  .g-grid figure { margin: 0; }
+  .g-grid figure:first-child { grid-column: 1 / -1; }
+  .g-grid img { width: 100%; border: 1px solid var(--rule); background: var(--white); }
+  .g-grid a:hover img { border-color: var(--accent); }
+  .g-grid figcaption { font-size: var(--t-sm); color: var(--steel); margin-top: 8px; }
+  @media (max-width: 760px) { .g-grid { grid-template-columns: 1fr; } }
   @media (max-width: 900px) {
     .cs-grid { grid-template-columns: 1fr; gap: 32px; }
     .cs-facts { position: static; }

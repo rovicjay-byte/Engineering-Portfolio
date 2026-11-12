@@ -14,11 +14,15 @@ const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
 ---
 <div class="register" data-register>
   {filters && projects.length > 0 && (
-    <form class="filters" role="search" aria-label="Filter projects" onsubmit="return false">
-      <label class="f-search">
-        <span>Search</span>
-        <input type="search" name="q" placeholder="Title, method, software" autocomplete="off" />
-      </label>
+    <form class="filters" role="search" aria-label="Filter projects">
+      <div class="f-search">
+        <label for="f-q">Search projects</label>
+        <div class="f-bar">
+          <input id="f-q" type="search" name="q" placeholder="Try slope stability, Civil 3D, bridge" autocomplete="off" />
+          <button type="submit" class="f-go">Search</button>
+          <button type="reset" class="f-clear">Clear filters</button>
+        </div>
+      </div>
       <label><span>Discipline</span>
         <select name="discipline"><option value="">All</option>{disciplines.map((d) => <option value={d}>{DISCIPLINE_SHORT[d]}</option>)}</select>
       </label>
@@ -81,16 +85,27 @@ const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
 
 <style>
   .filters {
-    display: grid; grid-template-columns: 2fr repeat(5, 1fr); gap: 12px; align-items: end;
-    padding: 16px 0 18px; margin-bottom: 8px; border-top: 1px solid var(--rule);
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; align-items: end;
+    padding: 18px; margin-bottom: 16px; background: var(--white); border: 1px solid var(--rule); border-top: 3px solid var(--red);
   }
+  .f-search { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px; font-size: 0.8125rem; color: var(--steel); }
+  .f-bar { display: flex; gap: 8px; }
+  .f-bar input { flex: 1; height: 44px !important; font-size: 1rem !important; padding: 6px 18px !important; }
+  .f-go, .f-clear {
+    font: inherit; font-weight: 600; font-size: 0.92rem; border-radius: 999px; padding: 0 20px; height: 44px; cursor: pointer; white-space: nowrap;
+  }
+  .f-go { background: var(--red); color: var(--white); border: 1px solid var(--red); }
+  .f-go:hover { background: #b51e15; }
+  .f-clear { background: var(--white); color: var(--ink-strong); border: 1px solid var(--rule); }
+  .f-clear:hover { border-color: var(--ink-strong); }
   .filters label { display: flex; flex-direction: column; gap: 4px; font-size: 0.8125rem; color: var(--steel); min-width: 0; }
   .filters input, .filters select {
     font: inherit; font-size: 0.9375rem; color: var(--ink); padding: 8px 10px; border: 1px solid var(--rule);
     border-radius: 999px; background: var(--white); width: 100%; min-width: 0; height: 38px; padding: 6px 14px;
   }
   .count { grid-column: 1 / -1; margin: 0; font-size: 0.8125rem; color: var(--steel); }
-  @media (max-width: 900px) { .filters { grid-template-columns: 1fr 1fr; } .f-search { grid-column: 1 / -1; } }
+  @media (max-width: 900px) { .filters { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .f-bar { flex-wrap: wrap; } .f-bar input { flex-basis: 100%; } .f-go, .f-clear { flex: 1; } }
 
   .rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink-strong); }
   .row {
@@ -154,6 +169,13 @@ const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
       history.replaceState(null, '', next.toString() ? `?${next}` : location.pathname);
     };
     form.addEventListener('input', apply);
+    form.addEventListener('change', apply);
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      apply();
+      (root.querySelector('.rows') || root).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    form.addEventListener('reset', () => setTimeout(apply, 0));
     apply();
   }
 </script>

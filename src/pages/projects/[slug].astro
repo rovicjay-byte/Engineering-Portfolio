@@ -87,7 +87,7 @@ const related = all
             <figure class={pv.wide ? 'wide' : undefined}>
               {pv.file.endsWith('.pdf')
                 ? <object data={`/previews/${d.code}/${pv.file}`} type="application/pdf" width="100%" height="560"><a href={`/previews/${d.code}/${pv.file}`}>Open PDF</a></object>
-                : <a href={`/previews/${d.code}/${pv.file}`} title="Open full size"><img src={`/previews/${d.code}/${pv.file}`} alt={pv.caption} loading="lazy" /></a>}
+                : <a href={`/previews/${d.code}/${pv.file}`} data-lb data-caption={pv.caption} aria-label={`Open full size: ${pv.caption}`}><img src={`/previews/${d.code}/${pv.file}`} alt={pv.caption} loading="lazy" /></a>}
               <figcaption>{pv.caption}</figcaption>
             </figure>
           ))}
@@ -95,6 +95,21 @@ const related = all
         <p class="small muted">Select a drawing to open it at full size.</p>
       </section>
     )}
+
+    <dialog class="lb" aria-label="Image viewer" data-lightbox>
+      <div class="lb-bar">
+        <span class="lb-count" data-lb-count></span>
+        <button type="button" class="lb-close" data-lb-close aria-label="Close image viewer">
+          <span aria-hidden="true">✕</span> Close
+        </button>
+      </div>
+      <div class="lb-stage" data-lb-stage>
+        <button type="button" class="lb-nav lb-prev" data-lb-prev aria-label="Previous image"><span aria-hidden="true">‹</span></button>
+        <img data-lb-img alt="" />
+        <button type="button" class="lb-nav lb-next" data-lb-next aria-label="Next image"><span aria-hidden="true">›</span></button>
+      </div>
+      <p class="lb-cap" data-lb-cap></p>
+    </dialog>
 
     {related.length > 0 && (
       <section class="section">
@@ -128,8 +143,87 @@ const related = all
   .g-grid a:hover img { border-color: var(--accent); }
   .g-grid figcaption { font-size: var(--t-sm); color: var(--steel); margin-top: 8px; }
   @media (max-width: 760px) { .g-grid { grid-template-columns: 1fr; } }
+  .g-grid a[data-lb] { cursor: zoom-in; display: block; }
+
+  /* Image viewer */
+  .lb {
+    width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+    background: rgba(20, 20, 20, 0.97); color: #fff;
+  }
+  .lb[open] { display: grid; grid-template-rows: auto 1fr auto; }
+  .lb::backdrop { background: rgba(20, 20, 20, 0.6); }
+  .lb-bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; }
+  .lb-count { font-size: var(--t-sm); color: #cfcfcf; }
+  .lb-close {
+    font: inherit; font-weight: 600; font-size: 0.95rem; color: #fff; background: var(--red); border: 0;
+    border-radius: 999px; padding: 10px 18px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center;
+  }
+  .lb-close:hover { background: #b51e15; }
+  .lb-close:focus-visible, .lb-nav:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .lb-stage { position: relative; display: grid; place-items: center; min-height: 0; padding: 0 64px; }
+  .lb-stage img { max-width: 100%; max-height: 100%; object-fit: contain; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.4); }
+  .lb-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.35); color: #fff; font-size: 1.8rem; line-height: 1;
+    cursor: pointer; display: grid; place-items: center;
+  }
+  .lb-nav:hover { background: var(--red); border-color: var(--red); }
+  .lb-prev { left: 10px; } .lb-next { right: 10px; }
+  .lb-nav[hidden] { display: none; }
+  .lb-cap { margin: 0; padding: 12px 18px 18px; text-align: center; font-size: 0.92rem; color: #e6e6e6; }
+  @media (max-width: 640px) { .lb-stage { padding: 0 8px; } .lb-nav { top: auto; bottom: -58px; transform: none; } .lb-cap { padding: 14px 64px 20px; } }
   @media (max-width: 900px) {
     .cs-grid { grid-template-columns: 1fr; gap: 32px; }
     .cs-facts { position: static; }
   }
 </style>
+
+<script>
+  const dlg = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('a[data-lb]')];
+  if (dlg && links.length && typeof dlg.showModal === 'function') {
+    const img = dlg.querySelector<HTMLImageElement>('[data-lb-img]')!;
+    const cap = dlg.querySelector<HTMLElement>('[data-lb-cap]')!;
+    const count = dlg.querySelector<HTMLElement>('[data-lb-count]')!;
+    const prev = dlg.querySelector<HTMLButtonElement>('[data-lb-prev]')!;
+    const next = dlg.querySelector<HTMLButtonElement>('[data-lb-next]')!;
+    const stage = dlg.querySelector<HTMLElement>('[data-lb-stage]')!;
+    let i = 0;
+    let opener: HTMLElement | null = null;
+
+    const show = (n: number) => {
+      i = (n + links.length) % links.length;
+      const a = links[i];
+      img.src = a.href;
+      img.alt = a.dataset.caption || '';
+      cap.textContent = a.dataset.caption || '';
+      count.textContent = links.length > 1 ? `${i + 1} of ${links.length}` : '';
+      prev.hidden = next.hidden = links.length < 2;
+    };
+    const close = () => dlg.close();
+
+    links.forEach((a, n) => a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      opener = a;
+      show(n);
+      dlg.showModal();
+      document.documentElement.style.overflow = 'hidden';
+    }));
+    dlg.addEventListener('close', () => {
+      document.documentElement.style.overflow = '';
+      img.removeAttribute('src');
+      opener?.focus();
+    });
+    dlg.querySelector('[data-lb-close]')!.addEventListener('click', close);
+    prev.addEventListener('click', () => show(i - 1));
+    next.addEventListener('click', () => show(i + 1));
+    // Clicking the dark area around the image closes the viewer
+    stage.addEventListener('click', (e) => { if (e.target === stage) close(); });
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(i - 1);
+      if (e.key === 'ArrowRight') show(i + 1);
+    });
+  }
+</script>

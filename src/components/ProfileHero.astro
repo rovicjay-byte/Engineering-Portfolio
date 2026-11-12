@@ -44,23 +44,23 @@ const sta = (m: number) => `${Math.floor(m / 1000)}+${String(m % 1000).padStart(
   .profile { margin: 0; }
   svg { width: 100%; height: auto; display: block; overflow: visible; }
   .grid { stroke: var(--rule-soft); stroke-width: 1; vector-effect: non-scaling-stroke; }
-  .soil { fill: #eef2f6; }
-  .cut { fill: rgba(19, 41, 75, 0.12); }
-  .ground { fill: none; stroke: var(--steel); stroke-width: 1.5; stroke-dasharray: 6 4; vector-effect: non-scaling-stroke; }
+  .soil { fill: rgba(20, 20, 20, 0.035); }
+  .cut { fill: rgba(216, 38, 28, 0.10); }
+  .ground { fill: none; stroke: var(--ink-strong); stroke-width: 1; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
   .grade {
-    fill: none; stroke: var(--navy); stroke-width: 3; vector-effect: non-scaling-stroke;
+    fill: none; stroke: var(--red); stroke-width: 2.4; vector-effect: non-scaling-stroke;
     stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.8s cubic-bezier(.45,.05,.25,1) 0.2s forwards;
   }
-  .base { stroke: var(--navy); stroke-width: 1; vector-effect: non-scaling-stroke; }
-  .tick { stroke: var(--navy); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .base { stroke: var(--ink-strong); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .tick { stroke: var(--ink-strong); stroke-width: 1; vector-effect: non-scaling-stroke; }
   text { font-size: 13px; fill: var(--steel); font-family: var(--font); font-variant-numeric: tabular-nums; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
   @media (prefers-reduced-motion: reduce) { .grade { stroke-dashoffset: 0; animation: none; } }
 
-  .legend { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.8125rem; color: var(--steel); margin-top: 6px; }
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.76rem; color: var(--steel); margin-top: 6px; }
   .lg::before { content: ''; display: inline-block; width: 22px; height: 0; vertical-align: middle; margin-right: 6px; }
-  .lg-ground::before { border-top: 1.5px dashed var(--steel); }
-  .lg-grade::before { border-top: 3px solid var(--navy); }
-  .lg-cut::before { height: 10px; width: 14px; background: rgba(19, 41, 75, 0.12); }
+  .lg-ground::before { border-top: 1px dashed var(--ink-strong); }
+  .lg-grade::before { border-top: 2.4px solid var(--red); }
+  .lg-cut::before { height: 10px; width: 14px; background: rgba(216, 38, 28, 0.12); }
   @media (max-width: 600px) { text { display: none; } }
 </style>

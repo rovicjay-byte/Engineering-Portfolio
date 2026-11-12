@@ -1,6 +1,6 @@
 ---
 interface Props { name: string; designation: string }
-const { name, designation } = Astro.props;
+const { name } = Astro.props;
 const links = [
   { href: '/projects', label: 'Projects' },
   { href: '/capabilities', label: 'Capabilities' },
@@ -12,12 +12,13 @@ const links = [
 ];
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isCurrent = (href: string) => path === href || path.startsWith(href + '/');
+const year = new Date().getFullYear();
 ---
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="/">
       <span class="brand-name">{name}</span>
-      <span class="brand-title">{designation}</span>
+      <span class="brand-sub">Engineering portfolio</span>
     </a>
     <details class="menu">
       <summary aria-label="Open menu">Menu</summary>
@@ -29,41 +30,39 @@ const isCurrent = (href: string) => path === href || path.startsWith(href + '/')
         </ul>
       </nav>
     </details>
+    <span class="pill" aria-hidden="true">{year}</span>
   </div>
 </header>
 
 <style>
-  .site-header { background: var(--navy); color: var(--white); }
-  .bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 68px; }
-  .brand { color: var(--white); text-decoration: none; display: flex; flex-direction: column; line-height: 1.2; padding: 10px 0; }
-  .brand-name { font-weight: 750; font-size: 1.05rem; letter-spacing: -0.005em; }
-  .brand-title { font-size: 0.8125rem; color: #b8c6da; }
-  .brand:hover { color: var(--white); }
-  .menu summary { list-style: none; cursor: pointer; font-weight: 600; font-size: var(--t-sm); padding: 8px 12px; border: 1px solid #4a628a; border-radius: 4px; }
+  .site-header { background: var(--page); border-bottom: 1px solid var(--rule); }
+  .bar { display: flex; align-items: center; gap: 28px; min-height: 64px; }
+  .brand { text-decoration: none; display: flex; flex-direction: column; line-height: 1.15; padding: 10px 0; margin-right: auto; }
+  .brand-name { font-weight: 700; font-size: 0.98rem; color: var(--ink-strong); }
+  .brand-sub { font-size: 0.74rem; color: var(--steel); }
+  .pill { background: var(--red); color: var(--white); font-size: 0.72rem; font-weight: 600; padding: 3px 12px; border-radius: 999px; }
+  .menu summary { list-style: none; cursor: pointer; font-weight: 600; font-size: var(--t-sm); padding: 7px 14px; border: 1px solid var(--ink-strong); border-radius: 999px; color: var(--ink-strong); }
   .menu summary::-webkit-details-marker { display: none; }
   .menu ul { list-style: none; margin: 0; padding: 0; }
-  .menu a { color: #dbe3ee; text-decoration: none; font-size: 0.9375rem; font-weight: 500; }
-  .menu a:hover, .menu a[aria-current='page'] { color: var(--white); }
-  .menu a[aria-current='page'] { text-decoration: underline; text-decoration-color: #5fc0c7; text-decoration-thickness: 2px; text-underline-offset: 8px; }
-
-  /* Small screens: dropdown panel */
-  @media (max-width: 879px) {
+  .menu a { color: var(--steel); text-decoration: none; font-size: 0.84rem; font-weight: 500; }
+  .menu a:hover { color: var(--ink-strong); }
+  .menu a[aria-current='page'] { color: var(--red); font-weight: 600; }
+  @media (max-width: 899px) {
     .menu { position: relative; }
-    .menu nav { position: absolute; right: 0; top: calc(100% + 10px); background: var(--navy); border: 1px solid #344c74; border-radius: 6px; padding: 8px 0; min-width: 210px; z-index: 5; }
+    .menu nav { position: absolute; right: 0; top: calc(100% + 10px); background: var(--page); border: 1px solid var(--rule); box-shadow: 0 12px 28px -14px rgba(0,0,0,.3); padding: 8px 0; min-width: 210px; z-index: 5; }
     .menu li a { display: block; padding: 10px 18px; }
+    .pill { display: none; }
   }
-  /* Wide screens: inline nav, no toggle */
-  @media (min-width: 880px) {
+  @media (min-width: 900px) {
     .menu summary { display: none; }
     .menu nav { display: block !important; }
-    .menu ul { display: flex; gap: 22px; }
+    .menu ul { display: flex; gap: 24px; }
   }
 </style>
 
 <script>
-  // Keep the nav visible on wide screens even when the <details> is closed.
   const menu = document.querySelector<HTMLDetailsElement>('.menu');
-  const mq = window.matchMedia('(min-width: 880px)');
+  const mq = window.matchMedia('(min-width: 900px)');
   const sync = () => { if (menu && mq.matches) menu.open = true; };
   sync();
   mq.addEventListener('change', sync);

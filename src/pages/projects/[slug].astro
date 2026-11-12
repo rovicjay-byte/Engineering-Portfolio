@@ -108,12 +108,12 @@ const related = all
 <style>
   .cs-head { padding-bottom: 28px; border-bottom: 1px solid var(--rule); margin-bottom: 36px; }
   .cs-labels { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .code { font-weight: 650; color: var(--steel); font-size: var(--t-sm); }
-  .cs-head h1 { max-width: 28ch; }
+  .code { font-weight: 600; color: var(--red); font-size: var(--t-sm); }
+  .cs-head h1 { max-width: 30ch; font-size: clamp(1.8rem, 3.6vw, 2.6rem); }
   .summary { font-size: var(--t-md); color: var(--steel); max-width: 62ch; line-height: 1.45; margin: 0; }
   .cs-grid { display: grid; grid-template-columns: 300px 1fr; gap: 48px; align-items: start; }
-  .cs-facts { position: sticky; top: 24px; background: var(--white); border: 1px solid var(--rule); border-radius: 6px; padding: 20px; }
-  .side-h { font-size: 0.8125rem; color: var(--steel); font-weight: 600; margin: 20px 0 8px; letter-spacing: 0; }
+  .cs-facts { position: sticky; top: 24px; background: var(--white); border-top: 3px solid var(--red); padding: 20px; }
+  .side-h { font-size: 0.8rem; color: var(--red); font-weight: 600; margin: 20px 0 8px; letter-spacing: 0; }
   .tags a { text-decoration: none; color: inherit; }
   .tags a:hover { color: var(--accent); }
   .note { margin: 20px 0 0; color: var(--steel); }

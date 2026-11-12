@@ -108,7 +108,9 @@ const profile = defineCollection({
       z.object({ degree: z.string(), school: z.string(), period: z.string(), notes: z.array(z.string()).default([]) }),
     ),
     credentials: z.array(z.object({ name: z.string(), detail: z.string() })).default([]),
-    trainings: z.array(z.object({ name: z.string(), detail: z.string() })).default([]),
+    trainings: z
+      .array(z.object({ name: z.string(), detail: z.string(), category: z.enum(['professional', 'student', 'competition']).default('professional') }))
+      .default([]),
   }),
 });
 

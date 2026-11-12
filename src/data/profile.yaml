@@ -59,14 +59,51 @@ me:
   credentials:
     - name: "Registered Civil Engineer"
       detail: "Professional Regulation Commission, Philippines, November 2024"
+  # Professional development, seminars and competitions (from the E-CERT folder).
+  # Certificates themselves are not published: several show your PRC number.
   trainings:
     - name: "End-to-End Steel Design: Concept, Analysis, Connections and Drawings (webinar)"
       detail: "XSTRUCTURES, October 2025"
+      category: professional
     - name: "PICE 8th Region CAR Technical Conference"
       detail: "Philippine Institute of Civil Engineers, La Trinidad, Benguet, September 2025 (8 CPD units)"
+      category: professional
     - name: "Smart Site Management"
       detail: "PICE-UAE, March 2025"
+      category: professional
     - name: "Detailer Training Series"
       detail: "AISC and NISD, December 2024"
+      category: professional
     - name: "PCC Quality Control and Quality Assurance"
       detail: "AASHTO, December 2024"
+      category: professional
+    - name: "Midas Academic Summit 2023: Envisioning the Facets of Civil Engineering through Midas Software"
+      detail: "MIDAS, May 2023"
+      category: student
+    - name: "7th Regional Civil Engineering Student Summit (RCESS 2023), technical sessions on sustainable transport and urbanization"
+      detail: "Cagayan State University, Tuguegarao City, April 2023"
+      category: student
+    - name: "4th PICE International Chapters Collaboration Webinar, Days 1 and 2: pavement risk assessment, rock mass characterization, precast box culverts and more"
+      detail: "PICE-UAE Chapter, December 2022"
+      category: student
+    - name: "CE Webinar 2022: Water Resources Engineering"
+      detail: "Polytechnic University of the Philippines, July 2022"
+      category: student
+    - name: "School Safety and Disaster Preparedness (national webinar)"
+      detail: "PSME Student Unit, DMMMSU Mid La Union Campus, July 2022"
+      category: student
+    - name: "CE Webinar 2022: Transportation Engineering"
+      detail: "Polytechnic University of the Philippines, July 2022"
+      category: student
+    - name: "ECOnstruction: The Centerpiece for Sustainable Development (webinar)"
+      detail: "ACIP Mapúa University Student Chapter, July 2022"
+      category: student
+    - name: "Why is Manila at Risk of Becoming an Underwater City? Sanitary Engineering on Urban Planning (webinar)"
+      detail: "PSSE Mapúa University Student Chapter, July 2022"
+      category: student
+    - name: "Midas Civil Starter Pack II: boundary conditions, bridge wizards, bridge load types and analysis controls"
+      detail: "MIDAS, June to July 2022 (four sessions)"
+      category: student
+    - name: "Regional PaCEkatan Quiz Show (team of four), plaque of participation"
+      detail: "RCESS 2023, Cagayan State University, April 2023"
+      category: competition

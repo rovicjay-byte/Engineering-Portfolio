@@ -1,0 +1,53 @@
+---
+# Professional DPWH work. Stays in review until every line is checked and any
+# permission needed is in hand. Figures are crops of the approved plan set with
+# the title block (names, signatures, project name, stations, sheet numbers) removed.
+code: PRO-2025-004
+title: "Mountain Road Construction with Box Culvert Drainage and Slope Protection"
+work_type: PRO
+publication_status: review
+confidentiality: generalized
+disciplines: [highway, civil-design-cad, geotechnical, qto-estimation]
+project_type: "Road construction"
+software: []               # CONFIRM software used (Civil 3D? AutoCAD?)
+competencies: ["Road design", "Box culvert drainage design", "Retaining wall design", "Slope protection design", "Earthwork quantities"]
+location_public: "Ifugao, Cordillera Administrative Region"
+client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"
+year: 2025
+status: completed          # CONFIRM: plans approved December 2025; is construction under way?
+role: "Design, drafting and quantities"
+summary: "Design, drafting and quantities for about 1.1 km of new concrete road on steep mountain terrain, with a reinforced concrete box culvert and flume, and cribwall, retaining wall and gabion slope protection."
+featured: false
+cover: cover.webp
+previews:
+  - file: box-culvert-flume.webp
+    caption: "Reinforced concrete box culvert with catch basin, outlet basin and flume: isometric view, typical cross section and reinforcement"
+    wide: true
+  - file: double-cribwall.webp
+    caption: "Double cribwall: road cross section, plan, elevation and dimension table for wall heights up to 14.5 m"
+    wide: true
+  - file: retaining-wall-barrier.webp
+    caption: "Reinforced concrete retaining wall with design parameters, concrete barrier and chute details"
+    wide: true
+  - file: gabion-weephole.webp
+    caption: "Gabion wall section with design parameters and material requirements, rubble concrete pathway and weephole details"
+    wide: true
+---
+
+## Project overview
+
+Construction of about 1.1 km of road through steep mountain terrain in Ifugao, under a DPWH program that builds access roads and bridges for communities across local government boundaries. The road is two 3.35 m Portland cement concrete lanes with concrete barriers. Cross drainage is a single-barrel 2.0 × 2.0 m reinforced concrete box culvert with a catch basin at the inlet and an outlet basin and flume carrying water down the slope. Cut and fill slopes are held by double cribwalls, reinforced concrete cantilever retaining walls and gabion walls, with weepholes and filter material behind the walls.
+
+## My specific responsibilities
+
+- Design work on the road, drainage and slope protection <!-- CONFIRM which elements you designed -->
+- Drafted the plan set: plan and profile, cross sections and structure details
+- Prepared the quantities, including earthwork end areas on the cross sections
+
+## Applicable standards
+
+DPWH Standard Specifications for Highways, Bridges and Airports; AASHTO M 31 reinforcement; ASTM A641 wire coating for the gabions. <!-- CONFIRM -->
+
+## Drawings and visual evidence
+
+The figures are crops of detail sheets from the approved plan set. Title blocks, names, signatures, project name and stationing are removed.

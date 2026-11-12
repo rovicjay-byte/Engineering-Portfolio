@@ -55,7 +55,7 @@
   discipline: civil-design-cad
   name: "Complete building plan sets (architectural, structural, electrical, plumbing)"
   level: academic
-  evidence: "Residential, apartment and as-built plan sets drawn individually in BSCE coursework"
+  evidence: "Residential and apartment plan sets drawn individually in BSCE coursework, and as-built plans for the BSCE thesis"
   tools: ["AutoCAD", "SketchUp"]
 - id: str-detailing
   order: 15
@@ -133,8 +133,22 @@
   discipline: structural-seismic
   name: "Seismic fragility curve analysis"
   level: academic
-  evidence: "BSCE thesis on Saint Mary's University buildings"
-  tools: []
+  evidence: "BSCE thesis: fragility curves for four campus buildings from incremental dynamic analysis (ASCE 41-17)"
+  tools: ["SAP2000"]
+- id: str-time-history
+  order: 17
+  discipline: structural-seismic
+  name: "Nonlinear time history analysis of existing buildings"
+  level: academic
+  evidence: "BSCE thesis: nonlinear SAP2000 models with plastic hinges, PEER ground motions scaled to DBE and MCE"
+  tools: ["SAP2000"]
+- id: str-ndt
+  order: 18
+  discipline: structural-seismic
+  name: "Non-destructive testing of concrete"
+  level: academic
+  evidence: "BSCE thesis: rebound hammer testing of beams, columns and slabs (ASTM C805)"
+  tools: ["Rebound hammer"]
 
 # Research
 - id: res-writing
@@ -146,13 +160,6 @@
   tools: []
 
 # --- To confirm before enabling ---------------------------------------------
-# Was this for your thesis (academic) or for paid work (professional)?
-# - id: str-time-history
-#   discipline: structural-seismic
-#   name: "Nonlinear time history analysis of existing structures"
-#   level: ???
-#   evidence: "???"
-#   tools: ["SAP2000"]
 # Where did you use RCDC: DPWH buildings or coursework?
 # - id: str-rcdc
 #   discipline: structural-seismic

@@ -1,38 +1,59 @@
 ---
-code: RES-2023-001          # CONFIRM year
+code: RES-2023-001
 title: "Seismic Risk Assessment of Saint Mary's University Buildings Using Fragility Curve Analysis"
 work_type: RES
 publication_status: review
 confidentiality: public
-disciplines: [structural-seismic, research]
+disciplines: [structural-seismic, research, civil-design-cad]
 project_type: "Undergraduate thesis"
-software: []                # CONFIRM software used
-competencies: ["Seismic risk assessment", "Fragility curves"]
-location_public: "Saint Mary's University"
+software: ["SAP2000", "AutoCAD"]
+competencies: ["Seismic risk assessment", "Fragility curves", "Incremental dynamic analysis", "Nonlinear time history analysis", "As-built documentation", "Non-destructive testing"]
+location_public: "Saint Mary's University, Bayombong, Nueva Vizcaya"
 client_public: "Saint Mary's University, BS Civil Engineering"
-year: 2024                  # CONFIRM
+year: 2024
 status: completed
-role: "Researcher (group thesis)"   # CONFIRM your individual part
-summary: "Undergraduate thesis assessing the seismic risk of university buildings with fragility curve analysis. Recognized with the LIKHA Award for Best Paper in the Civil Engineering Department."
+role: "Co-researcher (team of four, with adviser)"   # CONFIRM: add your own part below
+summary: "Group thesis that built nonlinear SAP2000 models of four pre-1997 campus buildings and developed fragility curves through incremental dynamic analysis, to estimate their probability of damage under design-level and maximum considered earthquakes. Recognized with the LIKHA Award for Best Paper in the Civil Engineering Department."
 featured: true
+previews:
+  - file: sap2000-building-models.webp
+    caption: "SAP2000 models of the four buildings assessed"
+  - file: fragility-curves.webp
+    caption: "Fragility curves for the Immediate Occupancy and Life Safety limit states, X and Y directions, for each building"
+  - file: research-poster.webp
+    caption: "Research poster"
 ---
 
 ## Project overview
 
-BS Civil Engineering thesis at Saint Mary's University.
+Bachelor of Science in Civil Engineering thesis at Saint Mary's University, approved by the oral examination committee on April 21, 2024. Co-researchers: Sophia T. Campita, Nicole M. Medina, Rovic-Jay S. Piñon and Joyce Ann Marie A. Sugue. Adviser: Engr. Carmelo T. Andrada II.
 
-## My specific responsibilities
+## Problem statement
 
-<!-- TO WRITE: what you personally did versus your groupmates. -->
+Eight of the university's 22 buildings were built before 1997, when seismic provisions were introduced through the Uniform Building Code. Bayombong lies in seismic Zone 4. The study asked how likely these older buildings are to be damaged by the earthquakes expected at the site.
 
-## Methodology
+## Engineering methodology
 
-<!-- TO WRITE -->
+1. **Building selection.** Four college buildings were selected for evaluation under UBC 1997 and ASCE 41-17.
+2. **Concrete strength.** The compressive strength of beams, columns and slabs was estimated by non-destructive rebound hammer testing (ASTM C805/C805M-18).
+3. **As-built plans.** As-built architectural and structural plans were drawn in AutoCAD. Dimensions on the available plans were checked on site with a surveying tape. This found, for example, columns measuring 550 mm where the plan showed 500 mm, beams 50 mm off in width and depth, and secondary beams the plans did not show.
+4. **Structural modeling.** Linear SAP2000 models gave base shear, lateral force distribution and modal response. Nonlinear models with plastic hinges were then run through incremental dynamic analysis, using ground motion records from the PEER database scaled to the design basis earthquake (DBE) and maximum considered earthquake (MCE) spectra.
+5. **Fragility curves.** Curves were developed for the ASCE 41-17 Immediate Occupancy and Life Safety limit states, in both directions, for each building.
 
 ## Results and verified outcomes
 
-LIKHA Award, Best Paper, Civil Engineering Department. <!-- CONFIRM exact award name -->
+At Bayombong's peak ground accelerations of 0.4g (DBE) and 0.5g (MCE), the probability of damage for the assessed buildings was low. Looking building by building, the JVD Building showed negligible to minimal damage and the Hantson Building somewhat higher. The Apo Pilo and HTM buildings, whose fragility curves rise steeply, carried the highest risk of passing 50% probability of damage toward collapse. The thesis presents the curves as a basis for retrofit planning, seismic risk mitigation and emergency response planning.
+
+Recognized with the LIKHA Award, Best Paper, Civil Engineering Department. <!-- CONFIRM exact award name -->
+
+## Applicable standards and references
+
+UBC 1997, ASCE 41-17, NSCP 2015, ASTM C805/C805M-18. Ground motion records from the PEER Ground Motion Database.
+
+## My specific responsibilities
+
+<!-- CONFIRM / WRITE: e.g. which buildings you modeled, the as-built drafting, the rebound hammer testing, the IDA runs. -->
 
 ## Competencies demonstrated
 
-Seismic assessment, fragility curve analysis, research and technical writing.
+Nonlinear time history and incremental dynamic analysis in SAP2000, fragility curve development, performance-based evaluation to ASCE 41-17, non-destructive testing of concrete, and as-built documentation.

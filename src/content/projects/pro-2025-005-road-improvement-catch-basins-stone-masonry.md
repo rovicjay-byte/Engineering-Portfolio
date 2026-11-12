@@ -20,6 +20,21 @@ summary: "Design, drafting and quantities for an off-carriageway improvement of 
 featured: false
 cover: cover.webp
 previews:
+  - file: plan-profile-1.webp
+    caption: "Plan and profile, sheet 1 of 3: alignment, curve data, profile grades and superelevation"
+    wide: true
+  - file: plan-profile-2.webp
+    caption: "Plan and profile, sheet 2 of 3: alignment, curve data, profile grades and superelevation"
+    wide: true
+  - file: plan-profile-3.webp
+    caption: "Plan and profile, sheet 3 of 3: alignment, curve data, profile grades and superelevation"
+    wide: true
+  - file: cross-sections-1.webp
+    caption: "Cross sections, sheet 1 of 2: existing and finished ground, typical section and earthwork end areas and proposed stone masonry"
+    wide: true
+  - file: cross-sections-2.webp
+    caption: "Cross sections, sheet 2 of 2: existing and finished ground, typical section and earthwork end areas and proposed stone masonry"
+    wide: true
   - file: roadway-curb-gutter-slope-drain.webp
     caption: "Typical roadway section, widening on curves with superelevation and masonry breastwall, curb and gutter, and reinforced concrete slope drain"
     wide: true
@@ -47,4 +62,4 @@ DPWH Standard Specifications for Highways, Bridges and Airports; DPWH pavement d
 
 ## Drawings and visual evidence
 
-The figures are crops of detail sheets from the approved plan set. Title blocks, names, signatures, project name and stationing are removed.
+The plan and profile and cross-section sheets are shown whole, with the signatures removed and the printed names in the title block re-lettered. The detail figures are crops of detail sheets from the approved plan set.

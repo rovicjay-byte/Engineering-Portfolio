@@ -20,6 +20,27 @@ summary: "Drafted the detailed engineering plan in Civil 3D for a two-lane, 45 m
 featured: false
 cover: cover.webp
 previews:
+  - file: road-plan-profile.webp
+    caption: "Road plan and profile diagram across the bridge site, with borehole logs and curve data"
+    wide: true
+  - file: road-plan-profile-blow-up.webp
+    caption: "Road plan and profile diagram, enlarged at the bridge"
+    wide: true
+  - file: river-plan-profile.webp
+    caption: "River plan and profile diagram at the crossing"
+    wide: true
+  - file: cross-sections-1.webp
+    caption: "Road cross sections, sheet 1 of 4: existing and finished ground, bridge sections and earthwork end areas"
+    wide: true
+  - file: cross-sections-2.webp
+    caption: "Road cross sections, sheet 2 of 4: existing and finished ground, bridge sections and earthwork end areas"
+    wide: true
+  - file: cross-sections-3.webp
+    caption: "Road cross sections, sheet 3 of 4: existing and finished ground, bridge sections and earthwork end areas"
+    wide: true
+  - file: cross-sections-4.webp
+    caption: "Road cross sections, sheet 4 of 4: existing and finished ground, bridge sections and earthwork end areas"
+    wide: true
   - file: abutment-plan-coping.webp
     caption: "Typical abutment plan, and coping and backwall section, with reinforcement"
     wide: true
@@ -45,4 +66,4 @@ Detailed engineering plan for a new two-lane, 45 m bridge on a mountain road in 
 
 ## Drawings and visual evidence
 
-The figures are crops of detail sheets from the approved plan set. Title blocks, names, signatures, project name and stationing are removed.
+The plan and profile and cross-section sheets are shown whole, with the signatures removed and the printed names in the title block re-lettered. The detail figures are crops of detail sheets from the approved plan set.

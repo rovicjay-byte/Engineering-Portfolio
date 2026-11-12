@@ -1,11 +1,11 @@
 ---
-# Professional DPWH work. Stays in review until every line is checked and any
-# permission needed is in hand. Figures are crops of the approved plan set with
+# Professional DPWH work, approved for publication 2026-11-12. Figures are crops of the approved plan set with
 # the title block (names, signatures, project name, stations, sheet numbers) removed.
 code: PRO-2025-004
 title: "Mountain Road Construction with Box Culvert Drainage and Slope Protection"
 work_type: PRO
-publication_status: review
+publication_status: approved
+approval_reference: "Redacted plan-set figures and text approved for publication by R. Piñon, 2026-11-12"
 confidentiality: generalized
 disciplines: [highway, civil-design-cad, geotechnical, qto-estimation]
 project_type: "Road construction"
@@ -40,13 +40,13 @@ Construction of about 1.1 km of road through steep mountain terrain in Ifugao, u
 
 ## My specific responsibilities
 
-- Design work on the road, drainage and slope protection <!-- CONFIRM which elements you designed -->
+- Design work on the road, drainage and slope protection
 - Drafted the plan set: plan and profile, cross sections and structure details
 - Prepared the quantities, including earthwork end areas on the cross sections
 
 ## Applicable standards
 
-DPWH Standard Specifications for Highways, Bridges and Airports; AASHTO M 31 reinforcement; ASTM A641 wire coating for the gabions. <!-- CONFIRM -->
+DPWH Standard Specifications for Highways, Bridges and Airports; AASHTO M 31 reinforcement; ASTM A641 wire coating for the gabions.
 
 ## Drawings and visual evidence
 

@@ -1,11 +1,11 @@
 ---
-# Professional DPWH work. Stays in review until every line is checked and any
-# permission needed is in hand. Figures are crops of the approved plan set with
+# Professional DPWH work, approved for publication 2026-11-12. Figures are crops of the approved plan set with
 # the title block (names, signatures, project name, stations, sheet numbers) removed.
 code: PRO-2026-001
 title: "Detailed Engineering Plan for a Two-Lane, 45 m Steel Plate Girder Bridge"
 work_type: PRO
-publication_status: review
+publication_status: approved
+approval_reference: "Redacted plan-set figures and text approved for publication by R. Piñon, 2026-11-12"
 confidentiality: generalized
 disciplines: [civil-design-cad, qto-estimation, highway]
 project_type: "Bridge plans"

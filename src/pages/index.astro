@@ -61,17 +61,13 @@ const selected = [...proFirst.slice(0, 4), ...research.slice(0, 2)];
     </div>
 
     <div class="pg cover-right">
-      <img class="collage" src="/img/cover-collage.webp" alt="" width="1600" height="2100" fetchpriority="high" />
-      <div class="stage">
-        <img
-          class="me"
-          src="/img/rovic-jay-pinon-cutout.webp"
-          alt={`Portrait of ${me.name}`}
-          width="902" height="1339"
-          fetchpriority="high"
-        />
-      </div>
-      <p class="collage-note">Background: details from my DPWH plan sets</p>
+      <img
+        class="portrait"
+        src="/img/rovic-jay-pinon-cover.webp"
+        alt={`Portrait of ${me.name}`}
+        width="1086" height="1448"
+        fetchpriority="high"
+      />
     </div>
   </section>
 
@@ -142,23 +138,9 @@ const selected = [...proFirst.slice(0, 4), ...research.slice(0, 2)];
   .keyfacts dd { margin: 0; font-size: 0.92rem; color: var(--ink); }
   .actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
-  /* Portrait on a collage of plan details */
-  .cover-right {
-    position: relative; overflow: hidden; display: flex; align-items: flex-end; justify-content: center;
-    padding: 0 !important; background: #f8f7f4; isolation: isolate;
-  }
-  .collage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; z-index: -2; }
-  .cover-right::before {
-    /* soft light behind the figure so it separates from the linework */
-    content: ''; position: absolute; inset: 0; z-index: -1;
-    background: radial-gradient(ellipse 46% 52% at 50% 64%, rgba(248, 247, 244, 0.92) 0%, rgba(248, 247, 244, 0.55) 55%, rgba(248, 247, 244, 0) 100%);
-  }
-  .stage { position: relative; width: min(84%, 460px); margin-top: 70px; }
-  .me { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 30px rgba(20, 20, 20, 0.18)); }
-  .collage-note {
-    position: absolute; left: 16px; bottom: 12px; margin: 0; font-size: 0.7rem; color: var(--steel);
-    background: rgba(248, 247, 244, 0.85); padding: 3px 8px; border-radius: 999px;
-  }
+  /* Portrait on linework */
+  .cover-right { position: relative; overflow: hidden; padding: 0 !important; background: #f8f7f4; }
+  .portrait { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
 
   .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
   .sec-head h2 { margin: 0; }
@@ -205,8 +187,6 @@ const selected = [...proFirst.slice(0, 4), ...research.slice(0, 2)];
   @media (max-width: 860px) {
     .cover { min-height: 0; }
     .cover-right { order: -1; min-height: 440px; }
-    .collage-note { display: none; }
-    .stage { width: min(72%, 330px); margin-top: 40px; }
   }
   @media (max-width: 600px) {
     .spec-grid, .cards { grid-template-columns: 1fr; }

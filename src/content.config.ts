@@ -35,7 +35,15 @@ const projects = defineCollection({
       location_public: z.string().optional(),
       client_public: z.string().optional(),
       year: z.number().int().min(2015).max(2100),
+      // status = state of MY work on it (the deliverable), not of construction
       status: z.enum(['planned', 'ongoing', 'completed', 'suspended']),
+      // stage = where the project itself stands. Leave out when unknown.
+      // Never use construction-complete just because the plans are finished.
+      stage: z
+        .enum(['planning', 'detailed-engineering', 'design-review', 'plans-approved', 'procurement', 'under-construction', 'construction-complete'])
+        .optional(),
+      dimensions: z.string().optional(),
+      deliverables: z.array(z.string()).default([]),
       role: z.string(),
       summary: z.string().min(20),
       featured: z.boolean().default(false),
@@ -71,6 +79,19 @@ const capabilities = defineCollection({
   }),
 });
 
+// Software, grouped by category, with what I actually produce in each.
+const software = defineCollection({
+  loader: file('src/data/software.yaml'),
+  schema: z.object({
+    name: z.string(),
+    category: z.enum(['highway-cad', 'geotechnical', 'structural', 'gis', 'computation', 'visualization']),
+    order: z.number().default(99),
+    level,
+    uses: z.array(z.string()).min(1),
+    projects: z.array(z.string()).default([]),   // project codes as evidence
+  }),
+});
+
 const deliverables = defineCollection({
   loader: file('src/data/deliverables.yaml'),
   schema: z.object({
@@ -90,6 +111,8 @@ const profile = defineCollection({
   loader: file('src/data/profile.yaml'),
   schema: z.object({
     name: z.string(),
+    post_nominal: z.string().optional(),
+    title: z.string().optional(),
     short_name: z.string(),
     designation: z.string(),
     headline: z.string(),
@@ -102,16 +125,21 @@ const profile = defineCollection({
     philosophy: z.array(z.string()).default([]),
     objectives: z.string(),
     employment: z.array(
-      z.object({ role: z.string(), org: z.string(), period: z.string(), notes: z.array(z.string()).default([]) }),
+      z.object({
+        role: z.string(), org: z.string(), period: z.string(),
+        unit: z.string().optional(),
+        notes: z.array(z.string()).default([]),
+        projects: z.array(z.string()).default([]),   // project codes shown as "Selected projects"
+      }),
     ),
     education: z.array(
       z.object({ degree: z.string(), school: z.string(), period: z.string(), notes: z.array(z.string()).default([]) }),
     ),
-    credentials: z.array(z.object({ name: z.string(), detail: z.string() })).default([]),
+    credentials: z.array(z.object({ name: z.string(), detail: z.string(), document: z.string().optional() })).default([]),
     trainings: z
       .array(z.object({ name: z.string(), detail: z.string(), category: z.enum(['professional', 'student', 'competition']).default('professional'), certificate: z.string().optional() }))
       .default([]),
   }),
 });
 
-export const collections = { projects, capabilities, deliverables, profile };
+export const collections = { projects, capabilities, deliverables, profile, software };

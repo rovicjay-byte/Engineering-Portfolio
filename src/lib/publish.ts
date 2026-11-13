@@ -64,12 +64,42 @@ export const LEVEL_LABELS: Record<string, string> = {
 export const STATUS_LABELS: Record<string, string> = {
   planned: 'Planned',
   ongoing: 'Ongoing',
-  completed: 'Completed',
+  completed: 'Completed',  // my deliverable, see `stage` for the project
   suspended: 'Suspended',
+};
+
+export const STAGE_LABELS: Record<string, string> = {
+  planning: 'Planning',
+  'detailed-engineering': 'Detailed engineering',
+  'design-review': 'Design review',
+  'plans-approved': 'Plans approved',
+  procurement: 'Plans approved, in procurement',
+  'under-construction': 'Plans approved, under construction',
+  'construction-complete': 'Construction completed',
 };
 
 export async function getCapabilities() {
   return (await getCollection('capabilities')).sort((a, b) => a.data.order - b.data.order);
+}
+
+export const SOFTWARE_CATEGORIES: Record<string, string> = {
+  'highway-cad': 'Highway and CAD',
+  geotechnical: 'Geotechnical',
+  structural: 'Structural',
+  gis: 'GIS and survey',
+  computation: 'Computation and documentation',
+  visualization: 'Visualization',
+};
+
+export async function getSoftware() {
+  return (await getCollection('software')).sort((a, b) => a.data.order - b.data.order);
+}
+
+/** Map of project code -> public project, for linking evidence by code. */
+export async function getProjectsByCode() {
+  const map = new Map<string, Project>();
+  for (const p of await getProjects()) map.set(p.data.code, p);
+  return map;
 }
 
 export async function getDeliverables() {

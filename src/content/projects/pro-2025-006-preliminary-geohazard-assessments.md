@@ -16,6 +16,11 @@ location_public: "Mayoyao, Aguinaldo and Alfonso Lista, Ifugao"
 client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"
 year: 2025
 status: completed
+dimensions: "Three reports for three road projects"
+deliverables:
+  - "Preliminary geohazard assessment reports (3)"
+  - "Geohazard assessment matrices"
+  - "Hazard maps (13 per report)"
 role: "Prepared the reports and hazard maps"
 summary: "Preliminary geohazard assessment reports, prepared in November 2025 under the DPWH Guidelines on Geohazard Assessment, for three FY 2026 road projects on the Banaue–Mayoyao–Alfonso Lista road: slope protection in Mayoyao (Php 28.45 million), off-carriageway improvement in Aguinaldo (Php 22.55 million) and drainage and slope protection in Alfonso Lista (Php 20.98 million). Each report screens the site for 15 hazards and comes with a set of 13 hazard maps; all three sites came out as class 3 (hazard exists, site investigation needed), driven by unstable slopes."
 featured: true

@@ -15,6 +15,10 @@ location_public: "Aguinaldo and Alfonso Lista, Ifugao"
 client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"
 year: 2025
 status: completed
+dimensions: "Covered RC canal, 0.90 x 0.90 m clear"
+deliverables:
+  - "Design spreadsheet (loads, member analysis, flexure and shear design)"
+  - "Design runs for two projects"
 role: "Built the design spreadsheet and ran the designs"
 summary: "An Excel design sheet I built for a covered reinforced concrete canal (0.90 x 0.90 m clear, 180 mm walls) under soil, water, surcharge and uplift loads, designed for flexure and shear to NSCP 2015. Used for two FY 2026 road projects in Ifugao."
 featured: false

@@ -1,31 +1,41 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getProfile } from '../lib/publish';
+import { getProfile, getProjects } from '../lib/publish';
 const me = await getProfile();
+const reports = (await getProjects()).flatMap((p) => p.data.downloads.filter((d) => d.file.endsWith('.pdf')).map((d) => ({ ...d, p })));
 const docs = [
-  { label: 'Resume (PDF)', href: me.resume_pdf },
+  { label: 'Professional CV (PDF)', href: me.resume_pdf },
   { label: 'Engineering portfolio (PDF)', href: me.portfolio_pdf },
 ].filter((d) => d.href);
 ---
-<Base title="Resume and credentials" crumbs={[{ label: 'Resume' }]}>
+<Base title="Resume and documents" description="CV, professional registration, certificates and selected engineering reports of Rovic-Jay Piñon, RCE." crumbs={[{ label: 'Resume' }]}>
   <header class="page-head">
-    <h1>Resume and credentials</h1>
-    <p>Downloadable documents and professional registration.</p>
+    <h1>Resume and documents</h1>
+    <p>CV, professional registration, certificates and selected reports. The <a href="/documents">document library</a> has every plan sheet, figure and estimate on this site.</p>
   </header>
 
   <section>
-    <h2 class="h">Documents</h2>
+    <h2 class="h">CV and portfolio</h2>
     {docs.length > 0 ? (
-      <ul class="reg">{docs.map((d) => <li><a href={d.href} download>{d.label}</a></li>)}</ul>
+      <ul class="reg">{docs.map((d) => <li><a href={d.href} download>Download {d.label}</a> · <a href={d.href} target="_blank" rel="noopener">View</a></li>)}</ul>
     ) : (
-      <p class="muted">A downloadable resume is being finalized. For a copy now, please <a href="/contact">get in touch</a>.</p>
+      <p class="muted">A downloadable CV is being finalized. For a copy now, e-mail <a href={`mailto:${me.email}`}>{me.email}</a>.</p>
     )}
   </section>
 
-  <section class="section">
+  {reports.length > 0 && (
+    <section class="section">
+      <h2 class="h">Selected engineering reports</h2>
+      <ul class="reg">
+        {reports.map((r) => <li><a href={`/previews/${r.p.data.code}/${r.file}`} target="_blank" rel="noopener">{r.label}</a> <span class="muted small">· from <a href={`/projects/${r.p.id}`}>{r.p.data.title}</a></span></li>)}
+      </ul>
+    </section>
+  )}
+
+  <section class="section" id="credentials">
     <h2 class="h">Professional registration</h2>
     <dl class="facts">
-      {me.credentials.map((c) => <><dt>{c.name}</dt><dd>{c.detail}</dd></>)}
+      {me.credentials.map((c) => <><dt>{c.name}</dt><dd>{c.detail}{c.document && <> · <a href={c.document} target="_blank" rel="noopener">View</a></>}</dd></>)}
     </dl>
     <p class="small muted note">License details can be verified on request.</p>
   </section>

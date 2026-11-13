@@ -12,17 +12,25 @@ interface Props {
   crumbs?: { label: string; href?: string }[];
   noindex?: boolean;
   bare?: boolean;
+  image?: string;
 }
-const { title, description, crumbs = [], noindex = false, bare = false } = Astro.props;
+const { title, description, crumbs = [], noindex = false, bare = false, image } = Astro.props;
 const me = await getProfile();
-const fullTitle = title === 'Home' ? `${me.short_name}, ${me.designation}` : `${title} | ${me.short_name}`;
+const brand = 'Rovic-Jay Piñon';
+const fullTitle = title === 'Home'
+  ? `${brand} | Civil Engineer – Highway Design & Geotechnical Engineering`
+  : `${title} | ${brand}, RCE`;
 const desc = description ?? me.headline;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const ogImage = Astro.site ? new URL(image ?? '/img/og-card.jpg', Astro.site).href : undefined;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: me.name,
-  jobTitle: me.designation,
+  jobTitle: 'Civil Engineer',
+  hasCredential: 'Registered Civil Engineer (PRC)',
+  ...(me.email ? { email: `mailto:${me.email}` } : {}),
+  ...(canonical ? { url: new URL('/', Astro.site).href } : {}),
   address: { '@type': 'PostalAddress', addressRegion: me.location },
   ...(me.linkedin ? { sameAs: [encodeURI(me.linkedin)] } : {}),
 };
@@ -39,6 +47,11 @@ const jsonLd = {
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={desc} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Rovic-Jay Piñon, RCE" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="sitemap" href="/sitemap.xml" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
@@ -49,7 +62,7 @@ const jsonLd = {
         Draft view: items in review are visible. The public site shows approved items only.
       </div>
     )}
-    <Header name={me.short_name} designation={me.designation} />
+    <Header name={me.short_name} designation={me.designation} title={me.title} cv={me.resume_pdf || undefined} />
     <main id="main">
       <div class="wrap">
         <div class={bare ? undefined : 'sheet'}>

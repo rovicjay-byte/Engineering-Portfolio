@@ -15,7 +15,14 @@ competencies: ["Bridge plan drafting", "Steel plate girder detailing", "Abutment
 location_public: "Ifugao, Cordillera Administrative Region"
 client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"
 year: 2026
-status: completed          # CONFIRM
+status: completed
+stage: under-construction
+dimensions: "45 m, two-lane steel plate girder bridge"
+deliverables:
+  - "Road and river plan and profile sheets (3)"
+  - "Road cross-section sheets (4)"
+  - "Abutment, bearing, joint and girder detail sheets (7)"
+  - "Bridge and earthwork quantities"
 role: "Drafter and quantity estimator"
 summary: "Drafted the detailed engineering plan in Civil 3D for a two-lane, 45 m steel plate girder bridge on a mountain road, and prepared its quantities: girders, bracing, bearings, abutments and approaches."
 featured: false
@@ -73,6 +80,19 @@ Detailed engineering plan for a new two-lane, 45 m bridge on a mountain road in 
 
 - Drafted the detailed engineering plan sheets in Civil 3D
 - Prepared the quantities, including the earthworks
+
+## The documentation set
+
+The sheets below follow the order of the plan set, from the site down to the steel details:
+
+| Part of the set | Sheets shown | What they establish |
+|---|---|---|
+| Site and alignment | Road plan and profile (and an enlarged view at the bridge), river plan and profile | Where the bridge sits on the road, the vertical alignment across it, borehole logs and the river crossing |
+| Cross sections | Four road cross-section sheets | Existing and finished ground through the approaches and the bridge, and earthwork end areas |
+| Substructure | Abutment plan, coping and backwall; wingwall and approach sidewalk; bridge seat and shear blocks | Concrete dimensions and reinforcement of the abutments and approaches |
+| Bearings and joints | Bearings at the movable and fixed abutments; expansion joint and elastomeric bearing pad | How the girders sit on the abutments and how the deck moves |
+| Superstructure | Exterior and interior main girders with marking diagram; lateral sway bracing with joint details | Plate girder dimensions, stiffener layout and bracing |
+| Quantities | Not shown as sheets | Concrete, reinforcing steel, structural steel, bearings and earthwork quantities for the estimate |
 
 ## Drawings and visual evidence
 

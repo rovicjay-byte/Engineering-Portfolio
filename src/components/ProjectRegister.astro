@@ -1,6 +1,6 @@
 ---
 import type { Project } from '../lib/publish';
-import { DISCIPLINE_SHORT, WORK_TYPE_LABELS, isPublic } from '../lib/publish';
+import { DISCIPLINE_SHORT, WORK_TYPE_LABELS, STAGE_LABELS, isPublic } from '../lib/publish';
 
 interface Props { projects: Project[]; filters?: boolean; group?: boolean; empty?: string }
 const { projects, filters = false, group = false, empty = 'No projects to show yet.' } = Astro.props;
@@ -78,7 +78,7 @@ const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
               <a href={`/projects/${p.id}`} class="card">
                 <span class="thumb">
                   {p.data.cover
-                    ? <img src={`/previews/${p.data.code}/${p.data.cover}`} alt="" loading="lazy" width="1200" height="900" />
+                    ? <img src={`/thumbs/${p.data.code}/${p.data.cover}`} alt="" loading="lazy" decoding="async" width="640" height="480" />
                     : <span class="no-img">{p.data.code}</span>}
                 </span>
                 <span class="meta">
@@ -88,6 +88,9 @@ const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
                   {!isPublic(p) && <span class="draft-flag">{p.data.publication_status === 'draft' ? 'Draft' : 'In review'}</span>}
                 </span>
                 <span class="title">{p.data.title}</span>
+                {(p.data.dimensions || p.data.stage) && (
+                  <span class="facts-line">{[p.data.dimensions, p.data.stage && STAGE_LABELS[p.data.stage]].filter(Boolean).join(' · ')}</span>
+                )}
                 <span class="summary">{p.data.summary}</span>
                 <span class="tags">
                   {p.data.disciplines.map((d) => <span>{DISCIPLINE_SHORT[d]}</span>)}
@@ -126,6 +129,7 @@ const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
   @media (max-width: 900px) { .filters { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 520px) { .f-bar { flex-wrap: wrap; } .f-bar input { flex-basis: 100%; } .f-go, .f-clear { flex: 1; } }
 
+  .facts-line { display: block; font-size: 0.8rem; color: var(--ink); font-weight: 500; margin: 2px 0 6px; }
   .group + .group { margin-top: 56px; }
   .g-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px;
     border-top: 2px solid var(--ink-strong); padding-top: 14px; margin-bottom: 22px; }

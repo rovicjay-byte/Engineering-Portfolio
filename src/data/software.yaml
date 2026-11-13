@@ -1,0 +1,120 @@
+# Software I use, by category, with what I produce in each. No proficiency percentages.
+#   level: professional (used in DPWH work) | academic (coursework/research) | developing
+#   projects: project codes that show the work (only approved projects are linked)
+# Lines marked CONFIRM need your check.
+
+- id: civil3d
+  order: 1
+  category: highway-cad
+  name: "Autodesk Civil 3D"
+  level: professional
+  uses:
+    - "Existing ground surfaces from survey data"
+    - "Horizontal alignments with curve data"
+    - "Vertical profiles and superelevation"
+    - "Assemblies and corridor models"
+    - "Sample lines and cross sections"
+    - "Earthwork end areas and volumes"
+    - "Plan and profile, cross-section and detail sheets"
+  projects: [PRO-2025-004, PRO-2025-005, PRO-2026-001, PRO-2026-003]
+- id: autocad
+  order: 2
+  category: highway-cad
+  name: "AutoCAD"
+  level: academic
+  uses:
+    - "Architectural, structural, plumbing and electrical plan sets"
+    - "As-built plans from site measurements"
+  projects: [ACA-2023-001, ACA-2024-001, RES-2023-001]
+- id: dynamo
+  order: 3
+  category: highway-cad
+  name: "Dynamo for Civil 3D"
+  level: developing
+  uses:
+    - "Scripts to automate repetitive drafting on plan sets"
+  projects: []
+
+- id: geo5
+  order: 10
+  category: geotechnical
+  name: "GEO5"
+  level: professional
+  uses:
+    - "Slope stability by limit equilibrium (Bishop)"
+    - "Staged construction analysis"
+    - "Breastwall and masonry wall checks"
+  projects: [PRO-2026-002]
+
+- id: staad
+  order: 20
+  category: structural
+  name: "STAAD.Pro"
+  level: professional
+  uses:
+    - "Analysis and design of low-rise public buildings with NSCP checks"
+  projects: []
+- id: sap2000
+  order: 21
+  category: structural
+  name: "SAP2000"
+  level: academic
+  uses:
+    - "Nonlinear building models with plastic hinges"
+    - "Incremental dynamic analysis for fragility curves"
+  projects: [RES-2023-001]
+
+- id: qgis
+  order: 30
+  category: gis
+  name: "QGIS"
+  level: professional
+  uses:
+    - "Geohazard maps: faults, landslide susceptibility, geology, liquefaction and more"
+    - "Site location and terrain maps"
+  projects: [PRO-2025-006]
+- id: arcgis
+  order: 31
+  category: gis
+  name: "ArcGIS Pro"
+  level: academic          # CONFIRM: level and an example of the work
+  uses:
+    - "Spatial data processing and mapping"
+  projects: []
+- id: metashape
+  order: 32
+  category: gis
+  name: "Agisoft Metashape"
+  level: professional
+  uses:
+    - "Drone photogrammetry for topographic mapping"
+  projects: []
+
+- id: excel
+  order: 40
+  category: computation
+  name: "Microsoft Excel"
+  level: professional
+  uses:
+    - "Program of works, approved budget for the contract and DUPA"
+    - "Bill of quantities and quantity computations"
+    - "Construction schedules: bar chart, S-curve, CPM and PDM"
+    - "Design spreadsheets (covered RC canal to NSCP 2015)"
+  projects: [PRO-2026-003, PRO-2025-005, PRO-2025-008, PRO-2025-007]
+
+- id: sketchup
+  order: 50
+  category: visualization
+  name: "SketchUp"
+  level: academic
+  uses:
+    - "3D massing and perspective views"
+  projects: []
+- id: lumion
+  order: 51
+  category: visualization
+  name: "Lumion"
+  level: academic          # CONFIRM: level and an example of the work
+  uses:
+    - "Rendered perspectives"
+  projects: []

@@ -3,9 +3,11 @@
 # Lines marked CONFIRM still need your check.
 me:
   name: "Rovic-Jay Sagun Piñon"
+  post_nominal: "RCE"
+  title: "Civil Engineer | Highway Design & Geotechnical Engineering"
   short_name: "Rovic-Jay S. Piñon"
   designation: "Registered Civil Engineer (PRC)"
-  headline: "Highway and geotechnical engineering, from site survey to Civil 3D plans, quantities and slope analysis."
+  headline: "Registered Civil Engineer specializing in highway infrastructure, Civil 3D detailed engineering plans, mountain road development, slope protection, and geotechnical analysis. Experienced in infrastructure planning and engineering deliverables, with ongoing graduate research in reliability-based slope stability."
   intro: >-
     I am a civil engineer with the Department of Public Works and Highways in Ifugao. I design
     and prepare plans for road improvements in mountainous terrain, including drainage and slope
@@ -15,7 +17,9 @@ me:
   location: "Ifugao, Philippines"
   email: "rovicjay.rj@gmail.com"
   linkedin: "https://www.linkedin.com/in/rovic-jay-piñon"
-  resume_pdf: ""   # Use a web copy WITHOUT your phone number, e.g. /files/Pinon_Resume_web.pdf
+  # CV: PENDING. Put a web copy (no phone number) in public/files/ and set the path,
+  # e.g. resume_pdf: "/files/Pinon_CV.pdf". Download buttons appear only when this is set.
+  resume_pdf: ""
   portfolio_pdf: ""
   philosophy:
     - "Every drawing, quantity and calculation should trace back to its source data and assumptions."
@@ -25,9 +29,11 @@ me:
     To grow as a highway and geotechnical engineer on road and slope projects, in the
     Philippines or abroad, while completing my MS in Civil Engineering (Geotechnical).
   employment:
-    - role: "Project Planning and Development Officer C, Planning and Design Section"
+    - role: "Project Planning and Development Officer C"
       org: "DPWH Ifugao 2nd District Engineering Office"
       period: "May 2025 to present"
+      unit: "Planning and Design Section"
+      projects: [PRO-2026-001, PRO-2025-004, PRO-2026-003, PRO-2025-005, PRO-2026-002, PRO-2025-006, PRO-2025-007, PRO-2025-008]
       notes:
         - "Designed and prepared Civil 3D plans for a 3 km road improvement project, including drainage and slope protection works"
         - "Drafted the detailed engineering plan for a two-lane, 45 m bridge and quantified its earthworks"
@@ -38,6 +44,7 @@ me:
     - role: "Trainee"
       org: "DPWH Isabela 4th District Engineering Office"
       period: "April to June 2024"
+      projects: []
       notes:
         - "Construction: supervised construction activities for a bridge project"
         - "Planning and design: reviewed road plans and assisted in quantity estimation"
@@ -53,7 +60,7 @@ me:
       school: "Saint Mary's University"
       period: "August 2020 to July 2024"
       notes:
-        - "Academic Distinction Award"                                # CONFIRM (not on resume)
+        - "Academic Distinction Award"
         - "LIKHA Award for the best innovative paper in the BS Civil Engineering program (thesis)"
         - "Thesis team leader: Seismic Risk Assessment of Saint Mary's University Buildings Using Fragility Curve Analysis"
   credentials:

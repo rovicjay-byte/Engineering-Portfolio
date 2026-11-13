@@ -17,6 +17,10 @@ location_public: "Cordillera Administrative Region"
 client_public: "Department of Public Works and Highways"
 year: 2026
 status: completed
+deliverables:
+  - "GEO5 staged slope stability model"
+  - "Factor of safety by construction stage"
+  - "Redrawn sections and slip circles"
 role: "Slope stability analysis in GEO5"
 summary: "A five-stage GEO5 slope stability check for an off-carriageway improvement on a mountain road: a battered stone masonry breastwall on the cut slope and a stone masonry wall on the outer edge. It shows why the temporary cut was the critical stage (factor of safety 0.98) and confirms both walls meet the required 1.50 once built."
 featured: true
@@ -80,6 +84,14 @@ The project name, stations and exact location are left out of this public versio
 - **The temporary cut is the critical moment.** With the cut open and no wall yet, the factor of safety drops to 0.98: the slope is expected to fail. On site, this means the excavation must be done in short lengths, and the wall must be built right after each length is opened. The cut must not be left exposed, especially in rain.
 - **Both walls restore the slope.** With the breastwall in place, the upper slope just meets 1.50. With the outer wall in place, the outer slope reaches 1.95.
 - **The upper slope has little margin.** At exactly 1.50, the upper slope has none to spare. If the soil strength or the groundwater level on site turns out worse than assumed, this is the first place to look again.
+
+## Assumptions and limitations
+
+- **Two-dimensional section.** One design cross-section is analyzed; conditions can change along the wall.
+- **Soil parameters** are the design values above, not results from site-specific laboratory tests for this section.
+- **Groundwater** is a fixed input line. A higher water table after heavy rain would lower every factor of safety in the table.
+- **Static loading only.** Earthquake loading was not included.
+- **Global stability only.** This page covers slope stability through and around the walls. Wall sliding, overturning and bearing checks are not shown here.
 
 ## Applicable standards
 

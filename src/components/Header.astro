@@ -1,24 +1,24 @@
 ---
-interface Props { name: string; designation: string }
-const { name } = Astro.props;
+interface Props { name: string; designation: string; title?: string; cv?: string }
+const { name, title, cv } = Astro.props;
 const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
   { href: '/projects', label: 'Projects' },
   { href: '/capabilities', label: 'Capabilities' },
-  { href: '/what-i-deliver', label: 'What I deliver' },
+  { href: '/experience', label: 'Experience' },
   { href: '/research', label: 'Research' },
-  { href: '/about', label: 'About' },
   { href: '/resume', label: 'Resume' },
   { href: '/contact', label: 'Contact' },
 ];
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isCurrent = (href: string) => path === href || path.startsWith(href + '/');
-const year = new Date().getFullYear();
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(href + '/'));
 ---
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="/">
       <span class="brand-name">{name}</span>
-      <span class="brand-sub">Engineering portfolio</span>
+      <span class="brand-sub">{title ?? 'Engineering portfolio'}</span>
     </a>
     <details class="menu">
       <summary aria-label="Open menu">Menu</summary>
@@ -30,7 +30,7 @@ const year = new Date().getFullYear();
         </ul>
       </nav>
     </details>
-    <span class="pill" aria-hidden="true">{year}</span>
+    {cv && <a class="cv-btn" href={cv} download>CV</a>}
   </div>
 </header>
 
@@ -40,7 +40,8 @@ const year = new Date().getFullYear();
   .brand { text-decoration: none; display: flex; flex-direction: column; line-height: 1.15; padding: 10px 0; margin-right: auto; }
   .brand-name { font-weight: 700; font-size: 0.98rem; color: var(--ink-strong); }
   .brand-sub { font-size: 0.74rem; color: var(--steel); }
-  .pill { background: var(--red); color: var(--white); font-size: 0.72rem; font-weight: 600; padding: 3px 12px; border-radius: 999px; }
+  .cv-btn { background: var(--red); color: var(--white); font-size: 0.8rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; text-decoration: none; }
+  .cv-btn:hover { background: var(--ink-strong); }
   .menu summary { list-style: none; cursor: pointer; font-weight: 600; font-size: var(--t-sm); padding: 7px 14px; border: 1px solid var(--ink-strong); border-radius: 999px; color: var(--ink-strong); }
   .menu summary::-webkit-details-marker { display: none; }
   .menu ul { list-style: none; margin: 0; padding: 0; }
@@ -51,12 +52,11 @@ const year = new Date().getFullYear();
     .menu { position: relative; }
     .menu nav { position: absolute; right: 0; top: calc(100% + 10px); background: var(--page); border: 1px solid var(--rule); box-shadow: 0 12px 28px -14px rgba(0,0,0,.3); padding: 8px 0; min-width: 210px; z-index: 5; }
     .menu li a { display: block; padding: 10px 18px; }
-    .pill { display: none; }
   }
   @media (min-width: 900px) {
     .menu summary { display: none; }
     .menu nav { display: block !important; }
-    .menu ul { display: flex; gap: 24px; }
+    .menu ul { display: flex; gap: 20px; }
   }
 </style>
 

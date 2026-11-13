@@ -15,7 +15,17 @@ competencies: ["Cost estimating (POW, ABC, DUPA)", "Construction scheduling (CPM
 location_public: "Ifugao, Cordillera Administrative Region"
 client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"
 year: 2026
-status: completed          # Design complete and approved; construction under procurement for C.Y. 2027
+status: completed
+stage: procurement
+dimensions: "About 270 m in three road-slip sections"
+deliverables:
+  - "Plan and profile sheet"
+  - "Cross-section sheets (12)"
+  - "Typical roadway and masonry breastwall detail sheets (2)"
+  - "Quantities"
+  - "Program of works and approved budget for the contract"
+  - "Bill of quantities and unit price analyses"
+  - "Bar chart, CPM schedule and PDM network"
 role: "Design, drafting, quantities and cost estimate"
 summary: "Design, drafting, quantities and the cost estimate (Php 14.61 million, 112 days) for the reconstruction of three road-slip sections, about 270 m in all, on a secondary road in the mountains of Ifugao: stone masonry breastwalls on the cut side, single and double cribwalls and stone masonry walls on the valley side, with concrete pavement widening, a 2.0 m shoulder, curb and gutter and reinforced concrete slope drains."
 featured: false

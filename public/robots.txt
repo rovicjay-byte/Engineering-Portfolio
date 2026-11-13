@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /mid/
+Disallow: /thumbs/
+
+Sitemap: https://engineering-portfolio-kappa-nine.vercel.app/sitemap.xml

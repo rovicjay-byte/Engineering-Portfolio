@@ -1,0 +1,51 @@
+---
+// Employment timeline from profile.yaml, with links to selected public projects.
+import { getProfile, getProjectsByCode, STAGE_LABELS } from '../lib/publish';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const me = await getProfile();
+const byCode = await getProjectsByCode();
+---
+<ol class="tl">
+  {me.employment.map((e) => {
+    const projects = e.projects.map((c) => byCode.get(c)).filter(Boolean);
+    return (
+      <li class="tl-item">
+        <p class="tl-period">{e.period}</p>
+        <div class="tl-body">
+          <h3 class="tl-role">{e.role}</h3>
+          <p class="tl-org">{e.org}{e.unit && <span class="muted"> · {e.unit}</span>}</p>
+          <ul class="tl-notes">{(compact ? e.notes.slice(0, 4) : e.notes).map((n) => <li>{n}</li>)}</ul>
+          {projects.length > 0 && (
+            <div class="tl-proj">
+              <p class="tl-label">Selected projects</p>
+              <ul>
+                {(compact ? projects.slice(0, 4) : projects).map((p) => (
+                  <li>
+                    <a href={`/projects/${p!.id}`}>{p!.data.title}</a>
+                    <span class="muted"> · {p!.data.role}{p!.data.stage ? ` · ${STAGE_LABELS[p!.data.stage]}` : ''}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </li>
+    );
+  })}
+</ol>
+
+<style>
+  .tl { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink-strong); }
+  .tl-item { display: grid; grid-template-columns: 190px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+  .tl-period { margin: 0; font-weight: 600; color: var(--red); font-size: var(--t-sm); }
+  .tl-role { font-size: 1.1rem; margin: 0 0 2px; }
+  .tl-org { margin: 0 0 10px; font-weight: 500; }
+  .tl-notes { margin: 0; padding-left: 1.1em; max-width: 70ch; }
+  .tl-notes li { margin: 3px 0; }
+  .tl-proj { margin-top: 14px; }
+  .tl-label { margin: 0 0 4px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--steel); }
+  .tl-proj ul { margin: 0; padding-left: 1.1em; font-size: 0.92rem; }
+  .tl-proj li { margin: 3px 0; }
+  @media (max-width: 700px) { .tl-item { grid-template-columns: 1fr; gap: 6px; } }
+</style>

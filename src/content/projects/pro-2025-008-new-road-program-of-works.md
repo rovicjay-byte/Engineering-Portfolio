@@ -15,6 +15,12 @@ location_public: "Banaue, Ifugao"
 client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"
 year: 2025
 status: completed
+dimensions: "About 1.25 km of new road (Sta. 1+509 to 2+759)"
+deliverables:
+  - "Program of works and approved budget for the contract"
+  - "Bill of quantities"
+  - "Detailed unit price analyses"
+  - "Construction schedule"
 role: "Prepared the program of works, cost estimate and schedule"
 summary: "Program of works, approved budget for the contract (Php 63.56 million), bill of quantities, detailed unit price analyses and construction schedule for about 1.25 km of new concrete road (Sta. 1+509 to 2+759) on the Banaue–Barlig–Tanudan–Tabuk road, with its drainage and slope protection, over 258 calendar days."
 featured: false

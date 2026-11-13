@@ -2,11 +2,14 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import CapabilityTable from '../../components/CapabilityTable.astro';
+import SoftwareSection from '../../components/SoftwareSection.astro';
 import { DISCIPLINE_LABELS, LEVEL_LABELS, getDeliverables, getCapabilities } from '../../lib/publish';
-import { DISCIPLINES } from '../../content.config';
 
 const caps = await getCapabilities();
-const groups = DISCIPLINES.map((d) => ({ d, items: caps.filter((c) => c.data.discipline === d) })).filter((g) => g.items.length);
+// Order follows my specialization hierarchy: primary, secondary, supporting
+const ORDER = ['highway', 'civil-design-cad', 'geotechnical', 'gis-spatial', 'structural-seismic', 'qto-estimation', 'research'] as const;
+const TIER: Record<string, string> = { highway: 'Primary', 'civil-design-cad': 'Primary', geotechnical: 'Secondary' };
+const groups = ORDER.map((d) => ({ d, items: caps.filter((c) => c.data.discipline === d) })).filter((g) => g.items.length);
 ---
 <Base title="Capabilities" description="Engineering capabilities by discipline, each marked by where the experience comes from." crumbs={[{ label: 'Capabilities' }]}>
   <header class="page-head">
@@ -23,12 +26,19 @@ const groups = DISCIPLINES.map((d) => ({ d, items: caps.filter((c) => c.data.dis
   {groups.map((g) => (
     <section class="grp" id={g.d}>
       <div class="grp-head">
-        <h2>{DISCIPLINE_LABELS[g.d]}</h2>
+        <h2><span class="tier">{TIER[g.d] ?? 'Supporting'}</span>{DISCIPLINE_LABELS[g.d]}</h2>
         <a href={`/capabilities/${g.d}`}>Projects and deliverables in this discipline</a>
       </div>
       <CapabilityTable items={g.items} />
     </section>
   ))}
+
+  <section class="grp" id="software">
+    <div class="grp-head"><h2>Software</h2></div>
+    <SoftwareSection />
+  </section>
+
+  <p class="more">For the inputs, outputs and limits of each kind of deliverable, see <a href="/what-i-deliver">What I deliver</a>. For every published drawing and document, see the <a href="/documents">document library</a>.</p>
 </Base>
 
 <style>
@@ -37,4 +47,6 @@ const groups = DISCIPLINES.map((d) => ({ d, items: caps.filter((c) => c.data.dis
   .grp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
   .grp-head h2 { margin: 0; font-size: var(--t-md); }
   .grp-head a { font-size: var(--t-sm); font-weight: 600; }
+  .tier { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red); margin-bottom: 2px; }
+  .more { margin-top: 40px; color: var(--steel); }
 </style>

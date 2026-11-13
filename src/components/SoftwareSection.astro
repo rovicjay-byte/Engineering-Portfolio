@@ -1,0 +1,52 @@
+---
+// Software by category: what I produce with each tool, the level, and projects that show it.
+import { getSoftware, getProjectsByCode, SOFTWARE_CATEGORIES, LEVEL_LABELS } from '../lib/publish';
+interface Props { headingLevel?: 'h2' | 'h3' }
+const { headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+const items = await getSoftware();
+const byCode = await getProjectsByCode();
+const groups = Object.entries(SOFTWARE_CATEGORIES)
+  .map(([k, label]) => ({ k, label, tools: items.filter((t) => t.data.category === k) }))
+  .filter((g) => g.tools.length);
+---
+<div class="sw">
+  {groups.map((g) => (
+    <section class="sw-group" aria-label={g.label}>
+      <H class="sw-cat">{g.label}</H>
+      <ul class="sw-tools">
+        {g.tools.map((t) => {
+          const ev = t.data.projects.map((c) => byCode.get(c)).filter(Boolean);
+          return (
+            <li class="sw-tool">
+              <div class="sw-top">
+                <span class="sw-name">{t.data.name}</span>
+                <span class={`lvl lvl-${t.data.level}`}>{LEVEL_LABELS[t.data.level]}</span>
+              </div>
+              <ul class="sw-uses">{t.data.uses.map((u) => <li>{u}</li>)}</ul>
+              {ev.length > 0 && (
+                <p class="sw-ev">See: {ev.map((p, i) => <>{i > 0 && ', '}<a href={`/projects/${p!.id}`}>{p!.data.code}</a></>)}</p>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ))}
+</div>
+
+<style>
+  .sw { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 32px; }
+  .sw-cat { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--steel); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--ink-strong); }
+  .sw-tools { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+  .sw-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin-bottom: 4px; }
+  .sw-name { font-weight: 700; color: var(--ink-strong); }
+  .lvl { font-size: 0.7rem; font-weight: 600; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--rule); color: var(--steel); white-space: nowrap; }
+  .lvl-professional { border-color: var(--ink-strong); color: var(--ink-strong); }
+  .lvl-developing { border-style: dashed; }
+  .sw-uses { margin: 0; padding-left: 1.1em; font-size: 0.88rem; color: var(--ink); }
+  .sw-uses li { margin: 2px 0; }
+  .sw-ev { margin: 6px 0 0; font-size: 0.8rem; color: var(--steel); }
+  @media (max-width: 960px) { .sw { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .sw { grid-template-columns: 1fr; } }
+</style>

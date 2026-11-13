@@ -1,197 +1,280 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getProfile, getProjects, getCapabilities, DISCIPLINE_LABELS, WORK_TYPE_LABELS } from '../lib/publish';
+import SoftwareSection from '../components/SoftwareSection.astro';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { getProfile, getProjectsByCode, STAGE_LABELS } from '../lib/publish';
 
 const me = await getProfile();
-const projects = await getProjects();
-const caps = await getCapabilities();
+const byCode = await getProjectsByCode();
+const link = (code: string) => (byCode.get(code) ? `/projects/${byCode.get(code)!.id}` : undefined);
 
-const facts = [
-  { k: 'License', v: 'Registered Civil Engineer, PRC (2024)' },
-  { k: 'Current role', v: 'Planning and Design, DPWH Ifugao 2nd District Engineering Office' },
-  { k: 'Graduate study', v: 'MS Civil Engineering, Geotechnical (PUP), in progress' },
-  { k: 'Degree', v: "BS Civil Engineering, Saint Mary's University (2024)" },
+// B. Snapshot. Project figures are taken from the approved plan sets on this site.
+const snapshot = [
+  { k: 'Registered Civil Engineer', v: 'PRC, November 2024 licensure examination' },
+  { k: 'BS Civil Engineering', v: "Saint Mary's University, July 2024" },
+  { k: 'MS Civil Engineering', v: 'Geotechnical, Polytechnic University of the Philippines, in progress' },
+  { k: '45 m bridge', v: 'Steel plate girder bridge: drafting and quantities', href: link('PRO-2026-001') },
+  { k: '1.7 km mountain road', v: 'New road: design, drafting and quantities', href: link('PRO-2025-004') },
+  { k: 'About 270 m road slip', v: 'Rehabilitation: design, drafting, quantities and estimate', href: link('PRO-2026-003') },
 ];
 
-// What I do, in one line per specialty. Each line restates entries in capabilities.yaml.
-const PITCH: Record<string, string> = {
-  highway: 'Road improvement plans with drainage and slope protection, and pavement maintenance planning, for DPWH roads.',
-  geotechnical: 'Geohazard assessment, slope protection design and GEO5 slope stability checks. Reliability-based slope analysis for my MS thesis.',
-  'civil-design-cad': 'Civil 3D plan sets for roads, drainage and a 45 m steel bridge. Drawing automation with Dynamo in progress.',
-  'qto-estimation': 'Quantity takeoffs, BOQs, unit price analyses and earthwork quantities for road and bridge projects.',
-  'gis-spatial': 'RTK, total station and drone surveys, and QGIS hazard and site maps.',
-  'structural-seismic': 'STAAD.Pro design of low-rise public buildings. Seismic fragility analysis in SAP2000 for my BS thesis.',
-};
-const specialties = Object.keys(PITCH).map((d) => {
-  const mine = caps.filter((c) => c.data.discipline === d);
-  const pro = mine.some((c) => c.data.level === 'professional');
-  const tools = [...new Set(mine.flatMap((c) => c.data.tools))].slice(0, 4);
-  const count = projects.filter((p) => p.data.disciplines.includes(d as any)).length;
-  return { d, label: DISCIPLINE_LABELS[d], pitch: PITCH[d], pro, tools, count };
-});
+// C. Core specializations. Each bullet is backed by a project or by research on this site.
+const specs = [
+  {
+    title: 'Highway engineering', tier: 'Primary', href: '/capabilities/highway',
+    items: ['Roadway geometric design', 'Horizontal and vertical alignment', 'Road profiles and cross sections', 'Corridor modeling', 'Earthwork quantities', 'Pavement and drainage details'],
+    proof: ['PRO-2025-004', 'PRO-2025-005', 'PRO-2026-003'],
+  },
+  {
+    title: 'Civil 3D and detailed engineering plans', tier: 'Primary', href: '/capabilities/civil-design-cad',
+    items: ['Surfaces from survey data', 'Alignment and profile development', 'Assemblies and corridors', 'Sample lines and cross sections', 'Quantity calculations', 'Plan set production'],
+    proof: ['PRO-2026-001', 'PRO-2025-004', 'PRO-2026-003'],
+  },
+  {
+    title: 'Geotechnical engineering', tier: 'Secondary', href: '/capabilities/geotechnical',
+    items: ['Slope stability analysis (GEO5, Bishop)', 'Retaining and slope protection structures', 'Preliminary geohazard assessment', 'Bearing pressure checks for masonry walls', 'Reliability-based slope stability (MS research, in progress)'],
+    proof: ['PRO-2026-002', 'PRO-2025-006', 'RES-2026-001'],
+  },
+  {
+    title: 'GIS and spatial analysis', tier: 'Supporting', href: '/capabilities/gis-spatial',
+    items: ['Geohazard mapping in QGIS', 'Terrain and site mapping', 'Survey data from RTK, total station and drone photogrammetry', 'Engineering location maps'],
+    proof: ['PRO-2025-006'],
+  },
+];
 
-// Selected work: professional first, then research
-const pro = projects.filter((p) => p.data.work_type === 'PRO' && p.data.cover);
-const research = projects.filter((p) => p.data.work_type === 'RES' && p.data.cover);
-const proFirst = [...pro.filter((p) => p.data.featured), ...pro.filter((p) => !p.data.featured)];
-const selected = [...proFirst.slice(0, 4), ...research.slice(0, 2)];
+// D. Featured projects
+const featured = ['PRO-2026-001', 'PRO-2025-004', 'PRO-2026-003', 'PRO-2026-002'].map((c) => byCode.get(c)).filter(Boolean);
 ---
 <Base title="Home" bare>
-  <!-- 1. Who I am -->
-  <section class="spread cover" aria-labelledby="cover-name">
+  <!-- A. Hero -->
+  <section class="spread cover" aria-labelledby="hero-name">
     <div class="pg cover-left">
-      <p class="cover-kicker">Civil engineering</p>
-      <p class="cover-title" aria-hidden="true">
-        <span class="c1">Port</span><span class="c2 script">folio</span>
-      </p>
-      <h1 id="cover-name" class="name">{me.name}</h1>
-      <p class="cover-line">{me.headline}</p>
-
-      <dl class="keyfacts">
-        {facts.map((f) => (
-          <div><dt>{f.k}</dt><dd>{f.v}</dd></div>
-        ))}
-      </dl>
-
+      <p class="kicker">{me.title}</p>
+      <h1 id="hero-name" class="name">{me.name}{me.post_nominal && <span class="pn">, {me.post_nominal}</span>}</h1>
+      <p class="intro">{me.headline}</p>
       <div class="actions">
-        <a class="btn btn-solid" href="/projects">View projects</a>
-        <a class="btn btn-line" href="/resume">Resume</a>
-        <a class="btn btn-line" href="/contact">Contact</a>
+        {me.resume_pdf && <a class="btn btn-solid" href={me.resume_pdf} download>Download CV</a>}
+        <a class={me.resume_pdf ? 'btn btn-line' : 'btn btn-solid'} href="/projects">Explore engineering projects</a>
+        <a class="btn btn-line" href="#contact">Contact me</a>
       </div>
+      <ul class="sec-links">
+        {me.linkedin && <li><a href={encodeURI(me.linkedin)} rel="me noopener" target="_blank">LinkedIn</a></li>}
+        {me.email && <li><a href={`mailto:${me.email}`}>{me.email}</a></li>}
+        {me.portfolio_pdf && <li><a href={me.portfolio_pdf} download>Technical portfolio (PDF)</a></li>}
+        <li><a href="/resume">Resume and documents</a></li>
+      </ul>
     </div>
-
     <div class="pg cover-right">
-      <img
-        class="portrait"
-        src="/img/rovic-jay-pinon-cover.webp"
-        alt={`Portrait of ${me.name}`}
-        width="1086" height="1448"
-        fetchpriority="high"
-      />
+      <img class="portrait" src="/img/rovic-jay-pinon-cover.webp" alt={`Portrait of ${me.name}`} width="1086" height="1448" fetchpriority="high" />
     </div>
   </section>
 
-  <!-- 2. What I can do for a team -->
+  <!-- B. Professional snapshot -->
+  <section class="sheet section snap" aria-labelledby="snap-h">
+    <h2 id="snap-h" class="visually-hidden">Professional snapshot</h2>
+    <dl class="snap-grid">
+      {snapshot.map((s) => (
+        <div class="snap-item">
+          <dt>{s.href ? <a href={s.href}>{s.k}</a> : s.k}</dt>
+          <dd>{s.v}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="small muted snap-note">The three projects are selected examples from my DPWH work, not a count of everything I have done. My part in each is stated; these are team projects with approving engineers.</p>
+  </section>
+
+  <!-- C. Core specializations -->
   <section class="sheet section" aria-labelledby="spec-h">
     <div class="sec-head">
       <div>
-        <h2 id="spec-h">Specialties</h2>
-        <p class="sec-sub">Six areas I work in. Labels show where I have applied each one on the job.</p>
+        <h2 id="spec-h">Core specializations</h2>
+        <p class="sec-sub">Highway infrastructure first, with geotechnical engineering as my developing specialty.</p>
       </div>
       <a href="/capabilities">All capabilities</a>
     </div>
     <ul class="spec-grid">
-      {specialties.map((s) => (
-        <li class="spec">
-          <span class={s.pro ? 'lvl lvl-pro' : 'lvl'}>{s.pro ? 'Professional experience' : 'Academic work'}</span>
-          <h3>{s.label}</h3>
-          <p>{s.pitch}</p>
-          {s.tools.length > 0 && (
-            <ul class="tools" aria-label="Tools">{s.tools.map((t) => <li>{t}</li>)}</ul>
-          )}
-          <a class="spec-link" href={`/capabilities/${s.d}`}>
-            {s.count > 0 ? `${s.count} project${s.count > 1 ? 's' : ''} and details` : 'Details'}
-          </a>
+      {specs.map((s) => {
+        const proof = s.proof.map((c) => byCode.get(c)).filter(Boolean);
+        return (
+          <li class="spec">
+            <span class="tier">{s.tier}</span>
+            <h3><a href={s.href}>{s.title}</a></h3>
+            <ul class="spec-items">{s.items.map((i) => <li>{i}</li>)}</ul>
+            {proof.length > 0 && (
+              <p class="spec-proof">Shown in: {proof.map((p, i) => <>{i > 0 && ', '}<a href={`/projects/${p!.id}`}>{p!.data.code}</a></>)}</p>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+
+  <!-- D. Featured engineering projects -->
+  <section class="sheet section" id="work" aria-labelledby="work-h">
+    <div class="sec-head">
+      <div>
+        <h2 id="work-h">Featured engineering projects</h2>
+        <p class="sec-sub">DPWH projects, shown with their approved plan sheets. Signatures are covered.</p>
+      </div>
+      <a href="/projects">All projects</a>
+    </div>
+    <ul class="feat">
+      {featured.map((p) => {
+        const d = p!.data;
+        return (
+          <li class="feat-item">
+            <a class="feat-thumb" href={`/projects/${p!.id}`} tabindex="-1" aria-hidden="true">
+              <img src={`/thumbs/${d.code}/${d.cover}`} alt="" loading="lazy" decoding="async" width="640" height="480" />
+            </a>
+            <div class="feat-body">
+              <p class="feat-cat"><span class="code">{d.code}</span> · {d.project_type}</p>
+              <h3><a href={`/projects/${p!.id}`}>{d.title}</a></h3>
+              <dl class="feat-facts">
+                {d.dimensions && <><dt>Size</dt><dd>{d.dimensions}</dd></>}
+                {d.location_public && <><dt>Location</dt><dd>{d.location_public}</dd></>}
+                <dt>My part</dt><dd>{d.role}</dd>
+                {d.deliverables.length > 0 && <><dt>Deliverables</dt><dd>{d.deliverables.slice(0, 3).join('; ')}</dd></>}
+                <dt>Status</dt><dd>{d.stage ? STAGE_LABELS[d.stage] : `My work ${d.status}`}</dd>
+              </dl>
+              <a class="feat-link" href={`/projects/${p!.id}`}>View case study</a>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+
+  <!-- E. Software and technical capabilities -->
+  <section class="sheet section" aria-labelledby="sw-h">
+    <div class="sec-head">
+      <div>
+        <h2 id="sw-h">Software and what I produce with it</h2>
+        <p class="sec-sub">Labels show whether I have used each tool in professional work, in academic work, or am still developing it.</p>
+      </div>
+    </div>
+    <SoftwareSection />
+  </section>
+
+  <!-- F. Professional experience -->
+  <section class="sheet section" aria-labelledby="exp-h">
+    <div class="sec-head">
+      <div><h2 id="exp-h">Professional experience</h2></div>
+      <a href="/experience">Full experience</a>
+    </div>
+    <ExperienceTimeline compact />
+  </section>
+
+  <!-- G. Education and credentials -->
+  <section class="sheet section" aria-labelledby="edu-h">
+    <div class="sec-head">
+      <div><h2 id="edu-h">Education and credentials</h2></div>
+      <a href="/resume#credentials">Credentials and certificates</a>
+    </div>
+    <ul class="edu">
+      {me.credentials.map((c) => (
+        <li><span class="edu-k">{c.name}</span><span>{c.detail}</span></li>
+      ))}
+      {me.education.map((e) => (
+        <li>
+          <span class="edu-k">{e.degree}</span>
+          <span>{e.school}, {e.period}{e.notes.length > 0 && <ul class="edu-notes">{e.notes.map((n) => <li>{n}</li>)}</ul>}</span>
         </li>
       ))}
     </ul>
   </section>
 
-  <!-- 3. Selected work -->
-  <section class="sheet section" id="work" aria-labelledby="work-h">
-    <div class="sec-head">
-      <div>
-        <h2 id="work-h">Selected work</h2>
-        <p class="sec-sub">Mostly professional projects at DPWH, followed by my two theses.</p>
-      </div>
-      <a href="/projects">All projects</a>
-    </div>
-    <ul class="cards">
-      {selected.map((p) => (
-        <li>
-          <a href={`/projects/${p.id}`} class="card">
-            <span class="thumb">
-              <img src={`/previews/${p.data.code}/${p.data.cover}`} alt="" loading="lazy" width="1200" height="900" />
-            </span>
-            <span class="card-meta"><span class={p.data.work_type === 'PRO' ? 'badge badge-pro' : 'badge'}>{WORK_TYPE_LABELS[p.data.work_type]}</span><span class="code">{p.data.code}</span><span class="muted">{p.data.year}</span></span>
-            <span class="card-title">{p.data.title}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+  <!-- H. Contact -->
+  <section class="sheet section" id="contact">
+    <ContactSection />
   </section>
 </Base>
 
 <style>
-  /* Cover */
-  .cover { min-height: min(88vh, 760px); }
+  /* A. Hero */
+  .cover { min-height: min(86vh, 740px); }
   .cover-left { display: flex; flex-direction: column; justify-content: center; }
-  .cover-kicker { font-size: 1.05rem; font-weight: 500; color: var(--ink-strong); margin: 0 0 -0.3em; }
-  .cover-title { margin: 0 0 14px; line-height: 0.95; color: var(--red); white-space: nowrap; }
-  .c1 { font-size: clamp(3rem, 7vw, 5.6rem); font-weight: 700; letter-spacing: -0.04em; }
-  .c2 { font-size: clamp(3.1rem, 7.2vw, 5.8rem); color: var(--ink-strong); margin-left: -0.08em; position: relative; top: 0.12em; }
-  .name { font-size: clamp(1.45rem, 2.4vw, 1.9rem); color: var(--ink-strong); margin: 0 0 6px; letter-spacing: -0.01em; }
-  .cover-line { max-width: 40ch; color: var(--steel); margin: 0 0 22px; }
-  .keyfacts { margin: 0 0 26px; border-top: 1px solid var(--rule); }
-  .keyfacts div { display: grid; grid-template-columns: 120px 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
-  .keyfacts dt { font-size: var(--t-sm); color: var(--red); font-weight: 600; }
-  .keyfacts dd { margin: 0; font-size: 0.92rem; color: var(--ink); }
+  .kicker { font-size: 0.95rem; font-weight: 600; color: var(--red); margin: 0 0 12px; }
+  .name { font-size: clamp(2.2rem, 4.6vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink-strong); margin: 0 0 18px; }
+  .pn { font-weight: 500; color: var(--steel); }
+  .intro { font-size: 1.05rem; line-height: 1.6; color: var(--ink); max-width: 52ch; margin: 0 0 26px; }
   .actions { display: flex; flex-wrap: wrap; gap: 10px; }
-
-  /* Portrait on linework */
+  .sec-links { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 20px; padding: 0; margin: 20px 0 0; font-size: var(--t-sm); }
+  .sec-links a { color: var(--steel); }
+  .sec-links a:hover { color: var(--red); }
   .cover-right { position: relative; overflow: hidden; padding: 0 !important; background: #f8f7f4; }
   .portrait { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
 
-  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
+  /* B. Snapshot */
+  .snap { padding-top: 26px !important; padding-bottom: 22px !important; }
+  .snap-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin: 0; }
+  .snap-item { padding: 4px 18px; border-left: 1px solid var(--rule); }
+  .snap-item:first-child { border-left: 0; padding-left: 0; }
+  .snap-item dt { font-weight: 700; color: var(--ink-strong); font-size: 0.98rem; margin-bottom: 4px; line-height: 1.25; }
+  .snap-item dt a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  .snap-item dt a:hover { color: var(--red); text-decoration-color: var(--red); }
+  .snap-item dd { margin: 0; font-size: 0.82rem; color: var(--steel); line-height: 1.4; }
+  .snap-note { margin: 16px 0 0; }
+
+  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
   .sec-head h2 { margin: 0; }
-  .sec-sub { margin: 6px 0 0; color: var(--steel); max-width: 60ch; }
-  .sec-head > a { font-size: var(--t-sm); font-weight: 600; }
+  .sec-sub { margin: 6px 0 0; color: var(--steel); max-width: 62ch; }
 
-  /* Specialties */
-  .spec-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 2px solid var(--ink-strong); }
-  .spec {
-    display: flex; flex-direction: column; gap: 10px; padding: 22px 24px 24px 0; border-bottom: 1px solid var(--rule);
-  }
-  .spec:not(:nth-child(3n + 1)) { padding-left: 24px; border-left: 1px solid var(--rule); }
-  .spec h3 { margin: 0; font-size: 1.15rem; line-height: 1.25; color: var(--ink-strong); }
-  .spec p { margin: 0; color: var(--ink); font-size: 0.93rem; line-height: 1.55; }
-  .lvl { align-self: flex-start; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rule); color: var(--steel); }
-  .lvl-pro { background: var(--red); border-color: var(--red); color: var(--white); }
-  .tools { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-  .tools li { font-size: 0.75rem; padding: 2px 9px; background: var(--white); border: 1px solid var(--rule); border-radius: 4px; color: var(--ink-strong); }
-  .spec-link { margin-top: auto; padding-top: 4px; font-size: var(--t-sm); font-weight: 600; }
+  /* C. Specializations */
+  .spec-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink-strong); }
+  .spec { padding: 18px 20px 6px; border-left: 1px solid var(--rule); display: flex; flex-direction: column; }
+  .spec:first-child { border-left: 0; padding-left: 0; }
+  .tier { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red); }
+  .spec h3 { font-size: 1.06rem; margin: 6px 0 10px; line-height: 1.25; }
+  .spec h3 a { color: var(--ink-strong); text-decoration: none; }
+  .spec h3 a:hover { color: var(--red); }
+  .spec-items { margin: 0; padding-left: 1.05em; font-size: 0.9rem; }
+  .spec-items li { margin: 3px 0; }
+  .spec-proof { margin: auto 0 0; padding-top: 12px; font-size: 0.8rem; color: var(--steel); }
 
-  /* Selected work */
-  .cards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 26px; }
-  .card { display: grid; gap: 8px; text-decoration: none; color: var(--ink); }
-  .thumb { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--rule); background: var(--white); transition: border-color .2s; }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s ease; }
-  .card:hover .thumb, .card:focus-visible .thumb { border-color: var(--red); }
-  .card:hover .thumb img { transform: scale(1.035); }
-  .badge {
-    font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px;
-    background: var(--white); color: var(--ink-strong); border: 1px solid var(--rule);
-  }
-  .badge-pro { background: var(--ink-strong); color: var(--white); border-color: var(--ink-strong); }
-  .card-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.8rem; margin-top: 4px; }
+  /* D. Featured */
+  .feat { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 34px 32px; }
+  .feat-item { display: grid; grid-template-columns: minmax(0, 42%) 1fr; gap: 18px; align-items: start; }
+  .feat-thumb { display: block; aspect-ratio: 4 / 3; border: 1px solid var(--rule); overflow: hidden; background: var(--white); }
+  .feat-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .feat-thumb:hover { border-color: var(--red); }
+  .feat-cat { margin: 0 0 4px; font-size: 0.8rem; color: var(--steel); }
   .code { color: var(--red); font-weight: 700; }
-  .card-title { font-weight: 700; color: var(--ink-strong); line-height: 1.3; }
-  .card:hover .card-title { color: var(--red); }
+  .feat-body h3 { font-size: 1.02rem; line-height: 1.3; margin: 0 0 10px; }
+  .feat-body h3 a { color: var(--ink-strong); text-decoration: none; }
+  .feat-body h3 a:hover { color: var(--red); }
+  .feat-facts { display: grid; grid-template-columns: 88px 1fr; gap: 3px 10px; margin: 0 0 10px; font-size: 0.84rem; }
+  .feat-facts dt { color: var(--steel); }
+  .feat-facts dd { margin: 0; }
+  .feat-link { font-size: var(--t-sm); font-weight: 600; }
 
-  @media (max-width: 960px) {
+  /* G. Education */
+  .edu { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--ink-strong); }
+  .edu > li { display: grid; grid-template-columns: 300px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+  .edu-k { font-weight: 700; color: var(--ink-strong); }
+  .edu-notes { margin: 6px 0 0; padding-left: 1.1em; font-size: 0.9rem; color: var(--steel); }
+
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  @media (max-width: 1100px) {
+    .snap-grid { grid-template-columns: repeat(3, 1fr); gap: 16px 0; }
+    .snap-item:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
     .spec-grid { grid-template-columns: 1fr 1fr; }
-    .spec:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; }
-    .spec:nth-child(2n) { padding-left: 24px; border-left: 1px solid var(--rule); }
-    .cards { grid-template-columns: 1fr 1fr; }
+    .spec:nth-child(3) { border-left: 0; padding-left: 0; }
+    .feat { grid-template-columns: 1fr; }
   }
   @media (max-width: 860px) {
     .cover { min-height: 0; }
-    .cover-right { order: -1; min-height: 440px; }
+    .cover-right { order: -1; min-height: 420px; }
   }
-  @media (max-width: 600px) {
-    .spec-grid, .cards { grid-template-columns: 1fr; }
-    .spec:nth-child(2n) { padding-left: 0; border-left: 0; }
+  @media (max-width: 640px) {
+    .snap-grid { grid-template-columns: 1fr 1fr; }
+    .snap-item { padding: 0 0 0 12px; }
+    .snap-item:nth-child(3n + 1) { border-left: 1px solid var(--rule); padding-left: 12px; }
+    .snap-item:nth-child(2n + 1) { border-left: 0; padding-left: 0; }
+    .spec-grid { grid-template-columns: 1fr; }
+    .spec { border-left: 0; padding-left: 0; border-bottom: 1px solid var(--rule); padding-bottom: 14px; }
+    .feat-item { grid-template-columns: 1fr; }
+    .edu > li { grid-template-columns: 1fr; gap: 4px; }
   }
-  @media (max-width: 480px) { .keyfacts div { grid-template-columns: 1fr; gap: 2px; } }
-  @media (prefers-reduced-motion: reduce) { .thumb img { transition: none; } .card:hover .thumb img { transform: none; } }
 </style>

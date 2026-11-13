@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
+import ContactSection from '../components/ContactSection.astro';
+---
+<Base title="Professional experience" description="Engineering experience at DPWH: Civil 3D plan sets, quantities and estimates, slope stability checks and geohazard assessments for mountain road projects in Ifugao." crumbs={[{ label: 'Experience' }]}>
+  <header class="page-head">
+    <h1>Professional experience</h1>
+    <p>Positions, duties and the projects I worked on. Each project page states my exact part. The plans are team work, checked and approved by the engineers who signed them.</p>
+  </header>
+  <ExperienceTimeline />
+  <section class="section">
+    <h2 class="h">How I describe my part</h2>
+    <dl class="facts roles">
+      <dt>Prepared</dt><dd>I produced the deliverable myself: the drawings, quantities, estimate, report or analysis.</dd>
+      <dt>Drafted</dt><dd>I drew the sheets from a design and inputs set by the team.</dd>
+      <dt>Assisted</dt><dd>I helped another engineer, who was responsible for the work.</dd>
+      <dt>Approved by others</dt><dd>Plans and reports are reviewed, recommended and approved by the section chief and the district engineers, whose signatures are covered on this site. I do not hold approval authority.</dd>
+    </dl>
+  </section>
+  <section class="section"><ContactSection /></section>
+</Base>
+<style>
+  .h { font-size: var(--t-md); }
+  .roles { grid-template-columns: 180px 1fr; max-width: 80ch; }
+  @media (max-width: 600px) { .roles { grid-template-columns: 1fr; } }
+</style>

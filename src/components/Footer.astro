@@ -5,36 +5,35 @@ const updated = new Date().toISOString().slice(0, 10);
 ---
 <footer class="site-footer">
   <div class="wrap">
-    <div class="spread">
-      <div class="pg thanks">
-        <p class="ty" aria-label="Thank you"><span class="t1">Thank</span><span class="t2 script">you</span></p>
-        {me.email && <p class="lab">E-mail</p>}
-        {me.email && <p class="val"><a href={`mailto:${me.email}`}>{me.email}</a></p>}
-        {me.linkedin && <p class="lab">LinkedIn</p>}
-        {me.linkedin && <p class="val"><a href={encodeURI(me.linkedin)} rel="me">{me.linkedin.replace(/^https?:\/\/(www\.)?/, '')}</a></p>}
+    <div class="foot">
+      <div class="f-who">
+        <p class="who">{me.name}{me.post_nominal && `, ${me.post_nominal}`}</p>
+        <p class="muted small">{me.title} · {me.location}</p>
       </div>
-      <div class="pg meta">
-        <p class="who">{me.name}</p>
-        <p class="muted small">{me.designation} · {me.location}</p>
-        <dl class="facts small">
-          <dt>Last updated</dt><dd><time datetime={updated}>{updated}</time></dd>
-          <dt>About this site</dt><dd><a href="/notice">Work labels and confidentiality</a></dd>
-        </dl>
-      </div>
+      <ul class="f-contact small">
+        {me.email && <li><a href={`mailto:${me.email}`}>{me.email}</a></li>}
+        {me.linkedin && <li><a href={encodeURI(me.linkedin)} rel="me noopener" target="_blank">LinkedIn</a></li>}
+        {me.resume_pdf && <li><a href={me.resume_pdf} download>Download CV</a></li>}
+        <li><a href="/contact">Contact page</a></li>
+      </ul>
     </div>
+    <p class="disclaimer small">
+      Technical materials on this site are portfolio samples of work I took part in. They do not replace the approved,
+      signed engineering documents held by the owner, and they must not be used for construction. Signatures are covered,
+      and my role on each project is stated on its page. <a href="/notice">Work labels and confidentiality</a>.
+    </p>
+    <p class="updated small muted">Last updated <time datetime={updated}>{updated}</time></p>
   </div>
 </footer>
 
 <style>
-  .site-footer { padding: 8px 0 48px; }
-  .ty { margin: 0 0 22px; line-height: 0.9; }
-  .t1 { font-weight: 700; color: var(--red); font-size: clamp(3rem, 7vw, 5rem); letter-spacing: -0.03em; }
-  .t2 { font-size: clamp(3rem, 7vw, 5rem); color: var(--ink-strong); margin-left: -0.15em; position: relative; top: 0.35em; }
-  .lab { color: var(--red); font-weight: 600; font-size: var(--t-sm); margin: 14px 0 0; }
-  .val { margin: 0; font-size: var(--t-sm); }
-  .val a { color: var(--ink); text-decoration: none; }
-  .val a:hover { color: var(--red); text-decoration: underline; }
-  .meta { display: flex; flex-direction: column; justify-content: flex-end; }
+  .site-footer { padding: 28px 0 40px; border-top: 1px solid var(--rule); margin-top: 8px; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 40px; align-items: flex-start; }
   .who { font-weight: 700; color: var(--ink-strong); margin: 0 0 2px; }
-  .meta .facts { margin-top: 16px; }
+  .f-who p { margin: 0; }
+  .f-contact { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; padding: 0; }
+  .f-contact a { color: var(--ink); }
+  .f-contact a:hover { color: var(--red); }
+  .disclaimer { color: var(--steel); max-width: 92ch; margin: 18px 0 6px; line-height: 1.5; }
+  .updated { margin: 0; }
 </style>

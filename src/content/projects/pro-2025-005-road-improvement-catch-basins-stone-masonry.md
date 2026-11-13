@@ -15,7 +15,17 @@ competencies: ["Cost estimating (POW, ABC, DUPA)", "Construction scheduling", "R
 location_public: "Ifugao, Cordillera Administrative Region"
 client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"
 year: 2025
-status: completed          # CONFIRM: plans approved December 2025; is construction under way?
+status: completed
+stage: under-construction
+dimensions: "About 3.2 km in five sections (K0451+387 to K0455+126)"
+deliverables:
+  - "Plan and profile sheets (3)"
+  - "Cross-section sheets (2)"
+  - "Typical and detail sheets (4)"
+  - "Quantities"
+  - "Program of works and approved budget for the contract"
+  - "Bill of quantities and unit price analyses"
+  - "Construction schedule"
 role: "Design, drafting, quantities and cost estimate"
 summary: "Design, drafting, quantities and the cost estimate (Php 42.89 million) for an off-carriageway improvement of a tertiary road: concrete pavement widening on curves, curb and gutter, slope drains, box-type catch basins with pipe culverts, and stone masonry embankment protection."
 featured: false

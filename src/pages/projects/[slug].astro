@@ -161,7 +161,7 @@ const related = all
   .lb-close:hover { background: #b51e15; }
   .lb-close:focus-visible, .lb-nav:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
   .lb-stage { position: relative; display: grid; place-items: center; min-height: 0; padding: 0 64px; }
-  .lb-stage img { max-width: 100%; max-height: 100%; object-fit: contain; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.4); }
+  .lb-stage img { max-width: 100%; max-height: calc(100dvh - 150px); object-fit: contain; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.4); }
   .lb-nav {
     position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%;
     border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.35); color: #fff; font-size: 1.8rem; line-height: 1;

@@ -6,7 +6,7 @@ interface Props { projects: Project[]; filters?: boolean; group?: boolean; empty
 const { projects, filters = false, group = false, empty = 'No projects to show yet.' } = Astro.props;
 
 const GROUPS: { type: string; title: string; note: string }[] = [
-  { type: 'PRO', title: 'Professional projects', note: 'Design, drafting and analysis done at DPWH, published in generalized form.' },
+  { type: 'PRO', title: 'Professional projects', note: 'Design, drafting and analysis done at DPWH. Signatures on the plan sheets are covered.' },
   { type: 'RES', title: 'Research', note: 'Graduate and undergraduate research.' },
   { type: 'TRN', title: 'Training', note: 'Work done as a trainee.' },
   { type: 'ACA', title: 'Academic work', note: 'Plates and plan sets from my BS Civil Engineering coursework.' },

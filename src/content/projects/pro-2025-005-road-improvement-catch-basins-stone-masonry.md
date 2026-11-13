@@ -1,6 +1,7 @@
 ---
-# Professional DPWH work, approved for publication 2026-11-12. Figures are crops of the approved plan set with
-# the title block (names, signatures, project name, stations, sheet numbers) removed.
+# Professional DPWH work, approved for publication by R. Piñon 2026-11-12. Plan/profile and cross-section
+# sheets are shown whole with the title block; every signature is covered by a solid box marked SIGNED
+# (2026-11-13). Detail figures are crops of detail sheets.
 code: PRO-2025-005
 title: "Road Improvement with Curb and Gutter Drainage and Stone Masonry Embankment Protection"
 work_type: PRO
@@ -62,4 +63,4 @@ DPWH Standard Specifications for Highways, Bridges and Airports; DPWH pavement d
 
 ## Drawings and visual evidence
 
-The plan and profile and cross-section sheets are shown whole, with the signatures removed and the printed names in the title block re-lettered. The detail figures are crops of detail sheets from the approved plan set.
+The plan and profile and cross-section sheets are shown whole, with their title blocks. Each signature is covered by a box marked "Signed". The detail figures are crops of detail sheets from the approved plan set.

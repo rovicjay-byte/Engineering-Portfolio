@@ -1,7 +1,7 @@
 ---
 # Professional DPWH work, approved for publication by R. Piñon 2026-11-12. Plan/profile and cross-section
 # sheets are shown whole with the title block; every signature is covered by a solid box marked SIGNED
-# (2026-11-13). Detail figures are crops of detail sheets.
+# (2026-11-13). Detail sheets are shown the same way.
 code: PRO-2026-001
 title: "Detailed Engineering Plan for a Two-Lane, 45 m Steel Plate Girder Bridge"
 work_type: PRO
@@ -45,8 +45,17 @@ previews:
   - file: abutment-plan-coping.webp
     caption: "Typical abutment plan, and coping and backwall section, with reinforcement"
     wide: true
+  - file: wingwall-approach-sidewalk.webp
+    caption: "Wingwall section and elevation, approach sidewalk detail and bar bending diagram"
+    wide: true
   - file: bearings.webp
     caption: "Elastomeric bearing details at the movable and fixed abutments"
+    wide: true
+  - file: expansion-joint-bearing-pad.webp
+    caption: "Multiplex rubber expansion joint at the abutments, and elastomeric bearing pad detail"
+    wide: true
+  - file: bridge-seat-shear-block.webp
+    caption: "Bridge seat and shear blocks at the abutments (free end): plan and elevation with reinforcement"
     wide: true
   - file: main-girders.webp
     caption: "Exterior and interior main plate girders, with stiffener layout and marking diagram"
@@ -67,4 +76,4 @@ Detailed engineering plan for a new two-lane, 45 m bridge on a mountain road in 
 
 ## Drawings and visual evidence
 
-The plan and profile and cross-section sheets are shown whole, with their title blocks. Each signature is covered by a box marked "Signed". The detail figures are crops of detail sheets from the approved plan set.
+Every sheet is shown whole, with its title block, as in the approved plan set. Each signature is covered by a box marked "Signed".

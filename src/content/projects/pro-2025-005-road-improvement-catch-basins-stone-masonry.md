@@ -1,7 +1,7 @@
 ---
 # Professional DPWH work, approved for publication by R. Piñon 2026-11-12. Plan/profile and cross-section
 # sheets are shown whole with the title block; every signature is covered by a solid box marked SIGNED
-# (2026-11-13). Detail figures are crops of detail sheets.
+# (2026-11-13). Detail sheets are shown the same way.
 code: PRO-2025-005
 title: "Road Improvement with Curb and Gutter Drainage and Stone Masonry Embankment Protection"
 work_type: PRO
@@ -36,6 +36,9 @@ previews:
   - file: cross-sections-2.webp
     caption: "Cross sections, sheet 2 of 2: existing and finished ground, typical section and earthwork end areas and proposed stone masonry"
     wide: true
+  - file: rigid-pavement-joints.webp
+    caption: "Rigid pavement details: two-lane pavement plan, pavement widening, dowelled expansion and contraction joints, and bar spacing along curves"
+    wide: true
   - file: roadway-curb-gutter-slope-drain.webp
     caption: "Typical roadway section, widening on curves with superelevation and masonry breastwall, curb and gutter, and reinforced concrete slope drain"
     wide: true
@@ -63,4 +66,4 @@ DPWH Standard Specifications for Highways, Bridges and Airports; DPWH pavement d
 
 ## Drawings and visual evidence
 
-The plan and profile and cross-section sheets are shown whole, with their title blocks. Each signature is covered by a box marked "Signed". The detail figures are crops of detail sheets from the approved plan set.
+Every sheet is shown whole, with its title block, as in the approved plan set. Each signature is covered by a box marked "Signed".

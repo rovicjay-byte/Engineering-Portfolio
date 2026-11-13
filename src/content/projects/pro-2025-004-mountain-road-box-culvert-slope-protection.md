@@ -1,7 +1,7 @@
 ---
 # Professional DPWH work, approved for publication by R. Piñon 2026-11-12. Plan/profile and cross-section
 # sheets are shown whole with the title block; every signature is covered by a solid box marked SIGNED
-# (2026-11-13). Detail figures are crops of detail sheets.
+# (2026-11-13). Detail sheets are shown the same way.
 code: PRO-2025-004
 title: "Mountain Road Construction with Box Culvert Drainage and Slope Protection"
 work_type: PRO
@@ -42,11 +42,20 @@ previews:
   - file: cross-sections-4.webp
     caption: "Cross sections, sheet 4 of 4: existing and finished ground, typical section and earthwork end areas, including box culvert crossings"
     wide: true
+  - file: catch-basin.webp
+    caption: "Catch basin detail: plan, section and reinforcement"
+    wide: true
+  - file: box-culvert-barrel-barrier.webp
+    caption: "Box culvert single-barrel section (2.0 x 2.0 m) with barrel schedule and bar diagrams, and concrete barrier detail"
+    wide: true
   - file: box-culvert-flume.webp
     caption: "Reinforced concrete box culvert with catch basin, outlet basin and flume: isometric view, typical cross section and reinforcement"
     wide: true
   - file: double-cribwall.webp
     caption: "Double cribwall: road cross section, plan, elevation and dimension table for wall heights up to 14.5 m"
+    wide: true
+  - file: double-cribwall-members.webp
+    caption: "Double cribwall member details: parapet, columns, beams and footing, with reinforcement and bar bending diagram"
     wide: true
   - file: retaining-wall-barrier.webp
     caption: "Reinforced concrete retaining wall with design parameters, concrete barrier and chute details"
@@ -72,4 +81,4 @@ DPWH Standard Specifications for Highways, Bridges and Airports; AASHTO M 31 rei
 
 ## Drawings and visual evidence
 
-The plan and profile and cross-section sheets are shown whole, with their title blocks. Each signature is covered by a box marked "Signed". The detail figures are crops of detail sheets from the approved plan set.
+Every sheet is shown whole, with its title block, as in the approved plan set. Each signature is covered by a box marked "Signed".

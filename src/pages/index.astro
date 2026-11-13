@@ -1,14 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getProfile, getProjects, DISCIPLINE_LABELS, WORK_TYPE_LABELS } from '../lib/publish';
-import { getCapabilities } from '../lib/publish';
-import { DISCIPLINES } from '../content.config';
+import { getProfile, getProjects, getCapabilities, DISCIPLINE_LABELS, WORK_TYPE_LABELS } from '../lib/publish';
 
 const me = await getProfile();
 const projects = await getProjects();
-const featured = projects.filter((p) => p.data.featured && p.data.cover).slice(0, 3);
 const caps = await getCapabilities();
-const specialties = DISCIPLINES.filter((d) => caps.some((c) => c.data.discipline === d));
 
 const facts = [
   { k: 'License', v: 'Registered Civil Engineer, PRC (2024)' },
@@ -16,9 +12,32 @@ const facts = [
   { k: 'Graduate study', v: 'MS Civil Engineering, Geotechnical (PUP), in progress' },
   { k: 'Degree', v: "BS Civil Engineering, Saint Mary's University (2024)" },
 ];
+
+// What I do, in one line per specialty. Each line restates entries in capabilities.yaml.
+const PITCH: Record<string, string> = {
+  highway: 'Road improvement plans with drainage and slope protection, and pavement maintenance planning, for DPWH roads.',
+  geotechnical: 'Geohazard assessment, slope protection design and GEO5 slope stability checks. Reliability-based slope analysis for my MS thesis.',
+  'civil-design-cad': 'Civil 3D plan sets for roads, drainage and a 45 m steel bridge. Drawing automation with Dynamo in progress.',
+  'qto-estimation': 'Quantity takeoffs, BOQs, unit price analyses and earthwork quantities for road and bridge projects.',
+  'gis-spatial': 'RTK, total station and drone surveys, and QGIS hazard and site maps.',
+  'structural-seismic': 'STAAD.Pro design of low-rise public buildings. Seismic fragility analysis in SAP2000 for my BS thesis.',
+};
+const specialties = Object.keys(PITCH).map((d) => {
+  const mine = caps.filter((c) => c.data.discipline === d);
+  const pro = mine.some((c) => c.data.level === 'professional');
+  const tools = [...new Set(mine.flatMap((c) => c.data.tools))].slice(0, 4);
+  const count = projects.filter((p) => p.data.disciplines.includes(d as any)).length;
+  return { d, label: DISCIPLINE_LABELS[d], pitch: PITCH[d], pro, tools, count };
+});
+
+// Selected work: professional first, then research
+const pro = projects.filter((p) => p.data.work_type === 'PRO' && p.data.cover);
+const research = projects.filter((p) => p.data.work_type === 'RES' && p.data.cover);
+const proFirst = [...pro.filter((p) => p.data.featured), ...pro.filter((p) => !p.data.featured)];
+const selected = [...proFirst.slice(0, 4), ...research.slice(0, 2)];
 ---
 <Base title="Home" bare>
-  <!-- Cover: who I am, at a glance -->
+  <!-- 1. Who I am -->
   <section class="spread cover" aria-labelledby="cover-name">
     <div class="pg cover-left">
       <p class="cover-kicker">Civil engineering</p>
@@ -42,57 +61,74 @@ const facts = [
     </div>
 
     <div class="pg cover-right">
+      <img class="collage" src="/img/cover-collage.webp" alt="" width="1600" height="2100" fetchpriority="high" />
       <div class="stage">
-        <span class="disc" aria-hidden="true"></span>
         <img
           class="me"
           src="/img/rovic-jay-pinon-cutout.webp"
           alt={`Portrait of ${me.name}`}
-          width="674" height="1000"
+          width="902" height="1339"
           fetchpriority="high"
         />
       </div>
+      <p class="collage-note">Background: details from my DPWH plan sets</p>
     </div>
   </section>
 
-  <!-- Selected work: three cards -->
-  <section class="sheet section" id="work" aria-labelledby="work-h">
+  <!-- 2. What I can do for a team -->
+  <section class="sheet section" aria-labelledby="spec-h">
     <div class="sec-head">
-      <h2 id="work-h">Selected work</h2>
-      <a href="/projects">All projects</a>
+      <div>
+        <h2 id="spec-h">Specialties</h2>
+        <p class="sec-sub">Six areas I work in. Labels show where I have applied each one on the job.</p>
+      </div>
+      <a href="/capabilities">All capabilities</a>
     </div>
-    <ul class="cards">
-      {featured.map((p) => (
-        <li>
-          <a href={`/projects/${p.id}`} class="card">
-            <img src={`/previews/${p.data.code}/${p.data.cover}`} alt="" loading="lazy" width="480" height="480" />
-            <span class="card-meta"><span class="code">{p.data.code}</span><span class="muted">{WORK_TYPE_LABELS[p.data.work_type]}, {p.data.year}</span></span>
-            <span class="card-title">{p.data.title}</span>
+    <ul class="spec-grid">
+      {specialties.map((s) => (
+        <li class="spec">
+          <span class={s.pro ? 'lvl lvl-pro' : 'lvl'}>{s.pro ? 'Professional experience' : 'Academic work'}</span>
+          <h3>{s.label}</h3>
+          <p>{s.pitch}</p>
+          {s.tools.length > 0 && (
+            <ul class="tools" aria-label="Tools">{s.tools.map((t) => <li>{t}</li>)}</ul>
+          )}
+          <a class="spec-link" href={`/capabilities/${s.d}`}>
+            {s.count > 0 ? `${s.count} project${s.count > 1 ? 's' : ''} and details` : 'Details'}
           </a>
         </li>
       ))}
     </ul>
   </section>
 
-  <!-- Specialties and next steps -->
-  <section class="sheet section more" aria-labelledby="spec-h">
-    <div>
-      <h2 id="spec-h">Specialties</h2>
-      <ul class="chips">
-        {specialties.map((d) => <li><a href={`/capabilities/${d}`}>{DISCIPLINE_LABELS[d]}</a></li>)}
-      </ul>
+  <!-- 3. Selected work -->
+  <section class="sheet section" id="work" aria-labelledby="work-h">
+    <div class="sec-head">
+      <div>
+        <h2 id="work-h">Selected work</h2>
+        <p class="sec-sub">Mostly professional projects at DPWH, published in generalized form, followed by my two theses.</p>
+      </div>
+      <a href="/projects">All projects</a>
     </div>
-    <nav class="next" aria-label="More about my work">
-      <a href="/capabilities"><strong>Capabilities</strong><span class="muted small">Skills by experience level</span></a>
-      <a href="/what-i-deliver"><strong>What I deliver</strong><span class="muted small">Outputs a team can expect</span></a>
-      <a href="/about"><strong>About</strong><span class="muted small">How I work</span></a>
-    </nav>
+    <ul class="cards">
+      {selected.map((p) => (
+        <li>
+          <a href={`/projects/${p.id}`} class="card">
+            <span class="thumb">
+              <img src={`/previews/${p.data.code}/${p.data.cover}`} alt="" loading="lazy" width="1200" height="900" />
+            </span>
+            <span class="card-meta"><span class={p.data.work_type === 'PRO' ? 'badge badge-pro' : 'badge'}>{WORK_TYPE_LABELS[p.data.work_type]}</span><span class="code">{p.data.code}</span><span class="muted">{p.data.year}</span></span>
+            <span class="card-title">{p.data.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
   </section>
 </Base>
 
 <style>
   /* Cover */
-  .cover { min-height: min(86vh, 720px); }
+  .cover { min-height: min(88vh, 760px); }
   .cover-left { display: flex; flex-direction: column; justify-content: center; }
   .cover-kicker { font-size: 1.05rem; font-weight: 500; color: var(--ink-strong); margin: 0 0 -0.3em; }
   .cover-title { margin: 0 0 14px; line-height: 0.95; color: var(--red); white-space: nowrap; }
@@ -100,61 +136,82 @@ const facts = [
   .c2 { font-size: clamp(3.1rem, 7.2vw, 5.8rem); color: var(--ink-strong); margin-left: -0.08em; position: relative; top: 0.12em; }
   .name { font-size: clamp(1.45rem, 2.4vw, 1.9rem); color: var(--ink-strong); margin: 0 0 6px; letter-spacing: -0.01em; }
   .cover-line { max-width: 40ch; color: var(--steel); margin: 0 0 22px; }
-
   .keyfacts { margin: 0 0 26px; border-top: 1px solid var(--rule); }
   .keyfacts div { display: grid; grid-template-columns: 120px 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
   .keyfacts dt { font-size: var(--t-sm); color: var(--red); font-weight: 600; }
   .keyfacts dd { margin: 0; font-size: 0.92rem; color: var(--ink); }
   .actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
-  /* Portrait */
+  /* Portrait on a collage of plan details */
   .cover-right {
     position: relative; overflow: hidden; display: flex; align-items: flex-end; justify-content: center;
-    padding-bottom: 0 !important;
-    background:
-      linear-gradient(var(--rule-soft) 1px, transparent 1px) 0 0 / 100% 48px,
-      linear-gradient(90deg, var(--rule-soft) 1px, transparent 1px) 0 0 / 48px 100%;
+    padding: 0 !important; background: #f8f7f4; isolation: isolate;
   }
-  .stage { position: relative; width: min(100%, 470px); aspect-ratio: 674 / 1000; margin-top: 24px; }
-  .disc {
-    position: absolute; left: 50%; top: 9%; width: 96%; aspect-ratio: 1; transform: translateX(-50%);
-    border-radius: 50%; background: var(--red);
+  .collage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; z-index: -2; }
+  .cover-right::before {
+    /* soft light behind the figure so it separates from the linework */
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(ellipse 46% 52% at 50% 64%, rgba(248, 247, 244, 0.92) 0%, rgba(248, 247, 244, 0.55) 55%, rgba(248, 247, 244, 0) 100%);
   }
-  .me { position: relative; display: block; width: 100%; height: auto; }
+  .stage { position: relative; width: min(84%, 460px); margin-top: 70px; }
+  .me { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 30px rgba(20, 20, 20, 0.18)); }
+  .collage-note {
+    position: absolute; left: 16px; bottom: 12px; margin: 0; font-size: 0.7rem; color: var(--steel);
+    background: rgba(248, 247, 244, 0.85); padding: 3px 8px; border-radius: 999px;
+  }
 
-  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
   .sec-head h2 { margin: 0; }
-  .sec-head a { font-size: var(--t-sm); font-weight: 600; }
+  .sec-sub { margin: 6px 0 0; color: var(--steel); max-width: 60ch; }
+  .sec-head > a { font-size: var(--t-sm); font-weight: 600; }
+
+  /* Specialties */
+  .spec-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 2px solid var(--ink-strong); }
+  .spec {
+    display: flex; flex-direction: column; gap: 10px; padding: 22px 24px 24px 0; border-bottom: 1px solid var(--rule);
+  }
+  .spec:not(:nth-child(3n + 1)) { padding-left: 24px; border-left: 1px solid var(--rule); }
+  .spec h3 { margin: 0; font-size: 1.15rem; line-height: 1.25; color: var(--ink-strong); }
+  .spec p { margin: 0; color: var(--ink); font-size: 0.93rem; line-height: 1.55; }
+  .lvl { align-self: flex-start; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rule); color: var(--steel); }
+  .lvl-pro { background: var(--red); border-color: var(--red); color: var(--white); }
+  .tools { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tools li { font-size: 0.75rem; padding: 2px 9px; background: var(--white); border: 1px solid var(--rule); border-radius: 4px; color: var(--ink-strong); }
+  .spec-link { margin-top: auto; padding-top: 4px; font-size: var(--t-sm); font-weight: 600; }
 
   /* Selected work */
-  .cards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .cards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 26px; }
   .card { display: grid; gap: 8px; text-decoration: none; color: var(--ink); }
-  .card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--rule); background: var(--white); filter: grayscale(1); transition: filter .25s; }
-  .card:hover img, .card:focus-visible img { filter: none; border-color: var(--red); }
-  .card-meta { display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.8rem; }
-  .code { color: var(--red); font-weight: 600; }
-  .card-title { font-weight: 600; color: var(--ink-strong); line-height: 1.3; }
+  .thumb { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--rule); background: var(--white); transition: border-color .2s; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s ease; }
+  .card:hover .thumb, .card:focus-visible .thumb { border-color: var(--red); }
+  .card:hover .thumb img { transform: scale(1.035); }
+  .badge {
+    font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+    background: var(--white); color: var(--ink-strong); border: 1px solid var(--rule);
+  }
+  .badge-pro { background: var(--ink-strong); color: var(--white); border-color: var(--ink-strong); }
+  .card-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.8rem; margin-top: 4px; }
+  .code { color: var(--red); font-weight: 700; }
+  .card-title { font-weight: 700; color: var(--ink-strong); line-height: 1.3; }
   .card:hover .card-title { color: var(--red); }
 
-  /* Specialties and next steps */
-  .more { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: start; }
-  .more h2 { margin: 0 0 14px; }
-  .chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .chips a {
-    display: inline-block; padding: 7px 14px; border: 1px solid var(--rule); border-radius: 999px;
-    background: var(--white); color: var(--ink-strong); text-decoration: none; font-size: 0.9rem;
+  @media (max-width: 960px) {
+    .spec-grid { grid-template-columns: 1fr 1fr; }
+    .spec:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; }
+    .spec:nth-child(2n) { padding-left: 24px; border-left: 1px solid var(--rule); }
+    .cards { grid-template-columns: 1fr 1fr; }
   }
-  .chips a:hover { border-color: var(--red); color: var(--red); }
-  .next { display: grid; border-top: 1px solid var(--ink-strong); }
-  .next a { display: grid; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink-strong); }
-  .next a:hover strong { color: var(--red); }
-
   @media (max-width: 860px) {
     .cover { min-height: 0; }
-    .cover-right { order: -1; }
-    .stage { width: min(78%, 340px); }
-    .cards { grid-template-columns: 1fr; }
-    .more { grid-template-columns: 1fr; gap: 28px; }
+    .cover-right { order: -1; min-height: 440px; }
+    .collage-note { display: none; }
+    .stage { width: min(72%, 330px); margin-top: 40px; }
+  }
+  @media (max-width: 600px) {
+    .spec-grid, .cards { grid-template-columns: 1fr; }
+    .spec:nth-child(2n) { padding-left: 0; border-left: 0; }
   }
   @media (max-width: 480px) { .keyfacts div { grid-template-columns: 1fr; gap: 2px; } }
+  @media (prefers-reduced-motion: reduce) { .thumb img { transition: none; } .card:hover .thumb img { transform: none; } }
 </style>

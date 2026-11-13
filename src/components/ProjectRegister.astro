@@ -2,8 +2,19 @@
 import type { Project } from '../lib/publish';
 import { DISCIPLINE_SHORT, WORK_TYPE_LABELS, isPublic } from '../lib/publish';
 
-interface Props { projects: Project[]; filters?: boolean; empty?: string }
-const { projects, filters = false, empty = 'No projects to show yet.' } = Astro.props;
+interface Props { projects: Project[]; filters?: boolean; group?: boolean; empty?: string }
+const { projects, filters = false, group = false, empty = 'No projects to show yet.' } = Astro.props;
+
+const GROUPS: { type: string; title: string; note: string }[] = [
+  { type: 'PRO', title: 'Professional projects', note: 'Design, drafting and analysis done at DPWH, published in generalized form.' },
+  { type: 'RES', title: 'Research', note: 'Graduate and undergraduate research.' },
+  { type: 'TRN', title: 'Training', note: 'Work done as a trainee.' },
+  { type: 'ACA', title: 'Academic work', note: 'Plates and plan sets from my BS Civil Engineering coursework.' },
+  { type: 'IND', title: 'Independent work', note: 'Self-initiated tools and studies.' },
+];
+const sections = group
+  ? GROUPS.map((g) => ({ ...g, items: projects.filter((p) => p.data.work_type === g.type) })).filter((g) => g.items.length)
+  : [{ type: 'all', title: '', note: '', items: projects }];
 
 const uniq = (xs: (string | number)[]) => [...new Set(xs)].sort();
 const disciplines = uniq(projects.flatMap((p) => p.data.disciplines)) as string[];
@@ -45,40 +56,48 @@ const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
   {projects.length === 0 ? (
     <p class="empty">{empty}</p>
   ) : (
-    <ol class="rows">
-      {projects.map((p) => (
-        <li
-          class="row"
-          data-discipline={p.data.disciplines.join('|')}
-          data-type={p.data.work_type}
-          data-software={p.data.software.join('|')}
-          data-competency={p.data.competencies.join('|')}
-          data-year={p.data.year}
-          data-text={[p.data.title, p.data.summary, p.data.project_type, ...p.data.software, ...p.data.competencies].join(' ').toLowerCase()}
-        >
-          <div class="lead">
-            {p.data.cover && (
-              <a href={`/projects/${p.id}`} class="thumb" tabindex="-1" aria-hidden="true">
-                <img src={`/previews/${p.data.code}/${p.data.cover}`} alt="" loading="lazy" width="160" height="160" />
+    sections.map((g) => (
+      <section class={`group group-${g.type}`} data-group aria-labelledby={g.title ? `g-${g.type}` : undefined}>
+        {g.title && (
+          <header class="g-head">
+            <h2 id={`g-${g.type}`}>{g.title} <span class="g-count" data-group-count>{g.items.length}</span></h2>
+            <p>{g.note}</p>
+          </header>
+        )}
+        <ol class="rows">
+          {g.items.map((p) => (
+            <li
+              class="row"
+              data-discipline={p.data.disciplines.join('|')}
+              data-type={p.data.work_type}
+              data-software={p.data.software.join('|')}
+              data-competency={p.data.competencies.join('|')}
+              data-year={p.data.year}
+              data-text={[p.data.title, p.data.summary, p.data.project_type, ...p.data.software, ...p.data.competencies].join(' ').toLowerCase()}
+            >
+              <a href={`/projects/${p.id}`} class="card">
+                <span class="thumb">
+                  {p.data.cover
+                    ? <img src={`/previews/${p.data.code}/${p.data.cover}`} alt="" loading="lazy" width="1200" height="900" />
+                    : <span class="no-img">{p.data.code}</span>}
+                </span>
+                <span class="meta">
+                  <span class="code">{p.data.code}</span>
+                  {!group && <span class={`wt wt-${p.data.work_type}`}>{WORK_TYPE_LABELS[p.data.work_type]}</span>}
+                  <span class="year">{p.data.year}{p.data.status === 'ongoing' ? ', ongoing' : ''}</span>
+                  {!isPublic(p) && <span class="draft-flag">{p.data.publication_status === 'draft' ? 'Draft' : 'In review'}</span>}
+                </span>
+                <span class="title">{p.data.title}</span>
+                <span class="summary">{p.data.summary}</span>
+                <span class="tags">
+                  {p.data.disciplines.map((d) => <span>{DISCIPLINE_SHORT[d]}</span>)}
+                </span>
               </a>
-            )}
-            <span class="code">{p.data.code}</span>
-          </div>
-          <div class="body">
-            <a class="title" href={`/projects/${p.id}`}>{p.data.title}</a>
-            <p class="summary">{p.data.summary}</p>
-            <ul class="tags">
-              {p.data.disciplines.map((d) => <li>{DISCIPLINE_SHORT[d]}</li>)}
-            </ul>
-          </div>
-          <div class="meta">
-            <span class={`wt wt-${p.data.work_type}`}>{WORK_TYPE_LABELS[p.data.work_type]}</span>
-            <span class="year">{p.data.year}{p.data.status === 'ongoing' ? ', ongoing' : ''}</span>
-            {!isPublic(p) && <span class="draft-flag">{p.data.publication_status === 'draft' ? 'Draft' : 'In review'}</span>}
-          </div>
-        </li>
-      ))}
-    </ol>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))
   )}
   {filters && <p class="empty" data-none hidden>No projects match these filters. Clear a filter to see more.</p>}
 </div>
@@ -107,28 +126,37 @@ const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
   @media (max-width: 900px) { .filters { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 520px) { .f-bar { flex-wrap: wrap; } .f-bar input { flex-basis: 100%; } .f-go, .f-clear { flex: 1; } }
 
-  .rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink-strong); }
-  .row {
-    display: grid; grid-template-columns: 160px 1fr 200px; gap: 8px 24px; align-items: start;
-    padding: 22px 0; border-bottom: 1px solid var(--rule);
-  }
-  .lead { display: flex; flex-direction: column; gap: 10px; }
-  .thumb img { width: 160px; height: 120px; object-fit: cover; border: 1px solid var(--rule); display: block; filter: grayscale(1); transition: filter .25s; }
-  .row:hover .thumb img { filter: none; }
-  .thumb:hover img { border-color: var(--accent); }
-  .code { font-size: 0.78rem; font-weight: 600; color: var(--red); padding-top: 3px; }
-  .title { font-size: 1.1rem; font-weight: 600; color: var(--ink-strong); text-decoration: none; line-height: 1.3; display: inline-block; }
-  .title:hover { color: var(--red); }
-  .summary { margin: 6px 0 10px; color: var(--ink); max-width: 70ch; }
-  .meta { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-  .year { font-size: var(--t-sm); color: var(--steel); }
+  .group + .group { margin-top: 56px; }
+  .g-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px;
+    border-top: 2px solid var(--ink-strong); padding-top: 14px; margin-bottom: 22px; }
+  .g-head h2 { margin: 0; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+  .g-head p { margin: 0; color: var(--steel); font-size: 0.92rem; }
+  .g-count { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 8px; border-radius: 999px;
+    background: var(--red); color: var(--white); font-size: 0.85rem; font-weight: 700; }
+  .rows { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 32px 26px; }
+  .row[hidden], .group[hidden] { display: none; }
+  .group-PRO .rows, .group-RES .rows { grid-template-columns: repeat(2, 1fr); gap: 40px 32px; }
+  .group-PRO .title, .group-RES .title { font-size: 1.2rem; }
+  .group-ACA .rows, .group-TRN .rows, .group-IND .rows { grid-template-columns: repeat(4, 1fr); gap: 28px 20px; }
+  .group-ACA .title { font-size: 0.98rem; }
+  @media (max-width: 1000px) { .group-ACA .rows, .group-TRN .rows, .group-IND .rows { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .group .rows { grid-template-columns: 1fr !important; } }
+  .card { display: flex; flex-direction: column; gap: 8px; height: 100%; text-decoration: none; color: var(--ink); }
+  .thumb { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--white); border: 1px solid var(--rule); transition: border-color .2s; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s ease; }
+  .no-img { display: grid; place-items: center; height: 100%; color: var(--steel); font-weight: 600; }
+  .card:hover .thumb, .card:focus-visible .thumb { border-color: var(--red); }
+  .card:hover .thumb img { transform: scale(1.035); }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: 4px; font-size: 0.8rem; }
+  .code { font-weight: 700; color: var(--red); }
+  .year { color: var(--steel); }
+  .title { font-size: 1.06rem; font-weight: 700; color: var(--ink-strong); line-height: 1.3; }
+  .card:hover .title { color: var(--red); }
+  .summary { color: var(--steel); font-size: 0.9rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+  .tags span { font-size: 0.74rem; padding: 3px 10px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink); background: var(--white); }
   .empty { padding: 28px 0; color: var(--steel); border-top: 1px solid var(--ink-strong); margin: 0; }
-  @media (max-width: 760px) {
-    .row { grid-template-columns: 1fr; }
-    .lead { flex-direction: row; align-items: center; }
-    .thumb img { width: 96px; height: 72px; }
-    .meta { flex-direction: row; flex-wrap: wrap; align-items: center; }
-  }
+  @media (prefers-reduced-motion: reduce) { .thumb img { transition: none; } .card:hover .thumb img { transform: none; } }
 </style>
 
 <script>
@@ -159,6 +187,12 @@ const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
         r.hidden = !ok;
         if (ok) shown++;
       }
+      for (const g of root.querySelectorAll<HTMLElement>('[data-group]')) {
+        const n = [...g.querySelectorAll<HTMLElement>('.row')].filter((r) => !r.hidden).length;
+        g.hidden = n === 0;
+        const c = g.querySelector<HTMLElement>('[data-group-count]');
+        if (c) c.textContent = String(n);
+      }
       if (none) none.hidden = shown !== 0;
       if (count) count.textContent = `Showing ${shown} of ${rows.length} projects`;
       const next = new URLSearchParams();
@@ -173,7 +207,8 @@ const years = (uniq(projects.map((p) => p.data.year)) as number[]).reverse();
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       apply();
-      (root.querySelector('.rows') || root).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const first = root.querySelector('[data-group]:not([hidden])') || root;
+      first.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     });
     form.addEventListener('reset', () => setTimeout(apply, 0));
     apply();

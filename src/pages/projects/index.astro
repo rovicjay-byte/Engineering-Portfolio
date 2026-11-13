@@ -7,11 +7,12 @@ const projects = await getProjects();
 <Base title="Projects" description="Engineering projects, research and technical work, filterable by discipline, software and competency." crumbs={[{ label: 'Projects' }]}>
   <header class="page-head">
     <h1>Engineering projects</h1>
-    <p>Each project is labeled as professional, training, academic, research or independent work, and states what I did personally.</p>
+    <p>Grouped by the kind of work: professional projects first, then research and academic work. Each page states what I did personally.</p>
   </header>
   <ProjectRegister
     projects={projects}
     filters
+    group
     empty="Case studies are being prepared for publication. See capabilities for the work I currently do."
   />
 </Base>

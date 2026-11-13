@@ -11,13 +11,13 @@ confidentiality: generalized
 disciplines: [highway, civil-design-cad, geotechnical, qto-estimation]
 project_type: "Road slip rehabilitation"
 software: ["Civil 3D"]
-competencies: ["Road slip rehabilitation", "Slope protection design", "Masonry breastwall design", "Cribwall layout", "Rigid pavement detailing", "Drainage design", "Quantity takeoff"]
+competencies: ["Cost estimating (POW, ABC, DUPA)", "Construction scheduling (CPM, PDM, S-curve)", "Road slip rehabilitation", "Slope protection design", "Masonry breastwall design", "Cribwall layout", "Rigid pavement detailing", "Drainage design", "Quantity takeoff"]
 location_public: "Ifugao, Cordillera Administrative Region"
 client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"
 year: 2026
 status: completed          # Design complete and approved; construction under procurement for C.Y. 2027
-role: "Design, drafting and quantities"
-summary: "Design, drafting and quantities for the reconstruction of three road-slip sections, about 270 m in all, on a secondary road in the mountains of Ifugao: stone masonry breastwalls on the cut side, single and double cribwalls and stone masonry walls on the valley side, with concrete pavement widening, a 2.0 m shoulder, curb and gutter and reinforced concrete slope drains."
+role: "Design, drafting, quantities and cost estimate"
+summary: "Design, drafting, quantities and the cost estimate (Php 14.61 million, 112 days) for the reconstruction of three road-slip sections, about 270 m in all, on a secondary road in the mountains of Ifugao: stone masonry breastwalls on the cut side, single and double cribwalls and stone masonry walls on the valley side, with concrete pavement widening, a 2.0 m shoulder, curb and gutter and reinforced concrete slope drains."
 featured: false
 cover: cover.webp
 previews:
@@ -66,6 +66,30 @@ previews:
   - file: masonry-breastwall.webp
     caption: "Masonry breastwall details: section, dimension table for exposed heights of 1 to 5 m with minimum ground pressure, and weephole detail"
     wide: true
+  - file: estimate-program-of-works.webp
+    caption: "Program of works and budget cost (DPWH-QMSP-13-10): total estimated cost Php 14,607,000.00, 112 calendar days"
+    wide: true
+  - file: estimate-abc-1.webp
+    caption: "Approved budget for the contract (DPWH-QMSP-13-15), sheet 1 of 2: direct cost, mark-up, VAT and unit cost per pay item"
+    wide: true
+  - file: estimate-abc-2.webp
+    caption: "Approved budget for the contract (DPWH-QMSP-13-15), sheet 2 of 2"
+    wide: true
+  - file: estimate-bill-of-quantities.webp
+    caption: "Bill of quantities"
+    wide: true
+  - file: estimate-dupa-traffic-management.webp
+    caption: "Detailed unit price analysis (DUPA), traffic management item: materials, equipment and labor"
+    wide: true
+  - file: estimate-bar-chart-schedule.webp
+    caption: "Construction schedule: bar chart with weights and the cumulative S-curve over 112 days"
+    wide: true
+  - file: estimate-cpm-schedule.webp
+    caption: "Critical path method schedule: durations, predecessor links, early and late start and finish, and total float"
+    wide: true
+  - file: estimate-pdm-network.webp
+    caption: "Precedence diagram network built from the CPM schedule; red boxes and arrows mark the critical path"
+    wide: true
 ---
 
 ## Project overview
@@ -79,6 +103,8 @@ The plan is approved and the works are under procurement for C.Y. 2027.
 - Design of the slip repairs: wall types, heights and limits along the alignment, and the roadway section
 - Drafted the plan set in Civil 3D: plan and profile, cross sections and typical details
 - Prepared the quantities
+- Prepared the program of works and budget cost, approved budget for the contract, bill of quantities and detailed unit price analyses
+- Built the construction schedule: bar chart with S-curve, a critical path method schedule and the precedence diagram network
 
 ## Applicable standards
 

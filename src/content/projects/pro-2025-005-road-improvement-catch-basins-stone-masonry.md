@@ -11,13 +11,13 @@ confidentiality: generalized
 disciplines: [highway, civil-design-cad, geotechnical, qto-estimation]
 project_type: "Road improvement"
 software: ["Civil 3D"]
-competencies: ["Road widening and superelevation", "Rigid pavement detailing", "Drainage design", "Masonry embankment protection design", "Quantity takeoff"]
+competencies: ["Cost estimating (POW, ABC, DUPA)", "Construction scheduling", "Road widening and superelevation", "Rigid pavement detailing", "Drainage design", "Masonry embankment protection design", "Quantity takeoff"]
 location_public: "Ifugao, Cordillera Administrative Region"
 client_public: "Department of Public Works and Highways, Ifugao 2nd District Engineering Office"
 year: 2025
 status: completed          # CONFIRM: plans approved December 2025; is construction under way?
-role: "Design, drafting and quantities"
-summary: "Design, drafting and quantities for an off-carriageway improvement of a tertiary road: concrete pavement widening on curves, curb and gutter, slope drains, box-type catch basins with pipe culverts, and stone masonry embankment protection."
+role: "Design, drafting, quantities and cost estimate"
+summary: "Design, drafting, quantities and the cost estimate (Php 42.89 million) for an off-carriageway improvement of a tertiary road: concrete pavement widening on curves, curb and gutter, slope drains, box-type catch basins with pipe culverts, and stone masonry embankment protection."
 featured: false
 cover: cover.webp
 previews:
@@ -48,6 +48,24 @@ previews:
   - file: stone-masonry-embankment.webp
     caption: "Stone masonry embankment protection: section, elevation, design parameters and computed bearing pressures for wall heights of 1.0 to 5.5 m"
     wide: true
+  - file: estimate-abc-summary.webp
+    caption: "Summary of the approved budget for the contract: Php 42,891,660.00 over two contract components (paving of shoulders, and slope protection structures), 125 calendar days"
+    wide: true
+  - file: estimate-program-of-works-1.webp
+    caption: "Program of works and budget cost (DPWH-QMSP-13-10), sheet 1 of 2"
+    wide: true
+  - file: estimate-program-of-works-2.webp
+    caption: "Program of works and budget cost (DPWH-QMSP-13-10), sheet 2 of 2"
+    wide: true
+  - file: estimate-bill-of-quantities.webp
+    caption: "Bill of quantities"
+    wide: true
+  - file: estimate-dupa.webp
+    caption: "Detailed unit price analysis (DUPA), first pay item: materials, equipment and labor"
+    wide: true
+  - file: estimate-bar-chart.webp
+    caption: "Construction schedule bar chart over 125 calendar days"
+    wide: true
 ---
 
 ## Project overview
@@ -59,6 +77,7 @@ Off-carriageway improvement of a tertiary road in Ifugao under DPWH's network de
 - Design work on the widening, drainage and embankment protection
 - Drafted the plan set: plan and profile, cross sections and typical details
 - Prepared the quantities
+- Prepared the program of works, approved budget for the contract (Php 42.89 million), bill of quantities, detailed unit price analyses and the construction schedule
 
 ## Applicable standards
 

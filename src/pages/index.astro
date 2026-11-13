@@ -19,6 +19,16 @@ const snapshot = [
   { k: 'About 270 m road slip', v: 'Rehabilitation: design, drafting, quantities and estimate', href: link('PRO-2026-003') },
 ];
 
+// B2. What I can offer. Each point is backed by a project on this site.
+const offers = [
+  { t: 'Complete plan sets, survey to approval', d: 'Plan and profile, cross sections and structure details produced in Civil 3D and taken through DPWH review to approval.', proof: 'Four approved plan sets; three are under construction.', codes: ['PRO-2025-004', 'PRO-2026-001'] },
+  { t: 'Estimates ready for bidding', d: 'Quantity takeoffs, bill of quantities, detailed unit price analyses, program of works and approved budget, on DPWH forms.', proof: 'Approved budgets of Php 14.61M, Php 42.89M and Php 63.56M.', codes: ['PRO-2026-003', 'PRO-2025-005', 'PRO-2025-008'] },
+  { t: 'Construction schedules', d: 'Bar charts with S-curves, critical path schedules and precedence networks that show the contractor what controls the duration.', proof: '112-day road slip schedule with CPM and PDM.', codes: ['PRO-2026-003'] },
+  { t: 'Geotechnical judgement on steep ground', d: 'Staged slope stability analysis in GEO5 that finds the critical moment, not just the final state, and says what it means on site.', proof: 'Found the temporary cut critical at a factor of safety of 0.98.', codes: ['PRO-2026-002'] },
+  { t: 'Hazard screening before design', d: 'Preliminary geohazard assessments to DPWH guidelines, with 13 QGIS hazard maps per site, so risks are known before money is committed.', proof: 'Three reports for FY 2026 road projects.', codes: ['PRO-2025-006'] },
+  { t: 'Tools that save the team time', d: 'I build my own design spreadsheets, and I am developing Dynamo scripts for Civil 3D, to cut repeated design and drafting work.', proof: 'Covered RC canal design sheet to NSCP 2015, used on two projects.', codes: ['PRO-2025-007'] },
+];
+
 // C. Core specializations. Each bullet is backed by a project or by research on this site.
 const specs = [
   {
@@ -55,8 +65,8 @@ const featured = ['PRO-2026-001', 'PRO-2025-004', 'PRO-2026-003', 'PRO-2026-002'
       <p class="intro">{me.headline}</p>
       <div class="actions">
         {me.resume_pdf && <a class="btn btn-solid" href={me.resume_pdf} download>Download CV</a>}
-        <a class={me.resume_pdf ? 'btn btn-line' : 'btn btn-solid'} href="/projects">Explore engineering projects</a>
-        <a class="btn btn-line" href="#contact">Contact me</a>
+        <a class={me.resume_pdf ? 'btn btn-line' : 'btn btn-solid'} href="#contact">Work with me</a>
+        <a class="btn btn-line" href="/projects">See my engineering work</a>
       </div>
       <ul class="sec-links">
         {me.linkedin && <li><a href={encodeURI(me.linkedin)} rel="me noopener" target="_blank">LinkedIn</a></li>}
@@ -81,7 +91,31 @@ const featured = ['PRO-2026-001', 'PRO-2025-004', 'PRO-2026-003', 'PRO-2026-002'
         </div>
       ))}
     </dl>
-    <p class="small muted snap-note">The three projects are selected examples from my DPWH work, not a count of everything I have done. My part in each is stated; these are team projects with approving engineers.</p>
+    <p class="small muted snap-note">Selected projects from my DPWH work. Every project page states exactly what I delivered.</p>
+  </section>
+
+  <!-- B2. What I can offer -->
+  <section class="sheet section" aria-labelledby="offer-h">
+    <div class="sec-head">
+      <div>
+        <h2 id="offer-h">What I can offer your team</h2>
+        <p class="sec-sub">An engineer who can take a road project from the survey to an approved plan set, a priced estimate and a schedule, and check the ground it sits on.</p>
+      </div>
+      <a href="/what-i-deliver">Outputs in detail</a>
+    </div>
+    <ul class="offer-grid">
+      {offers.map((o, n) => {
+        const ps = o.codes.map((c) => byCode.get(c)).filter(Boolean);
+        return (
+          <li class="offer">
+            <span class="offer-n">{String(n + 1).padStart(2, '0')}</span>
+            <h3>{o.t}</h3>
+            <p>{o.d}</p>
+            <p class="offer-proof"><strong>Proof:</strong> {o.proof}{ps.length > 0 && <> See {ps.map((p, i) => <>{i > 0 && ', '}<a href={`/projects/${p!.id}`}>{p!.data.code}</a></>)}.</>}</p>
+          </li>
+        );
+      })}
+    </ul>
   </section>
 
   <!-- C. Core specializations -->
@@ -89,7 +123,7 @@ const featured = ['PRO-2026-001', 'PRO-2025-004', 'PRO-2026-003', 'PRO-2026-002'
     <div class="sec-head">
       <div>
         <h2 id="spec-h">Core specializations</h2>
-        <p class="sec-sub">Highway infrastructure first, with geotechnical engineering as my developing specialty.</p>
+        <p class="sec-sub">Highway infrastructure is my core. Geotechnical engineering is the depth I am building on top of it.</p>
       </div>
       <a href="/capabilities">All capabilities</a>
     </div>
@@ -114,8 +148,8 @@ const featured = ['PRO-2026-001', 'PRO-2025-004', 'PRO-2026-003', 'PRO-2026-002'
   <section class="sheet section" id="work" aria-labelledby="work-h">
     <div class="sec-head">
       <div>
-        <h2 id="work-h">Featured engineering projects</h2>
-        <p class="sec-sub">DPWH projects, shown with their approved plan sheets. Signatures are covered.</p>
+        <h2 id="work-h">Work you can inspect</h2>
+        <p class="sec-sub">Approved DPWH plan sets and analyses, shown sheet by sheet. Open any drawing and zoom in to check the detail.</p>
       </div>
       <a href="/projects">All projects</a>
     </div>
@@ -149,8 +183,8 @@ const featured = ['PRO-2026-001', 'PRO-2025-004', 'PRO-2026-003', 'PRO-2026-002'
   <section class="sheet section" aria-labelledby="sw-h">
     <div class="sec-head">
       <div>
-        <h2 id="sw-h">Software and what I produce with it</h2>
-        <p class="sec-sub">Labels show whether I have used each tool in professional work, in academic work, or am still developing it.</p>
+        <h2 id="sw-h">Tools I deliver with</h2>
+        <p class="sec-sub">What I produce in each tool, with projects that show it. Labels mark professional use, academic use, or a skill I am building now.</p>
       </div>
     </div>
     <SoftwareSection />
@@ -254,8 +288,27 @@ const featured = ['PRO-2026-001', 'PRO-2025-004', 'PRO-2026-003', 'PRO-2026-002'
   .edu-k { font-weight: 700; color: var(--ink-strong); }
   .edu-notes { margin: 6px 0 0; padding-left: 1.1em; font-size: 0.9rem; color: var(--steel); }
 
+  /* B2. Offer */
+  .offer-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--ink-strong); }
+  .offer { padding: 20px 22px 18px; border-bottom: 1px solid var(--rule); border-left: 1px solid var(--rule); display: flex; flex-direction: column; }
+  .offer:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
+  .offer-n { font-size: 0.78rem; font-weight: 700; color: var(--red); }
+  .offer h3 { font-size: 1.08rem; line-height: 1.25; margin: 4px 0 8px; color: var(--ink-strong); }
+  .offer p { margin: 0; font-size: 0.92rem; }
+  .offer-proof { margin-top: auto !important; padding-top: 12px; font-size: 0.84rem !important; color: var(--steel); }
+  .offer-proof strong { color: var(--ink-strong); }
+
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
+  @media (max-width: 960px) {
+    .offer-grid { grid-template-columns: 1fr 1fr; }
+    .offer:nth-child(3n + 1) { border-left: 1px solid var(--rule); padding-left: 22px; }
+    .offer:nth-child(2n + 1) { border-left: 0; padding-left: 0; }
+  }
+  @media (max-width: 600px) {
+    .offer-grid { grid-template-columns: 1fr; }
+    .offer, .offer:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
+  }
   @media (max-width: 1100px) {
     .snap-grid { grid-template-columns: repeat(3, 1fr); gap: 16px 0; }
     .snap-item:nth-child(3n + 1) { border-left: 0; padding-left: 0; }

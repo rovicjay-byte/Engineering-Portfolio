@@ -2,13 +2,14 @@
 // Contact block: e-mail, LinkedIn and CV (CV shows only when a file is set in profile.yaml).
 import { getProfile } from '../lib/publish';
 interface Props { title?: string }
-const { title = 'Contact' } = Astro.props;
+const { title = "Let's work together" } = Astro.props;
 const me = await getProfile();
 ---
 <section class="contact-block" aria-labelledby="contact-h">
   <div>
     <h2 id="contact-h">{title}</h2>
-    <p class="muted">Open to roles in highway, geotechnical and civil design work. E-mail is the quickest way to reach me.</p>
+    <p class="lead">Looking for an engineer who can take a road project from survey to approved plans, a priced estimate and a schedule, and check the slopes along the way? I am open to roles in highway, geotechnical and civil design engineering, in the Philippines or abroad.</p>
+    <p class="muted cta-note">E-mail is the quickest way to reach me.</p>
   </div>
   <ul class="c-list">
     {me.email && <li><span class="c-lab">E-mail</span><a href={`mailto:${me.email}`}>{me.email}</a></li>}
@@ -21,7 +22,9 @@ const me = await getProfile();
 <style>
   .contact-block { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px; align-items: start; }
   .contact-block h2 { margin: 0 0 8px; }
-  .contact-block p { margin: 0; max-width: 46ch; }
+  .contact-block p { margin: 0; max-width: 50ch; }
+  .lead { font-size: 1.02rem; line-height: 1.55; color: var(--ink); }
+  .cta-note { margin-top: 10px !important; font-size: var(--t-sm); }
   .c-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink-strong); }
   .c-list li { display: grid; grid-template-columns: 100px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 0.95rem; min-width: 0; }
   .c-list a { overflow-wrap: anywhere; }

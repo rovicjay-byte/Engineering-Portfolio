@@ -30,7 +30,8 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path === href
         </ul>
       </nav>
     </details>
-    {cv && <a class="cv-btn" href={cv} download>CV</a>}
+    {cv && <a class="cv-btn cv-line" href={cv} download>CV</a>}
+    <a class="cv-btn hire" href="/contact">Work with me</a>
   </div>
 </header>
 
@@ -41,7 +42,11 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path === href
   .brand-name { font-weight: 700; font-size: 0.98rem; color: var(--ink-strong); }
   .brand-sub { font-size: 0.74rem; color: var(--steel); }
   .cv-btn { background: var(--red); color: var(--white); font-size: 0.8rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; text-decoration: none; }
-  .cv-btn:hover { background: var(--ink-strong); }
+  .cv-btn:hover { background: var(--ink-strong); color: var(--white); }
+  .cv-line { background: transparent; color: var(--ink-strong); border: 1px solid var(--ink-strong); }
+  .hire { white-space: nowrap; }
+  @media (max-width: 1180px) and (min-width: 900px) { .menu ul { gap: 14px; } }
+  @media (max-width: 420px) { .hire { display: none; } }
   .menu summary { list-style: none; cursor: pointer; font-weight: 600; font-size: var(--t-sm); padding: 7px 14px; border: 1px solid var(--ink-strong); border-radius: 999px; color: var(--ink-strong); }
   .menu summary::-webkit-details-marker { display: none; }
   .menu ul { list-style: none; margin: 0; padding: 0; }

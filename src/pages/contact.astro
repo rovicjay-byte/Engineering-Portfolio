@@ -2,10 +2,24 @@
 import Base from '../layouts/Base.astro';
 import ContactSection from '../components/ContactSection.astro';
 ---
-<Base title="Contact" description="Contact Rovic-Jay Piñon, RCE: civil engineer in highway design and geotechnical engineering, Ifugao, Philippines." crumbs={[{ label: 'Contact' }]}>
+<Base title="Work with me" description="Hire Rovic-Jay Piñon, RCE: civil engineer for highway design, Civil 3D plan sets, estimates and geotechnical checks. Open to roles in the Philippines and abroad." crumbs={[{ label: 'Contact' }]}>
   <header class="page-head">
-    <h1>Contact</h1>
-    <p>For roles in highway, civil design or geotechnical engineering, in the Philippines or abroad.</p>
+    <h1>Work with me</h1>
+    <p>Bring me in on your next road, bridge or slope project. Here is how to reach me, and what you get.</p>
   </header>
-  <ContactSection title="Get in touch" />
+  <ContactSection title="Let's talk about your project or role" />
+  <section class="section">
+    <h2 class="h">What you can expect from me</h2>
+    <ul class="expect">
+      <li><strong>Deliverables, not just drafts.</strong> Plan sets, quantities, estimates and schedules that go through review to approval.</li>
+      <li><strong>Engineering you can trace.</strong> Every drawing, quantity and calculation ties back to its data and assumptions.</li>
+      <li><strong>Honest about limits.</strong> I say what an analysis covers and what it does not, so decisions are made on solid ground.</li>
+      <li><strong>Fast to contribute.</strong> I already use Civil 3D, GEO5, QGIS and DPWH estimating forms in my current work.</li>
+    </ul>
+  </section>
 </Base>
+<style>
+  .h { font-size: var(--t-md); }
+  .expect { padding-left: 1.1em; max-width: 72ch; }
+  .expect li { margin: 8px 0; }
+</style>
